@@ -161,10 +161,6 @@
    <!-- documentation is generated from the source tree's docbook xml file -->
    <exclude pattern="documentation/80/**" />
 
-   <!--
-   <uri src="favicon.ico"/>
-   -->
-
    <!--+
        |  File containing URIs (plain text, one per
        |  line).

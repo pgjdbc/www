@@ -93,7 +93,7 @@ which will be used to configure the chosen Forrest skin.
   <host-logo></host-logo>
 
   <!-- relative url of a favicon file, normally favicon.ico -->
-  <favicon-url></favicon-url>
+  <favicon-url>favicon.ico</favicon-url>
 
   <!-- The following are used to construct a copyright statement -->
   <year>2004-2005</year>
