@@ -22,15 +22,22 @@
 	installation instructions.  After installing Forrest you need to get
 	the website project.  This is available from the same
 	<a href="site:cvs">cvs repository</a> that the main source code is,
-	it's just a different module, <code>www</code>.  Check this out,
-	go into that directory, and type <code>forrest</code>.  This should
-	produce a copy of the website in the <code>build/site</code>
-	subdirectory.
+	it's just a different module, <code>www</code>.  Checkout this module
+	and then decide if you want to build the generated content like
+	javadoc and translation information, or just the static site.  To
+	build just the static site simply run <code>forrest</code> from the
+	top level directory.  This should produce a copy of the website
+	in the <code>build/site</code> subdirectory.
       </p>
       <p>
-        There are a couple of pieces of the website that are not built with
-	Forrest, notably the Javadoc API documentation and the downloads.
-	These are produced from the source code itself.
+	To generate the complete site, a copy of the driver source is also
+	required since several parts of the website are generated from the
+	source code itself.  Checkout the driver source into a subdirectory
+	of the www module.  From inside the toplevel directory of the newly
+	checked out www module, run <code>./scripts/buildSite.sh</code>.  This
+	will generate all of the content needed and from then on you can
+	simply run <code>forrest</code> to build the static content and see
+	modifications you've made.
       </p>
     </section>
 

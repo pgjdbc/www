@@ -143,28 +143,20 @@
        |
        +-->
 
-   <!-- Includes and excludes can be used to limit which URLs are rendered -->
-   <!--
-   <exclude pattern="**/"/>
-   <exclude pattern="**apidocs**"/>
-   <exclude pattern="api/**"/>
-   -->
-
    <!-- Archives won't be there when building the site. -->
-   <exclude pattern="**download/*.jar" />
-   <exclude pattern="**download/*.tar.gz" />
-   <exclude pattern="**download/*.tgz" />
+   <exclude pattern="download/*.jar" />
+   <exclude pattern="download/*.tar.gz" />
+   <exclude pattern="download/*.tgz" />
 
    <!-- Javadoc won't be there when building the site. -->
-   <exclude pattern="**/publicapi/**" />
-   <exclude pattern="**/privateapi/**" />
+   <exclude pattern="documentation/publicapi/**" />
+   <exclude pattern="development/privateapi/**" />
 
-   <!-- The translation template is automatically generated. -->
-   <exclude pattern="**/messages.pot" />
-
-   <!-- Exclude tokens used in URLs to ASF mirrors (interpreted by a CGI) -->
-   <exclude pattern="[preferred]/**"/>
-   <exclude pattern="[location]"/>
+   <!-- The translation template and merged catalogs are
+        automatically generated.
+   -->
+   <exclude pattern="development/po/*.po" />
+   <exclude pattern="development/po/messages.pot" />
 
    <uri src="favicon.ico"/>
 

@@ -42,7 +42,13 @@
 	<li>
 	  Jaroslaw J. Pyszny
 	  <ul>
-	  <li>Improve MetaData regarding the serial datatype</li>
+	    <li>Improve MetaData regarding the serial datatype</li>
+	  </ul>
+	</li>
+	<li>
+	  Ulrich Meis
+	  <ul>
+	    <li>Allow users to customize the SSL connection</li>
 	  </ul>
 	</li>
       </ul>

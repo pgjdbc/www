@@ -56,14 +56,11 @@ if (column < 1 || column > fields.length) {
     <section id="translators">
       <title>Translators</title>
       <p>
-        The first thing to do is to check if an existing translation exists
-	for your language, so you can update that instead of starting from
-	scratch.  Check the
-	<a href="http://gborg.postgresql.org/project/pgjdbc/cvs/cvs.php/pgjdbc/org/postgresql/translation">web view of the cvs repository</a>
-	and see if a .po file exists for your language.  If there is one, you
-	can download the latest version directly from there and start working
-	on it.  To start a new translation you can download a
-	<a href="messages.pot">template file</a>.
+        Check the current <a href="po/status.html">translation status</a>
+	page to see if an existing translation exists for your language,
+	so you can update that instead of starting from
+	scratch.  To start a new translation you can download the template
+	file and work on that instead.
       </p>
       <p>
         Editing the .po file is a pretty straightforward process and a number
@@ -104,7 +101,11 @@ if (column < 1 || column > fields.length) {
 	directory and run the <code>update-translations.sh</code> script
 	in the top level directory.  This will produce the compiled class
 	file that contains the translated messages.  Then simply check in
-	both the .po and .class files.
+	both the .po and .class files.  Remember to add the .class file
+	as binary <code>cvs add -k b ...</code> and be sure to only
+	commit changes to the translations you've modified because the
+	<code>update-translations.sh</code> script modifies all the
+	translations.
       </p>
     </section>
       

@@ -15,6 +15,9 @@
       automatically be used for entries of type <foo>. -->
 
     <release version="current" date="unreleased">
+    </release>
+
+    <release version="pgdev307" date="2004-10-19">
       <action dev="jurka" type="update">
         Some general code cleanups.  Remove unnecessary imports and a couple
         unused variables.  In the test suite ensure that assertEquals() uses
@@ -36,6 +39,65 @@
         ResultSet.getRow on a cursor/portal backed query was not counting
 	previously discarded data and only returned the row number within
 	the current chunk of data.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix setArray when using the v3 protocol.  We can't bind arrays as
+	text, we need the correct type.  This gets the array type from the
+	Array.getBaseType method.  This is a fragile means that depends on
+	a specific Array implementation, but we already depend on a very
+	specific implementation (toString() returning a correctly
+	formatted pg array) that we can live with this.
+      </action>
+      <action dev="jurka" type="add">
+        Update the translation system to use gettext instead of property
+	files.
+      </action>
+      <action dev="jurka" type="fix" due-to="Ulrich Meis" fixes-bug="1004">
+        For updateable ResultSets make insertRow and deleteRow quote column
+        names like updateRow already does.  This makes these methods work
+        on mixed case identifiers.
+      </action>
+      <action dev="jurka" type="fix">
+        PreparedStatement.setCharacterStream somehow escaped getting fixed
+	for the old problem of assuming a stream can be read completely
+	in one read() call.
+      </action>
+      <action dev="jurka" type="fix" due-to="Phill Tornroth and Peter Mount">
+        Speed up ResultSet.findColumn by caching the column name to index
+	mapping.
+      </action>
+      <action dev="jurka" type="fix">
+        Contstruct the backing hash for updateable resultsets on demand
+	because the vast majority of resultsets aren't updateable.  Also
+	change it from a Hashtable to a HashMap because two threads shouldn't
+	be updating the same resultset at the same time.
+      </action>
+      <action dev="jurka" type="fix" due-to="Euler Taveira de Oliveira">
+        Fix typos in error messages and update the pt_BR translation.
+      </action>
+      <action dev="jurka" type="fix">
+        In 8.0 arrays with non-standard bounds (beginning index != 1) the
+	dimensions are returned in the data like so "[0:3]={0,1,2,3,4}".
+	Add some code to ignore these bounds and match previous server
+	version behavior.
+      </action>
+      <action dev="jurka" type="fix">
+        Restrucute DataSource code to provide a generic interface in
+	org.postgresql.ds.*.  No longer is the jdbc version we compiled
+	for relevent.  This allows the driver and regression suite to be
+	compiled with the 1.5 jdk.
+      </action>
+      <action dev="jurka" type="add" due-to="Ulrich Meis">
+        Allow users to customize the SSL connection by providing their
+	own SSLSocketFactory implementation.
+      </action>
+      <action dev="jurka" type="fix">
+        When streaming data from setBinaryStream to the backend, do not
+	allow Exceptions or bad length parameters to cause the connection
+	state to get confused destroying the connection.
+      </action>
+      <action dev="jurka" type="fix" due-to="Devrim GUNDUZ">
+        Initial translation to Turkish.
       </action>
     </release>
 
@@ -462,9 +524,6 @@
         Check CVS repository's use of the  $PostgreSQL$ tag.  Make
 	sure it works and files have it.
       </action>
-      <action context="build">
-        Allow the Datasource and pooling code to build with the 1.5 JDK.
-      </action>
       <action context="performance" dev="jurka">
         Default the prepareThreshold parameter to 5.
       </action>
@@ -487,12 +546,6 @@
         Investigate whether ACLs are still stored in the same format in 8.0.
 	I have a feeling they aren't and DatabaseMetaData will need to get
 	updated.
-      </action>
-      <action context="bugs">
-        In 8.0 arrays with non default lower bounds put these bounds into the
-	output and the existing array parsing will fail on these.  I don't
-	think supporting these alternate bounds is possible, but we should
-	at least be able to read it.
       </action>
     </actions>
 
@@ -562,16 +615,6 @@
         Add support for COPY.
       </action>
       <action>
-        Allow SSL client certificates to be provided to the server for
-	verification.
-      </action>
-      <action>
-        Allow a non-default SSL socket factory to be provided to the driver
-	to allow for other trust stores and skipping authentication.
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00198.php">ref1</link>,
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00034.php">ref2</link>
-      </action>
-      <action>
         Allow configuration of GUC parameters via the Connection URL or
 	Datasource.  The most obvious example of usefulness is search_path.
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00022.php">ref</link>
@@ -605,22 +648,32 @@
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-08/msg00084.php">ref</link>
       </action>
       <action context="code">
-        Don't drop the connection on an error when reading from the input
-	to setBinaryStream.  Just don't execute this portal.
-      </action>
-      <action context="code">
         Currently the internal type cache is not schema aware.
-      </action>
-      <action context="code">
-        Currently internal type cache uses a static variable, so it's
-	possible to get data cross-polution from different database.  Not a
-	problem for system types which should be the same, but user defined
-	types will get a different oid in different places.
       </action>
       <action context="code">
         Need a much better lexer/parser than the ad hoc stuff in the driver.
 	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?793">ref1</link>,
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00062.php">ref2</link>
+      </action>
+      <action context="metadata">
+        getTypeInfo returns table types because they are valid datatypes, but
+	it seems pointless to return toast tables' types here.
+      </action>
+    </actions>
+
+    <actions priority="Website">
+      <action context="">
+        Split the documentation up into chapter sized pieces.  Right now the
+	docbook source is in both cvs modules, decide if we want to require
+	forrest to build it or the existing ant + external stylesheets is
+	the way to go.
+      </action>
+      <action context="">
+        Setup a cron job somewhere to build and deploy the sight on a daily
+	basis to keep API changes and translations up to date.
+      </action>
+      <action context="">
+        Add a daily cvs snapshot build to make the latest updates available.
       </action>
     </actions>
   </todo>
