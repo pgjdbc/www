@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<status>
+
+  <developers>
+    <person name="Kris Jurka"      email="books@ejurka.com"      id="jurka" />
+    <person name="Oliver Jowett" id="oliver" />
+    <person name="Dave Cramer" id="davec" />
+    <person name="Barry Lind" id="blind" />
+  </developers>
+
+  <changes>
+      <!-- Some action types have associated images. By default, images are
+      defined for 'add', 'fix', 'remove', 'update' and 'hack'. If you add
+      src/documentation/resources/images/<foo>.jpg images, these will
+      automatically be used for entries of type <foo>. -->
+
+    <release version="current" date="unreleased">
+      <action dev="jurka" type="update">
+        Some general code cleanups.  Remove unnecessary imports and a couple
+        unused variables.  In the test suite ensure that assertEquals() uses
+        the correct order for expected and actual arguments.  Also remove
+        pointless try/catch blocks.
+      </action>
+      <action dev="jurka" type="fix">
+        Don't use cursor/portal based fetch methods with autocommit on.  The
+	underlying portal will disappear from underneath the driver.
+      </action>
+      <action dev="jurka" type="add" due-to="Jaroslaw J. Pysnzy">
+        Implement ResultSet.isAutoIncrement by retrieving the column's
+	default value and seeing if there is a "nextval" call in it.
+      </action>
+      <action dev="jurka" type="add" due-to="Jaroslaw J. Pysnzy">
+        Return serial datatypes in DatabaseMetaData getTypeInfo and getColumns.
+      </action>
+      <action dev="jurka" type="fix">
+        ResultSet.getRow on a cursor/portal backed query was not counting
+	previously discarded data and only returned the row number within
+	the current chunk of data.
+      </action>
+    </release>
+
+    <release version="pgdev306" date="2004-09-16">
+      <action dev="jurka" type="fix" due-to="David Bucciarelli">
+        ResultSet.moveToCurrentRow was checking the cached updateability flag
+	assuming it had been set instead of correctly calling the
+	isUpdateable() method which sets the flag if needed.  This usually
+	worked because moveToCurrentRow is only useful after a
+	moveToInsertRow call which would set the flag, but this is not
+	required.
+      </action>
+      <action dev="jurka" type="fix" fixes-bug="937">
+        Fix NullPointerException when doing a multiple query execution in
+	one statement using the V3 protocol.  For example
+	Statement.execute("SELECT 1; SELECT 2"); would not have any
+	parameters set and try to iterate over a null array.
+      </action>
+      <action dev="jurka" type="add" fixes-bug="934">
+        Implement support for the Savepoint interface.
+      </action>
+      <action dev="jurka" type="add">
+        Add a new file to hold the build number to avoid filling the
+        Driver.java.in commit log with just build number changes.
+	Also add a utility program to print out the driver version and where
+        it was loaded from.
+      </action>
+    </release>
+
+    <release version="pgdev305" date="2004-08-12">
+      <action dev="oliver" type="fix">
+        My version of junit (3.7) doesn't have assertFalse.  ArrayTest uses
+        it in a couple of places.  This patch changes assertFalse(condition)
+        to assertTrue(!condition).
+      </action>
+      <action dev="oliver" type="fix">
+        Ensure the encoding test drops its table at the end of the run to
+	make sure other tests do not see it and get confused.
+      </action>
+      <action dev="oliver" type="fix">
+        Don't make the driver begin a transaction for certain calls.
+        Notably we don't want Connection.getTransactionIsolation() to start
+        a transaction because this is often a check put in before trying to
+	change it and you can't change it in mid-transaction.
+      </action>
+      <action dev="jurka" type="fix">
+        Don't report the hashcode of our error message key into the
+        properties file as the vendor error code.  This number is completely
+        random and undocumented and ties us into using the current error
+	message keys and implementation to maintain the same codes.  Further
+	error messages from the server will not provide this value, so it's
+	best to leave it alone entirely and tell people to use getSQLState().
+      </action>
+      <action dev="jurka" type="fix">
+        The maxRows variable was preventing using a portal based fetch when
+	it was actually desired.  maxRows == 0 is a special case meaning
+	return all rows and needs to be handled differently.
+      </action>
+      <action dev="jurka" type="fix">
+        I recently made a change to report a numeric type that had no size
+	information as numeric(1000,1000) thinking this meant 1000 digits to
+	the right and left of the decimal point.  This not the case.  I had
+	considered 1000,1000 because 1000 is the limit for both of these
+	arguments and that made some sense although still arbitrary.  Moving
+	to something like (1000,500) seems verging on completely random, so
+	I've backpedalled and made it return (-1,-1) because we don't have
+	this information and don't have the ability to return NULL.
+      </action>
+      <action dev="oliver" type="fix">
+        Now that ResultSetMetaData returns different results for
+	getColumnName and getColumnLabel, use the underlying table's column
+	name (getColumnName) when working on an updatable ResultSet.
+      </action>
+      <action dev="jurka" type="update">
+        Modify version checking code and descriptions to match the decision
+	that 8.0 will be the next release, not 7.5.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mike Martin" fixes-bug="921">
+        Revert ResultSetMetaData methods getColumnName, getTableName and
+        getSchemaName to previous implementation that returned the column's
+	alias if available and "" for the table and schema.  Move the new
+	functionality to access the underlying sources of the query to a
+	new PGResultSetMetaData interface which offers getBaseXXXName.
+      </action>
+      <action dev="davec" type="add">
+        Add ODBC style escape sequences for function {fn ...} and outer join
+	{oj ...}.
+      </action>
+      <action dev="jurka" type="fix">
+        DatabaseMetaData.getSearchString escape was a \ short of working
+	because both Java's String constructor and pg's input parser strip
+	off backslashes.
+      </action>
+      <action dev="jurka" type="fix">
+        Change the escape syntax test for functions to actually call a
+	function.
+      </action>
+    </release>
+    
+    <release version="pgdev304" date="2004-07-17">
+      <action dev="jurka" type="fix" due-to="Dario V. Fassi">
+        Some ResultSetMetaData fixes.
+        Remove completely duplicated code in the jdbc1/jdbc2 implementations.
+        Recognize "time with timezone" as a java.sql.Types.TIME.
+	Report time/timestamp fractional seconds in getScale().
+	For unspecified numeric precision/scale use 1000,1000 which is the
+	maximum pg will allow you to specify.
+	Correct getColumnDisplaySize to aware of fractional seconds and
+	timezones for time/timestamp types.
+      </action>
+      <action dev="oliver" type="add">
+        Make the driver generate errors on unknown
+	transaction states in a ReadyForQuery message, rather than silently
+	ignoring them (and probably getting confused).
+      </action>
+      <action dev="davec" type="add">
+        Added getXXX optional method functionality, allows user to use getXXX
+	to get a byte, short, int, long, double, char via the preferred
+	method as well as the non-preferred. For instance getByte can get a
+	short, int, long, double, or varchar.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Dauben">
+        When retrieving an array of numerics it attempted to set the scale on
+	the retrieved data to zero, which doesn't work for non-integer values.
+	Also allow a ResultSet created from an Array to be scrolled and add
+	some test cases to make sure things work.
+      </action>
+      <action dev="jurka" type="update">
+        Now that JDBC1 is no longer supported merge the implemention of
+	JDBC1 methods into the JDBC2 classes.
+      </action>
+      <action dev="jurka" type="fix">
+        Add the ability to compile with the 1.5 Beta 2 JDK.  Sun has altered
+	the JDBC API without altering the version number, so I've created a
+	new jdbc3g subdirectory for a "JDBC3 w/ Generics" implementation.
+	This doesn't support compiling the DataSource implementations as they
+	don't have the same multi-version architecture that the core driver
+	does.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix decodeUTF8 that was broken in build 303.
+      </action>
+    </release>
+
+    <release version="pgdev303" date="2004-07-01">
+      <action dev="jurka" type="fix" due-to="Kevin MacClay">
+        Don't throw an Exception in locatorsUpdateCopy() even though the
+	ability to update LOBs is unimplemented.  The 1.5 JDK's CachedRowSet
+	implementation calls this method regardless of whether large objects
+	are used or not.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jan de Visser">
+        Fix updatable ResultSets stream methods (ascii, character, binary).
+	The existing code didn't correctly allocate data arrays, and it
+	failed to loop when a stream didn't provide the full amount of
+	data requested of it.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix some problems with result sets positioned before the start or
+	after the end of results.  You could still call a number of methods
+	on them like getXXX, updateXXX, and updateRow().
+      </action>
+      <action dev="jurka" type="fix">
+        Review recent getUDT implementation.  Filter out base and pseudo types
+	if no type array is specified.  Correctly handle a zero length type
+	array.
+      </action>
+      <action dev="jurka" type="fix" due-to="Markus Schaber">
+        Fix apparently harmless typo in build.xml.  {$srcdir} -> ${srcdir}
+      </action>
+      <action dev="oliver" type="add">
+        Modularize query execution and add complete V3 protocol support.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix NullPointerException on Statement.clearBatch() when addBatch()
+	hasn't been called.
+      </action>
+    </release>
+
+    <release version="pgdev302" date="2004-06-15">
+      <action dev="blind" type="add">
+        Added a cvsignore for PSQLException.java since this file is now
+	generated.
+      </action>
+      <action dev="oliver" type="fix">
+        Enforce the requirement that you must have a scrollable resultset
+	to call some methods (last(),
+	absolute(), etc). Without this patch, these methods
+	complete "normally" but can return incorrect data if the resultset
+	is backed by a cursor. It also adds tests for this behaviour, and
+	fixes a number of tests and one case in the driver itself that try
+	to use these methods with the wrong resultset type.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix TimeTests for jdk1.2 and 1.3.  Pre 1.4 JVMs consider the
+	nanoseconds field of a java.sql.Timestamp completely separate and
+	do not return the milliseconds in getTime().  Add a new JVM version
+	test in TestUtil to allow both cases.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix the various ResultSet position querying methods (isFirst, isLast,
+	isBeforeFirst, isAfterLast) to work on TYPE_FORWARD_ONLY ResultSets
+	that are backed by a cursor.
+      </action>
+      <action dev="jurka" type="fix">
+        When calling stmt.executeUpdate the statement only returns a row count
+	with INSERT/UPDATE/DELETE/MOVE, other statments should return zero as
+	the affected row count.  The existing driver behavior was to return
+	whatever the last count was instead of resetting to zero.
+      </action>
+      <action dev="jurka" type="fix">
+        Track transaction status and only issue a BEGIN command on the first
+	statement executed, not immediately after the previous commit or
+	rollback.  This should help the long standing, but recently very
+	unpopular "idle in transaction" behavior.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix failures in TimeTest for timezones ahead of GMT.  This produces a
+	Time value before the epoch which came up with negative values.
+      </action>
+      <action dev="jurka" type="fix">
+        Allow the regression tests to run successfully against a 7.2 server.
+	7.2 apparently doesn't like casting a timestamp with time zone to
+	time without time zone, so we've got to cast through an intermediate
+	timestamp without time zone.
+      </action>
+      <action dev="jurka" type="fix" due-to="Moray Taylor">
+        Allow updateable ResultSets to support types that aren't directly
+	mappable to Java types, for example cidr.
+      </action>
+      <action dev="jurka" type="fix" due-to="Moray Taylor">
+        While ResultSets created by
+	ResultSet rs = connection.createStatement().executeQuery(sql);
+	default to TYPE_FORWARD_ONLY per spec, ResultSets created as the
+	result of a DatabaseMetaData call should be more flexible and
+	allow scrollable calls to be made.
+      </action>
+      <action dev="jurka" type="fix">
+        Update the build.xml file to support building with the new 1.5 jdk
+	and ant 1.6.  Rename the 1.4 specific replacement variable in
+	PSQLException to describe it's true meaning (the existence of
+	Throwable.initCause()).
+      </action>
+      <action dev="jurka" type="fix" due-to="Declan Lynch">
+        Allow public access to radius field to match other geometric types
+	behavior.
+      </action>
+      <action dev="jurka" type="update">
+        Remove the old style javadoc entries for extensions that were copy
+	and pasted into the documentation.  Add a javadoc build target to
+	produce documentation for the external API.  At the moment this
+	leaves the extensions chapter pretty bare, but it would be better
+	to fill that in with helpful examples than simply regurgitating the
+	API in an inconvenient format.
+      </action>
+      <action dev="oliver" type="add">
+        Allow enabling server side prepared statements globally without
+	writing pg specific code by setting the prepared statement
+	threshold in the connection url or datasource.  Instead of a
+	simple on/off flag, the prepared statement mechanism is an
+	execution count threshold, so ideally it will turn itself on for
+	frequently used queries while not getting in the way of one time
+	use executions.
+      </action>
+      <action dev="jurka" type="add">
+        Add documentation for using listen/notify with JDBC.
+      </action>
+      <action dev="davec" type="add">
+        Implement DatabaseMetaData.getUDT
+      </action>
+      <action dev="jurka" type="update">
+        Update the expected foreign key name results to match the new 7.5
+	backend behavior.  Generated foreign key names are now usefully
+	named based on the table and columns instead of things like $1.
+      </action>
+      <action dev="jurka" type="fix" due-to="Bob Messenger and Chris Pesarchick">
+        When deleteRow() is called on an updateable ResultSet the ResultSet
+	should be positioned on the previous row.
+      </action>
+    </release>
+    
+    <release version="pgdev301" date="2004-03-29">
+      <action dev="jurka" type="update">
+        Now that we are out of the main tree, we can't rely on the makefile
+	system to tell us about versions and ports and other options so we
+	are at least temporarily back to using a hardcoded build.properties
+	file.
+      </action>
+      <action dev="jurka" type="fix">
+        Newer versions of the 1.4.2 jdk give warnings about having return in a
+	finally clause.
+      </action>
+      <action dev="jurka" type="add" due-to="Jan-Andre le Roux">
+        Use the new information available in the V3 protocol to implement
+	ResultSetMetaData methods describing the underlying tables:
+	getSchemaName, getTableName, getColumnName,
+	getColumnLabel, and isNullable.
+      </action>
+      <action dev="oliver" type="update">
+        Modify various testcases and test support code so they
+	do not catch-and-rethrow SQLExceptions as assertion failures. This
+	means you actually see the original exception (and under 1.4, any
+	nested exception) without any extra work; it also makes the code a
+	bit easier to read.
+      </action>
+      <action dev="oliver" type="update">
+        Enable test cases related to server
+	side prepare and transforming to a cursor based fetch which
+	previously were failing.
+      </action>
+      <action dev="oliver" type="fix">
+        Be spec compliant in creating ResultSets that are of TYPE_FORWARD_ONLY
+	by default.  This allows us to be more aggressive in using scrollable
+	ResultSets because they are usable by default.  Also correctly track
+	the values for result set type, concurrency, and fetch direction in
+	both the ResultSet and Statement.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martin Holz">
+        Fix the setXXXStream methods.  If passed a null InputStream, convert
+	this to a setNull call.  The code originally would try to read the
+	whole stream in one call to read(), but this doesn't work.  The
+	InputStream API makes it clear you must be prepared to loop and
+	continue reading if you didn't get the whole request on the first
+	try.
+      </action>
+      <action dev="jurka" type="fix">
+        ResultSet.next() and previous() incremented or decremented the
+	internal current_row variable regardless of wether they succeeded or
+	not.  This generated some ArrayIndexOutOfBoundsExceptions when the
+	errorneous adjustment current_row led to out of range values.
+      </action>
+      <action dev="davec" type="add" due-to="Peter Eisentraut">
+        Added xml docbook documentation.
+      </action>
+      <action dev="jurka" type="fix" due-to="R. Lemos">
+        ConnectionPool and SimpleDataSource are marked Serializable, but their
+	superclass (which contains a number of state variables) is not.  To
+	correctly serialize these objects we need to manually implement
+	writeObject and readObject.
+      </action>
+      <action dev="jurka" type="add">
+        Add documentation validation target which doesn't require additional
+	xml libraries beyond those that come with ant.  Also add the ability
+	to customize a local build via a build.local.properties file.  In this
+	file you can set the necessary parameters for the docbook dtds and
+	stylesheets to match your installation.
+      </action>
+      <action dev="jurka" type="fix">
+        V3 NotificationResonse messages were trying to be received as V2
+	messages.  Also the PID was being read in the wrong byte order.
+	Additionally add a stub for the currently unimplemented notify
+	parameter.  Finally add a test case for listen/notify.
+      </action>
+      <action dev="davec" type="add">
+        Added documentation for Tomcat setup.
+      </action>
+      <action dev="davec" type="add">
+        Added rudimentary PGInterval class to deal with retrieving intervals
+	via getObject.
+      </action>
+      <action dev="davec" type="fix">
+        Added StatementTest to test for statement re-use, fixed
+	ResultSetTest to pass this test.
+      </action>
+      <action dev="davec" type="fix">
+        Added a check to make sure statements weren't being re-used after
+	being closed.
+      </action>
+      <action dev="jurka" type="fix" due-to="Chris Smith">
+        Improve V3 protocol startup to reduce roundtrips to the server.
+      </action>
+      <action dev="oliver" type="add">
+        Support JDK 1.4-style exception chaining in PSQLException.
+	Various cleanups to PSQLException constructors, don't override where
+	not necessary.
+      </action>
+      <action dev="davec" type="fix">
+        Added functionality to deal with the timetz datatype, and handle
+	msec better.
+      </action>
+      <action dev="davec" type="add">
+        Modified ResultSet.getTime routines to use a calendar if available.
+      </action>
+      <action dev="jurka" type="add">
+        Update documentation to reflect the current build process.
+	Note the restrictions on using cursor based ResultSets.
+      </action>
+      <action dev="jurka" type="fix">
+        If the user has requested a SSL connection and the driver has not
+	been compiled with SSL support throw an Exception instead of silently
+	falling back to a non SSL connection.
+      </action>
+      <action dev="jurka" type="add">
+        Document the additional connection parameters that specify pg
+	specific behavior: ssl, compatible, loglevel, and charSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Victor Sergienko">
+        Closing a Connection or Statement object twice should be a no-op
+	instead of throwing an Exception.
+      </action>
+      <action dev="davec" type="fix">
+        Added additional tests for time, timestamps, and fixed code to pass.
+      </action>
+      <action dev="davec" type="fix" due-to="Lazlo Hornyak">
+        Hungarian translation update.
+      </action>
+      <action dev="blind" type="fix">
+        Fixed bug where the V3 protocol support was not properly handling
+	binary cursors.  Also fixed a compile problem with the test suite
+	under jdk1.2 and 1.3.  Also fixed a problem with OID74Test which
+	wasn't commiting a table drop so it was leaving a table in the
+	database after the test run.
+      </action>
+    </release>
+  </changes>
+
+  <todo>
+    <actions priority="Before 8.0 Release">
+      <action context="source">
+        Run a source code indenter over the codebase to clean up the
+	mess we've got.
+      </action>
+      <action context="source">
+        Check CVS repository's use of the  $PostgreSQL$ tag.  Make
+	sure it works and files have it.
+      </action>
+      <action context="build">
+        Allow the Datasource and pooling code to build with the 1.5 JDK.
+      </action>
+      <action context="performance" dev="jurka">
+        Default the prepareThreshold parameter to 5.
+      </action>
+      <action context="bugs">
+        Investigate parsing/sending of date/time/timestamp datatypes:
+	<ul>
+	  <li>8.0 can have BC timestamps.</li>
+	  <li>Look at the existing BC date support.</li>
+	  <li>See what happens when the server and client are in
+	      different timezones.</li>
+	  <li>Dates past 9999 don't work.</li>
+	  <li>The conversion to/from datatypes supporting infinity is
+	      silly because Java doesn't have a similar concept.  Throw an
+	      exception instead.</li>
+	  <li>This <link href="http://gborg.postgresql.org/pipermail/pgjdbc-commit/2004-February/000026.html">email</link> notes some fractional seconds
+	      problems, but I forget the details now.</li>
+	</ul>
+      </action>
+      <action context="bugs">
+        Investigate whether ACLs are still stored in the same format in 8.0.
+	I have a feeling they aren't and DatabaseMetaData will need to get
+	updated.
+      </action>
+      <action context="bugs">
+        In 8.0 arrays with non default lower bounds put these bounds into the
+	output and the existing array parsing will fail on these.  I don't
+	think supporting these alternate bounds is possible, but we should
+	at least be able to read it.
+      </action>
+    </actions>
+
+    <actions priority="Compliance">
+      <action context="JDBC1">
+        Need a to check a ResultSet's closed status in a number of places to
+	avoid throwing NullPointerExceptions on some methods called on a
+	closed ResultSet.
+      </action>
+      <action context="JDBC1">
+        Implement Statement.setQueryTimeout.
+	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?888">ref</link>
+      </action>
+      <action context="JDBC2">
+        Updatable ResultSet updateXXX don't do range checking.  This can
+	result in an ArrayIndexOutOfBoundsException from a method that
+	should only throw SQLExceptions.
+      </action>
+      <action context="JDBC2">
+        Sort DatabaseMetaData.getTypeInfo properly (by closest match).
+      </action>
+      <action context="JDBC2">
+        Implement SQLInput and SQLOutput to allow composite types to be used.
+      </action>
+      <action context="JDBC2EE">
+        Implement the Datasource (and add a Connection) login timeout.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-01/msg00085.php">ref1</link>,
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-01/msg00308.php">ref2</link>
+      </action>
+      <action context="JDBC3">
+        Implement Statement.getGeneratedKeys.
+	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?984">ref1</link>,
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00190.php">ref2</link>
+      </action>
+      <action context="JDBC3">
+        The JDBC 3 DatabaseMetaData methods sometimes return additional
+	information.  Currently we only return JDBC 2 data for these methods.
+      </action>
+      <action context="JDBC3">
+        Implement Blob/Clob write/position methods.
+      </action>
+      <action context="JDBC3">
+        Implement holdable ResultSets by fetching all data into the driver,
+	although it would be better if we could use the backend support
+	for these.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-07/msg00239.php">ref</link>
+      </action>
+    </actions>
+
+    <actions priority="Performance">
+      <action>
+        Add statement pooling to take advantage of server prepared statements.
+      </action>
+      <action>
+        Allow scrollable ResultSets to not fetch all results in one batch.
+      </action>
+      <action>
+        Allow refcursor ResultSets to not fetch all results in one batch.
+      </action>
+      <action>
+        Allow binary data transfers for all datatypes not just bytea.
+      </action>
+    </actions>
+
+    <actions priority="PG Extensions">
+      <action dev="jurka">
+        Add support for COPY.
+      </action>
+      <action>
+        Allow SSL client certificates to be provided to the server for
+	verification.
+      </action>
+      <action>
+        Allow a non-default SSL socket factory to be provided to the driver
+	to allow for other trust stores and skipping authentication.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00198.php">ref1</link>,
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00034.php">ref2</link>
+      </action>
+      <action>
+        Allow configuration of GUC parameters via the Connection URL or
+	Datasource.  The most obvious example of usefulness is search_path.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00022.php">ref</link>
+      </action>
+    </actions>
+
+    <actions priority="Other">
+      <action context="build">
+        Split the build.xml file out into a number of smaller files and
+	clean it up.
+      </action>
+      <action context="doc">
+        Add documentation for SSL connections: <link href="http://archives.postgresql.org/pgsql-jdbc/2003-08/msg00110.php">ref1</link> <link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00198.php">ref2</link>.
+      </action>
+      <action context="test">
+        Pass the JDBC CTS (Sun's test suite).
+      </action>
+      <action context="feature">
+        Allow Java array types to be used in PreparedStatement.setObject.
+      </action>
+      <action context="feature">
+        Allow multi-dimensional array support.
+      </action>
+      <action context="feature">
+        Implement PreparedStatement.getParameterMetaData for those using
+	Java Studio Creator which needs it.  This isn't a compliance issue
+	because the spec allows us to return null.
+      </action>
+      <action context="feature">
+        Add scalar functions specified in the {fn } escape syntax.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-08/msg00084.php">ref</link>
+      </action>
+      <action context="code">
+        Don't drop the connection on an error when reading from the input
+	to setBinaryStream.  Just don't execute this portal.
+      </action>
+      <action context="code">
+        Currently the internal type cache is not schema aware.
+      </action>
+      <action context="code">
+        Currently internal type cache uses a static variable, so it's
+	possible to get data cross-polution from different database.  Not a
+	problem for system types which should be the same, but user defined
+	types will get a different oid in different places.
+      </action>
+      <action context="code">
+        Need a much better lexer/parser than the ad hoc stuff in the driver.
+	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?793">ref1</link>,
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00062.php">ref2</link>
+      </action>
+    </actions>
+  </todo>
+
+</status>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>CVS Repository</title>
+  </header>
+  <body>
+
+    <section id="webcvs">
+      <title>CVS Web Interface</title>
+      <p>
+        A web view of the CVS repository is available
+        <a href="http://gborg.postgresql.org/project/pgjdbc/cvs/cvs.php">here</a>.
+      </p>
+    </section>
+      
+    <section id="newretrieve">
+      <title>Retrieving the Code</title>
+      <p>
+        Do an initial login to the CVS server:
+      </p>
+      <source>cvs -d :pserver:anonymous@gborg.postgresql.org:/usr/local/cvsroot/pgjdbc login</source>
+      <p>
+        This will prompt you for a password which is "anonymous".
+	You should only need to do this once, since the password will be
+	saved in <code>.cvspass</code> in your home directory.
+	Now fetch the actual source code:
+      </p>  
+      <source>cvs -z3 -d :pserver:anonymous@gborg.postgresql.org:/usr/local/cvsroot/pgjdbc co -P pgjdbc</source>
+      <p>
+        This will create a subdirectory containg the driver source code.
+      </p>
+    </section>
+  </body>
+</document>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>PostgreSQL JDBC Driver</title>
+  </header>
+  <body>
+    <section id="welcome">
+      <title>Welcome</title>
+      <p>
+        Welcome to the home of the PostgreSQL JDBC driver.  It allows Java
+	programs to connect to a PostgreSQL database using standard, database
+	independent Java code.  It is a pure Java (Type IV) implementation,
+	so all you need to do is <a href="site:download">download</a> a jar
+	file and you're on your way.
+      </p>
+    </section>
+    
+    <section id="features">
+      <title>Features</title>
+      <p>
+        The driver provides are reasonably complete implementation of the
+	JDBC 3 specification in addition to some PostgreSQL specific
+	extensions.  Our goal is nothing short of full compliance, but
+	we're not there yet.  Some features require additional backend
+	support and others just need someone to implement them.  For
+	a list of what still needs to be done see our
+	<a href="site:todo">todo list</a>.
+      </p>
+    </section>
+  </body>
+</document>

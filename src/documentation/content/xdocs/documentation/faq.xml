@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V1.2//EN" "http://forrest.apache.org/dtd/faq-v12.dtd" [
+]>    
+
+<faqs title="Frequently Asked Questions">
+  <part id="features">
+    <title>Features</title>
+
+    <faq id="xa">
+      <question>Does the driver have XA support?</question>
+      <answer>
+        <p>
+          No.  The server does not support two phase commit which is needed.
+	  There are serious efforts being made to get this into the 8.1
+	  release, but we'll have to wait and see.
+        </p>
+      </answer>
+    </faq>
+
+  </part>
+
+</faqs>

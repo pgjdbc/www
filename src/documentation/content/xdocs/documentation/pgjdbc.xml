@@ -1,0 +1,2188 @@
+<?xml version="1.0"?>
+<!-- $Header$ -->
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+
+<book id="jdbc">
+ <title>The <productname>PostgreSQL</productname> <acronym>JDBC</acronym> Interface</title>
+
+ <chapter id="jdbc-intro">
+  <title>Introduction</title>
+
+  <para>
+   <acronym>JDBC</acronym> is a core <acronym>API</acronym> of Java 1.1 and later.
+   It provides a standard set of
+   interfaces to <acronym>SQL</acronym>-compliant databases.
+  </para>
+
+  <para>
+   <productname>PostgreSQL</productname> provides a <firstterm>type
+   4</firstterm> <acronym>JDBC</acronym> driver.  Type 4 indicates
+   that the driver is written in Pure Java, and communicates in the
+   database system's own network protocol. Because of this, the driver
+   is platform independent; once compiled, the driver can be used on
+   any system.
+  </para>
+
+  <para>
+   This manual is not intended as a complete guide to
+   <acronym>JDBC</acronym> programming, but should help to get you
+   started. For more information refer to the standard
+   <acronym>JDBC</acronym> <acronym>API</acronym> documentation.
+   Also, take a look at the examples included with the source.
+  </para>
+ </chapter>
+
+ <chapter id="jdbc-setup">
+  <title>Setting up the <acronym>JDBC</acronym> Driver</title>
+
+  <para>
+   This section describes the steps you need to take before you can
+   write or run programs that use the <acronym>JDBC</acronym> interface.
+  </para>
+
+  <sect1 id="jdbc-build">
+   <title>Getting the Driver</title>
+
+   <para>
+    Precompiled versions of the driver can be downloaded from
+    the <ulink
+    url="http://jdbc.postgresql.org"><productname>PostgreSQL</productname>
+    <acronym>JDBC</acronym> web site</ulink>.
+   </para>
+
+   <para>
+    Alternatively you can build the driver from source, but you should
+    only need to do this if you are making changes to the source code.
+    To build the <acronym>JDBC</acronym> driver, you need
+    <application>Ant</application> 1.5 or higher and a <acronym>JDK</acronym>.
+    <application>Ant</application> is a special tool for building
+    Java-based packages.  It can be downloaded from the <ulink
+    url="http://ant.apache.org/index.html"><application>Ant</application>
+    web site</ulink>.
+   </para>
+
+   <para>
+    If you have several Java compilers installed, it depends on the
+    Ant configuration which one gets used.  Precompiled
+    <application>Ant</application> distributions are typically set up
+    to read a file <filename>.antrc</filename> in the current user's
+    home directory for configuration.  For example, to use a different
+    <acronym>JDK</acronym> than the default, this may work:
+<programlisting>
+JAVA_HOME=/usr/local/sun-jdk1.3
+JAVACMD=$JAVA_HOME/bin/java
+</programlisting>
+   </para>
+
+   <para>
+    To compile the driver simply run <command>ant</command> in the top level
+    directory.  The compiled driver will be placed in a <filename>jars/postgresql.jar</filename>.
+    The resulting driver will be built for the version of Java you are
+    running.  If you build with a 1.2 or 1.3
+    <acronym>JDK</acronym> you will build a version that supports the
+    <acronym>JDBC</acronym> 2 specification, and finally if you build
+    with a 1.4 or 1.5 <acronym>JDK</acronym> you will build a version that
+    supports the <acronym>JDBC</acronym> 3 specification.
+   </para>
+  </sect1>
+
+  <sect1 id="jdbc-classpath">
+   <title>Setting up the Class Path</title>
+
+   <indexterm zone="jdbc-classpath">
+    <primary>class path</primary>
+   </indexterm>
+
+   <indexterm zone="jdbc-classpath">
+    <primary>CLASSPATH</primary>
+   </indexterm>
+
+   <para>
+    To use the driver, the JAR archive (named
+    <filename>postgresql.jar</filename> if you built from source, otherwise
+    it will likely be named with the following convention:
+    <filename>pg<replaceable>[server version]</replaceable>.<replaceable>[buildnumber]</replaceable>jdbc<replaceable>[JDBC version]</replaceable>.jar</filename>,
+    for example pg80.304.jdbc3.jar)
+    needs to be included in the class path, either by putting it in the
+    <envar>CLASSPATH</envar> environment variable, or by using flags on the
+    <command>java</command> command line.
+   </para>
+
+   <para>
+    For instance, assume we have an application that uses the
+    <acronym>JDBC</acronym> driver to access a database, and that
+    application is installed as
+    <filename>/usr/local/lib/myapp.jar</filename>.  The
+    <productname>PostgreSQL</productname> <acronym>JDBC</acronym> driver installed as
+    <filename>/usr/local/pgsql/share/java/postgresql.jar</filename>.  To run
+    the application, we would use:
+<programlisting>
+export CLASSPATH=/usr/local/lib/myapp.jar:/usr/local/pgsql/share/java/postgresql.jar:.
+java MyApp
+</programlisting>
+    </para>
+
+    <para>
+     Loading the driver from within the application is covered in
+     <xref linkend="jdbc-use"/>.
+    </para>
+  </sect1>
+
+  <sect1 id="jdbc-prepare">
+   <title>Preparing the Database Server for <acronym>JDBC</acronym></title>
+
+   <para>
+    Because Java only uses TCP/IP connections, the
+    <productname>PostgreSQL</productname> server must be configured to
+    accept TCP/IP connections.  This can be done by setting
+    <literal>tcpip_socket = true</literal> in the
+    <filename>postgresql.conf</filename> file or by supplying the
+    <option>-i</option> option flag when starting
+    <command>postmaster</command>.
+   </para>
+
+   <para>
+    Also, the client authentication setup in the
+    <filename>pg_hba.conf</filename> file may need to be configured.
+    Refer to the <productname>PostgreSQL</productname> documentation for
+    details.  The <acronym>JDBC</acronym> driver supports the
+    <literal>trust</literal>, <literal>ident</literal>,
+    <literal>password</literal>, <literal>md5</literal>, and
+    <literal>crypt</literal> authentication methods.
+   </para>
+  </sect1>
+ </chapter>
+
+ <chapter id="jdbc-use">
+  <title>Initializing the Driver</title>
+
+  <para>
+   This section describes how to load and initialize the <acronym>JDBC</acronym>
+   driver in your programs.
+  </para>
+
+  <sect1 id="jdbc-import">
+   <title>Importing <acronym>JDBC</acronym></title>
+
+   <para>
+    Any source that uses <acronym>JDBC</acronym> needs to import the
+    <literal>java.sql</literal> package, using:
+
+<programlisting>
+import java.sql.*;
+</programlisting>
+   </para>
+
+    <note>
+     <para>
+      You should not import the <literal>org.postgresql</literal> package
+      unless you are using not standard <productname>PostgreSQL</productname>
+      extensions to the <acronym>JDBC</acronym> <acronym>API</acronym>.
+     </para>
+    </note>
+  </sect1>
+
+  <sect1 id="jdbc-load">
+   <title>Loading the Driver</title>
+
+   <para>
+    Before you can connect to a database, you need to load the
+    driver. There are two methods available, and it depends on your
+    code which is the best one to use.
+   </para>
+
+   <para>
+    In the first method, your code implicitly loads the driver using the
+    <function>Class.forName()</function> method.
+    For <productname>PostgreSQL</productname>, you would use:
+
+<programlisting>
+Class.forName("org.postgresql.Driver");
+</programlisting>
+
+    This will load the driver, and while loading, the driver will automatically
+    register itself with <acronym>JDBC</acronym>.
+   </para>
+
+    <note>
+     <para>
+      The <function>forName()</function> method can throw a
+      <classname>ClassNotFoundException</classname> if the driver is
+      not available.
+     </para>
+    </note>
+
+   <para>
+    This is the most common method to use, but restricts your code to
+    use just <productname>PostgreSQL</productname>.  If your code may
+    access another database system in the future, and you do not use
+    any <productname>PostgreSQL</productname>-specific extensions, then
+    the second method is advisable.
+   </para>
+
+   <para>
+    The second method passes the driver as a parameter to the
+    <acronym>JVM</acronym> as it starts, using the <option>-D</option>
+    argument. Example:
+<programlisting>
+java -Djdbc.drivers=org.postgresql.Driver example.ImageViewer
+</programlisting>
+    In this example, the <acronym>JVM</acronym> will attempt to load
+    the driver as part of its initialization. Once done, the
+    <classname>ImageViewer</classname> is started.
+   </para>
+
+   <para>
+    Now, this method is the better one to use because it allows your
+    code to be used with other database packages without recompiling
+    the code. The only thing that would also change is the connection
+    <acronym>URL</acronym>, which is covered next.
+   </para>
+
+   <para>
+    One last thing: When your code then tries to open a
+    <classname>Connection</classname>, and you get a <errorname>No
+    driver available</errorname> <classname>SQLException</classname>
+    being thrown, this is probably caused by the driver not being in
+    the class path, or the value in the parameter not being correct.
+   </para>
+  </sect1>
+
+  <sect1 id="jdbc-connect">
+   <title>Connecting to the Database</title>
+
+   <para>
+    With <acronym>JDBC</acronym>, a database is represented by a
+    <acronym>URL</acronym> (Uniform Resource Locator).  With
+    <productname>PostgreSQL</productname>, this takes one of the
+    following forms:
+
+    <itemizedlist>
+     <listitem>
+<synopsis>
+jdbc:postgresql:<replaceable class="parameter">database</replaceable>
+</synopsis>
+     </listitem>
+
+     <listitem>
+<synopsis>
+jdbc:postgresql://<replaceable class="parameter">host</replaceable>/<replaceable class="parameter">database</replaceable>
+</synopsis>
+     </listitem>
+
+     <listitem>
+<synopsis>
+jdbc:postgresql://<replaceable class="parameter">host</replaceable>:<replaceable class="parameter">port</replaceable>/<replaceable class="parameter">database</replaceable>
+</synopsis>
+     </listitem>
+    </itemizedlist>
+
+    The parameters have the following meanings:
+
+    <variablelist>
+     <varlistentry>
+      <term>
+       <replaceable class="parameter">host</replaceable>
+      </term>
+      <listitem>
+       <para>
+        The host name of the server. Defaults to <literal>localhost</literal>.
+        To specify an IPv6 address your must enclose the
+        <replaceable class="parameter">host</replaceable> parameter
+        with square brackets, for example:
+<programlisting>
+jdbc:postgresql://[::1]:5740/accounting
+</programlisting>
+       </para>
+      </listitem>
+     </varlistentry>
+
+     <varlistentry>
+      <term>
+       <replaceable class="parameter">port</replaceable>
+      </term>
+      <listitem>
+       <para>
+        The port number the server is listening on. Defaults to the
+        <productname>PostgreSQL</productname> standard port number (5432).
+       </para>
+      </listitem>
+     </varlistentry>
+
+     <varlistentry>
+      <term>
+       <replaceable class="parameter">database</replaceable>
+      </term>
+      <listitem>
+       <para>
+        The database name.
+       </para>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </para>
+
+   <para>
+    To connect, you need to get a <classname>Connection</classname> instance from 
+    <acronym>JDBC</acronym>. To do this,
+    you use the <function>DriverManager.getConnection()</function> method:
+
+<programlisting>
+Connection db = DriverManager.getConnection(url, username, password);
+</programlisting>
+   </para>
+
+   <sect2 id="connection-parameters">
+    <title>Connection Parameters</title>
+
+    <para>
+     In addition to the standard connection parameters the driver supports a
+     number of additional properties which can be used to specify additional
+     driver behavior specific to <productname>PostgreSQL</productname>.  These
+     properties may be specified in either the connection
+     <acronym>URL</acronym> or an additional
+     <classname>Properties</classname> object parameter to
+     <function>DriverManager.getConnection</function>.  The following
+     examples illustrate the use of both methods to establish a SSL
+     connection.
+
+<programlisting>
+String url = "jdbc:postgresql://localhost/test";
+Properties props = new Properties();
+props.setProperty("user","fred");
+props.setProperty("password","secret");
+props.setProperty("ssl","true");
+Connection conn = DriverManager.getConnection(url, props);
+</programlisting>
+
+<programlisting>
+String url = "jdbc:postgresql://localhost/test?user=fred&amp;password=secret&amp;ssl=true";
+Connection conn = DriverManager.getConnection(url);
+</programlisting>
+
+     <variablelist>
+
+      <varlistentry>
+       <term><varname>user</varname> = <type>String</type></term>
+       <listitem>
+        <para>
+         The database user on whose behalf the connection is being made.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>password</varname> = <type>String</type></term>
+       <listitem>
+        <para>
+         The database user's password.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>ssl</varname></term>
+       <listitem>
+        <para>
+         Connect using <acronym>SSL</acronym>.  The driver must have been
+         compiled with <acronym>SSL</acronym> support.  This property does
+	 not need a value associated with it.  The mere presence of it
+	 specifies a <acronym>SSL</acronym> connection.  However, for
+         compatibility with future versions, the value "true" is
+         preferred.
+         <!--
+         KJJ need section on configuring SSL support.
+         http://archives.postgresql.org/pgsql-jdbc/2003-08/msg00110.php
+         http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00198.php
+         -->
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>compatible</varname> = <type>String</type></term>
+       <listitem>
+        <para>
+         Act like an older version of the driver to retain compatibility with
+         older applications.  At the moment this controls two driver behaviors,
+         the connection protocol and the handling of binary data fields.
+        </para>
+        <para>
+         Older versions of the driver used this property to also control the
+         protocol used to connect to the backend.  This is now controlled by the
+         <varname>protocolVersion</varname> property.
+        </para>
+        <para>
+         Information on binary data handling is detailed in
+         <xref linkend="jdbc-binary-data" />.  To force the use of
+         Large Objects set the compatible property to 7.1.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>protocolVersion</varname> = <type>String</type></term>
+       <listitem>
+        <para>
+         The driver supports both the V2 and V3 frontend/backend protocols.
+         The V3 protocol was introduced in 7.4 and the driver will by default
+         try to connect using the V3 protocol, if that fails it will fall
+         back to the V2 protocol.  If the protocolVersion property is
+         specified, the driver will try only the specified protocol (which
+         should be either "2" or "3").  Setting protocolVersion to "2" may
+         be used to avoid the failed attempt to use the V3 protocol when
+         connecting to a version 7.3 or earlier server, or to force the
+         driver to use the V2 protocol despite connecting to a 7.4 or greater
+         server.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>loglevel</varname> = <type>int</type></term>
+       <listitem>
+        <para>
+         Set the amount of logging information printed to the DriverManager's
+         current value for LogStream or LogWriter.  It currently supports
+         values of <literal>org.postgresql.Driver.DEBUG</literal> (2) and
+         <literal>org.postgresql.Driver.INFO</literal> (1).
+         <literal>INFO</literal> will log very little information while
+         <literal>DEBUG</literal> will produce significant detail.  This
+         property is only really useful if you are a developer or are
+         having problems with the driver.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>charSet</varname> = <type>String</type></term>
+       <listitem>
+        <para>
+         The character set to use for data sent to the database or recieved
+         from the database.  This property is only relevent for server
+         versions less than or equal to 7.2.  The 7.3 release was the first
+         with multibyte support compiled by default and the driver uses
+         its character set translation facilities instead of trying to do
+         it itself.
+        </para>
+       </listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term><varname>prepareThreshold</varname> = <type>int</type></term>
+       <listitem>
+        <para>
+         Determine the number of <classname>PreparedStatement</classname>
+         executions required before switching over to use server side prepared
+         statements.  The default is zero meaning never use server side
+         prepared statements.  More information on server side prepared
+         statements is available in <xref linkend="server-prepare" />.
+        </para>
+       </listitem>
+      </varlistentry>
+
+     </variablelist>
+    </para>
+
+   </sect2>
+
+  </sect1>
+
+  <sect1 id="jdbc-disconnect">
+   <title>Closing the Connection</title>
+
+   <para>
+    To close the database connection, simply call the
+    <function>close()</function> method to the <classname>Connection</classname>:
+<programlisting>
+db.close();
+</programlisting>
+   </para>
+  </sect1>
+ </chapter>
+
+
+  <chapter id="jdbc-query">
+   <title>Issuing a Query and Processing the Result</title>
+
+   <indexterm zone="jdbc-query">
+    <primary>Statement</primary>
+   </indexterm>
+
+   <indexterm zone="jdbc-query">
+    <primary>PreparedStatement</primary>
+   </indexterm>
+
+   <indexterm zone="jdbc-query">
+    <primary>ResultSet</primary>
+   </indexterm>
+
+   <para>
+    Any time you want to issue <acronym>SQL</acronym> statements to
+    the database, you require a <classname>Statement</classname> or 
+    <classname>PreparedStatement</classname> instance. Once you have 
+    a <classname>Statement</classname> or 
+    <classname>PreparedStatement</classname>, you can use issue a
+    query. This will return a <classname>ResultSet</classname>
+    instance, which contains the entire result (see <xref linkend="jdbc-query-with-cursor"/>
+    here for how to alter this behaviour).
+    <xref linkend="jdbc-query-example"/> illustrates this process.
+   </para>
+
+   <example id="jdbc-query-example">
+    <title>Processing a Simple Query in <acronym>JDBC</acronym></title>
+
+    <para>
+     This example will issue a simple query and print out the first
+     column of each row using a <classname>Statement</classname>.
+<programlisting>
+Statement st = db.createStatement();
+ResultSet rs = st.executeQuery("SELECT * FROM mytable WHERE columnfoo = 500");
+while (rs.next()) {
+    System.out.print("Column 1 returned ");
+    System.out.println(rs.getString(1));
+}
+rs.close();
+st.close();
+</programlisting>
+    </para>
+
+    <para>
+     This example issues the same query as before but uses
+     a <classname>PreparedStatement</classname>
+     and a bind value in the query.
+<programlisting>
+int foovalue = 500;
+PreparedStatement st = db.prepareStatement("SELECT * FROM mytable WHERE columnfoo = ?");
+st.setInt(1, foovalue);
+ResultSet rs = st.executeQuery();
+while (rs.next()) {
+    System.out.print("Column 1 returned ");
+    System.out.println(rs.getString(1));
+}
+rs.close();
+st.close();
+</programlisting>
+    </para>
+   </example>
+
+   <sect1 id="jdbc-query-with-cursor">
+     <title>Getting results based on a cursor</title>
+
+     <para>By default the driver collects all the results for the
+       query at once. This can be inconvenient for large data sets so
+       the <acronym>JDBC</acronym> driver provides a means of basing
+       a <classname>ResultSet</classname> on a database cursor and
+       only fetching a small number of rows.</para>
+
+     <para>A small number of rows are cached on the
+       client side of the connection and when exhausted the next
+       block of rows is retrieved by repositioning the cursor.
+     </para>
+
+     <note>
+      <para>
+       Cursor based <classname>ResultSets</classname> cannot be used in all
+       situations.  There a number of restrictions which will make the driver
+       silently fall back to fetching the whole <classname>ResultSet</classname>
+       at once.
+       <itemizedlist>
+        <listitem>
+         <para>
+          The connection to the server must be using the V3 protocol.  This is the
+          default for (and is only supported by) server versions 7.4 and later.
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          The <classname>Connection</classname> must not be in autocommit
+          mode.  The backend closes cursors at the end of transactions, so in
+          autocommit mode the backend will have closed the cursor before anything
+          can be fetched from it.
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+           The <classname>Statement</classname> must be created with
+           a <classname>ResultSet</classname> type of
+           <literal>ResultSet.TYPE_FORWARD_ONLY</literal>.
+           This is the default, so no code will need to be rewritten to take
+           advantage of this, but it also means that you cannot scroll
+           backwards or otherwise jump around in the
+          <classname>ResultSet</classname>.
+         </para>
+        </listitem>
+        <listitem>
+         <para>
+          The query given must be a single statement, not multiple statements
+          strung together with semicolons.
+         </para>
+        </listitem>
+       </itemizedlist>
+      </para>
+     </note>
+
+     <example>
+       <title>Setting fetch size to turn cursors on and off.</title>
+
+     <para>Changing code to cursor mode is as simple as setting the
+       fetch size of the <classname>Statement</classname> to the
+       appropriate size. Setting the fetch size back to 0 will cause
+       all rows to be cached (the default behaviour).
+
+<programlisting>
+// make sure autocommit is off
+db.setAutoCommit(false);
+Statement st = db.createStatement();
+
+// Turn use of the cursor on.
+st.setFetchSize(50);
+ResultSet rs = st.executeQuery("SELECT * FROM mytable");
+while (rs.next()) {
+   System.out.print("a row was returned.");
+}
+rs.close();
+
+// Turn the cursor off.
+st.setFetchSize(0);
+rs = st.executeQuery("SELECT * FROM mytable");
+while (rs.next()) {
+   System.out.print("many rows were returned.");
+}
+rs.close();
+
+// Close the statement.
+st.close();
+</programlisting>
+     </para>
+   </example>
+   </sect1>
+
+   <sect1>
+    <title>Using the <classname>Statement</classname> or <classname>PreparedStatement</classname> Interface</title>
+
+    <para>
+     The following must be considered when using the
+     <classname>Statement</classname> or 
+     <classname>PreparedStatement</classname> interface:
+
+     <itemizedlist>
+      <listitem>
+       <para>
+        You can use a single <classname>Statement</classname> instance
+        as many times as you want. You could create one as soon as you
+        open the connection and use it for the connection's
+        lifetime. But you have to remember that only one
+        <classname>ResultSet</classname> can exist per
+        <classname>Statement</classname> or 
+        <classname>PreparedStatement</classname> at a given time.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        If you need to perform a query while processing a
+        <classname>ResultSet</classname>, you can simply create and
+        use another <classname>Statement</classname>.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        If you are using threads, and several are using the database,
+        you must use a separate <classname>Statement</classname> for
+        each thread. Refer to <xref linkend="jdbc-thread"/> if you are
+        thinking of using threads, as it covers some important points.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        When you are done using the <classname>Statement</classname>
+        or <classname>PreparedStatement</classname>
+        you should close it.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect1>
+
+   <sect1>
+    <title>Using the <classname>ResultSet</classname> Interface</title>
+
+    <para>
+     The following must be considered when using the
+     <classname>ResultSet</classname> interface:
+
+     <itemizedlist>
+      <listitem>
+       <para>
+        Before reading any values, you must call
+        <function>next()</function>. This returns true if there is a
+        result, but more importantly, it prepares the row for
+        processing.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        Under the <acronym>JDBC</acronym> specification, you should
+        access a field only once. It is safest to stick to this rule,
+        although at the current time, the
+        <productname>PostgreSQL</productname> driver will allow you to
+        access a field as many times as you want.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        You must close a <classname>ResultSet</classname> by calling
+        <function>close()</function> once you have finished using it.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        Once you make another query with the
+        <classname>Statement</classname> used to create a
+        <classname>ResultSet</classname>, the currently open
+        <classname>ResultSet</classname> instance is closed
+        automatically.
+       </para>
+      </listitem>
+
+     </itemizedlist>
+    </para>
+   </sect1>
+  </chapter>
+
+  <chapter id="jdbc-update">
+   <title>Performing Updates</title>
+
+   <para>
+    To change data (perform an <command>INSERT</command>,
+    <command>UPDATE</command>, or <command>DELETE</command>) you use
+    the <function>executeUpdate()</function> method.  This method is
+    similar to the method <function>executeQuery()</function> used to
+    issue a <command>SELECT</command> statement, but it doesn't return
+    a <classname>ResultSet</classname>; instead it returns the number
+    of rows affected by the <command>INSERT</command>,
+    <command>UPDATE</command>, or <command>DELETE</command> statement.
+    <xref linkend="jdbc-delete-example"/> illustrates the usage.
+   </para>
+
+  <example id="jdbc-delete-example">
+   <title>Deleting Rows in <acronym>JDBC</acronym></title>
+   <para>
+     This example will issue a simple <command>DELETE</command>
+     statement and print out the number of rows deleted.
+<programlisting>
+int foovalue = 500;
+PreparedStatement st = db.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
+st.setInt(1, foovalue);
+int rowsDeleted = st.executeUpdate();
+System.out.println(rowsDeleted + " rows deleted");
+st.close();
+</programlisting>
+   </para>
+  </example>
+  </chapter>
+
+
+  <chapter id="jdbc-callproc">
+    <title>Calling Stored Functions</title>
+
+    <para><productname>PostgreSQL's</productname> <acronym>JDBC</acronym>
+      driver fully supports calling <productname>PostgreSQL</productname>
+      storedfunctions.</para>
+
+    <example id="jdbc-call-function">
+      <title>Calling a built in stored function</title>
+
+      <para>This example shows how to call
+	a <productname>PostgreSQL</productname> built in
+	function, <command>upper</command>, which simply converts the
+	supplied string argument to uppercase.
+
+<programlisting>
+CallableStatement upperProc = con.prepareCall("{ ? = call upper( ? ) }");
+upperProc.registerOutParameter(1, Types.VARCHAR);
+upperProc.setString(2, "lowercase to uppercase");
+upperProc.execute();
+String upperCased = upperProc.getString(1);
+upperProc.close();
+</programlisting>
+      </para>
+    </example>
+
+    <sect1>
+      <title>Using the <classname>CallableStatement</classname> Interface</title>
+
+      <para>
+	All the considerations that apply
+	for <classname>Statement</classname>
+	and <classname>PreparedStatement</classname> apply
+	for <classname>CallableStatement</classname> but in addition
+	you must also consider one extra restriction:
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>You can only call a stored function from within a
+	    transaction.</para>
+	</listitem>
+      </itemizedlist>
+
+    </sect1>
+
+    <sect1>
+      <title>Obtaining <classname>ResultSet</classname> from a stored function</title>
+     
+      <para><productname>PostgreSQL's</productname> stored function
+	can return results by means of a <type>refcursor</type>
+	value. A <type>refcursor</type>.</para>
+
+      <para>As an extension to <acronym>JDBC</acronym>,
+	the <productname>PostgreSQL</productname> <acronym>JDBC</acronym>
+	driver can return <type>refcursor</type> values
+	as <classname>ResultSet</classname> values.</para>
+
+      <example id="get-refcursor-from-function-call">
+	<title>Getting <type>refcursor</type> values from a
+	function</title>
+
+	<para>When calling a function that returns
+	  a <type>refcursor</type> you must cast the return type
+	  of <function>getObject</function> to
+	  a <classname>ResultSet</classname></para>
+
+<programlisting>
+// Turn transactions off.
+con.setAutoCommit(false);
+// Procedure call.
+CallableStatement proc = con.prepareCall("{ ? = call doquery ( ? ) }");
+proc.registerOutParameter(1, Types.Other);
+proc.setInt(2, -1);
+proc.execute();
+ResultSet results = (ResultSet) proc.getObject(1);
+while (results.next()) {
+  // do something with the results...
+}
+results.close();
+proc.close();
+</programlisting>
+      </example>
+
+      <para>It is also possible to treat the <type>refcursor</type>
+       return value as a cursor name directly. To do this, use the
+       <function>getString</function> of <classname>ResultSet</classname>.
+      </para>
+
+      <example>
+	<title>Treating <type>refcursor</type> as a cursor name</title>
+
+<programlisting>
+con.setAutoCommit(false);
+CallableStatement proc = con.prepareCall("{ ? = call doquery ( ? ) }");
+proc.registerOutParameter(1, Types.Other);
+proc.setInt(2, 0);
+String cursorName = con.getString(1);
+proc.close();
+</programlisting>
+      </example>
+    </sect1>
+
+  </chapter>
+
+
+  <chapter id="jdbc-ddl">
+   <title>Creating and Modifying Database Objects</title>
+
+   <para>
+    To create, modify or drop a database object like a table or view
+    you use the <function>execute()</function> method.  This method is
+    similar to the method <function>executeQuery()</function>, but it
+    doesn't return a result.  <xref linkend="jdbc-drop-table-example"/>
+    illustrates the usage.
+   </para>
+
+  <example id="jdbc-drop-table-example">
+   <title>Dropping a Table in <acronym>JDBC</acronym></title>
+   <para>
+     This example will drop a table.
+<programlisting>
+Statement st = db.createStatement();
+st.execute("DROP TABLE mytable");
+st.close();
+</programlisting>
+   </para>
+  </example>
+  </chapter>
+
+ <chapter id="jdbc-binary-data">
+  <title>Storing Binary Data</title>
+
+  <indexterm zone="jdbc-binary-data">
+   <primary>bytea</primary>
+   <secondary sortas="JDBC">in JDBC</secondary>
+  </indexterm>
+
+  <indexterm zone="jdbc-binary-data">
+   <primary>large object</primary>
+   <secondary sortas="JDBC">in JDBC</secondary>
+  </indexterm>
+
+  <para>
+    <productname>PostgreSQL</productname> provides two distinct ways to 
+    store binary data.  Binary data can be stored in a table using 
+    the data type <type>bytea</type> or by using the Large Object
+    feature which stores the binary data in a separate table in a special 
+    format and refers to that table by storing a value of type 
+    <type>oid</type> in your table.
+  </para>
+
+  <para>
+    In order to determine which method is appropriate you 
+    need to understand the limitations of each method.  The 
+    <type>bytea</type> data type is not well suited for storing very 
+    large amounts of binary data.  While a column of type 
+    <type>bytea</type> can hold up to 1 GB of binary data, it would 
+    require a huge amount of memory to 
+    process such a large value.  The Large Object method for 
+    storing binary data is better suited to storing very large values, 
+    but it has its own limitations.  Specifically deleting a row 
+    that contains a Large Object reference does not delete the Large Object.
+    Deleting the Large Object is a separate operation that needs to
+    be performed.  Large Objects also have some security
+    issues since anyone connected to the database can view 
+    and/or modify any Large Object, even if they don't have 
+    permissions to view/update the row containing the Large Object reference.
+  </para>
+
+  <para>
+    Version 7.2 was the first release of the <acronym>JDBC</acronym> driver 
+    that supports the <type>bytea</type> data type.  The introduction of 
+    this functionality in 7.2 has introduced a change in behavior 
+    as compared to previous releases.  Since 7.2, the methods 
+    <function>getBytes()</function>, <function>setBytes()</function>, 
+    <function>getBinaryStream()</function>, and 
+    <function>setBinaryStream()</function> operate on 
+    the <type>bytea</type> data type.  In 7.1 and earlier, these methods operated 
+    on the <type>oid</type> data type associated with Large Objects.  
+    It is possible to revert the driver back to the old 7.1 behavior 
+    by setting the property <literal>compatible</literal> on 
+    the <classname>Connection</classname> object to the value
+    <literal>7.1</literal>.  More details on connection properties are
+    available in <xref linkend="connection-parameters" />.
+  </para>
+
+  <para>
+    To use the <type>bytea</type> data type you should simply use 
+    the <function>getBytes()</function>, <function>setBytes()</function>,
+    <function>getBinaryStream()</function>, or 
+    <function>setBinaryStream()</function> methods.
+  </para>
+
+  <para>
+    To use the Large Object functionality you can use either the
+    <classname>LargeObject</classname> class provided by the
+    <productname>PostgreSQL</productname> <acronym>JDBC</acronym> driver, or by
+    using the <function>getBLOB()</function> and
+    <function>setBLOB()</function> methods.
+  </para>
+
+  <important>
+   <para>
+    You must access Large Objects within an <acronym>SQL</acronym>
+    transaction block.  You can start a transaction block by calling
+    <function>setAutoCommit(false)</function>.
+   </para>
+  </important>
+
+  <note>
+   <para>
+      In a future release of the
+      <acronym>JDBC</acronym> driver, the <function>getBLOB()</function>
+      and <function>setBLOB()</function> methods may no longer 
+      interact with Large Objects and will instead work on the data type
+      <type>bytea</type>.  So it is recommended that you 
+      use the <classname>LargeObject</classname> <acronym>API</acronym> 
+      if you intend to use Large Objects.
+   </para>
+  </note>
+
+  <para>
+   <xref linkend="jdbc-binary-data-example"/> contains some examples on
+   how to process binary data using the <productname>PostgreSQL</productname>
+   <acronym>JDBC</acronym> driver.
+  </para>
+
+  <example id="jdbc-binary-data-example">
+   <title>Processing Binary Data in <acronym>JDBC</acronym></title>
+
+   <para>
+    For example, suppose you have a table containing the file names of
+    images and you also want to store the image in a <type>bytea</type>
+    column:
+<programlisting>
+CREATE TABLE images (imgname text, img bytea);
+</programlisting>
+   </para>
+
+   <para>
+    To insert an image, you would use:
+<programlisting>
+File file = new File("myimage.gif");
+FileInputStream fis = new FileInputStream(file);
+PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+ps.setString(1, file.getName());
+ps.setBinaryStream(2, fis, file.length());
+ps.executeUpdate();
+ps.close();
+fis.close();
+</programlisting>
+
+    Here, <function>setBinaryStream()</function> transfers a set number
+    of bytes from a stream into the column of type <type>bytea</type>.
+    This also could have been done using the <function>setBytes()</function>
+    method if the contents of the image was already in a 
+    <classname>byte[]</classname>. 
+   </para>
+
+   <para>
+    Retrieving an image is even easier.  (We use
+    <classname>PreparedStatement</classname> here, but the
+    <classname>Statement</classname> class can equally be used.)
+
+<programlisting>
+PreparedStatement ps = con.prepareStatement("SELECT img FROM images WHERE imgname = ?");
+ps.setString(1, "myimage.gif");
+ResultSet rs = ps.executeQuery();
+if (rs != null) {
+    while (rs.next()) {
+        byte[] imgBytes = rs.getBytes(1);
+        // use the data in some way here
+    }
+    rs.close();
+}
+ps.close();
+</programlisting>
+   </para>
+
+   <para>
+    Here the binary data was retrieved as an
+    <classname>byte[]</classname>.  You could have used a 
+    <classname>InputStream</classname> object instead.  
+   </para>
+
+   <para>
+    Alternatively you could be storing a very large file and want to use
+    the <classname>LargeObject</classname> <acronym>API</acronym> to 
+    store the file:
+<programlisting>
+CREATE TABLE imageslo (imgname text, imgoid oid);
+</programlisting>
+   </para>
+
+   <para>
+    To insert an image, you would use:
+<programlisting>
+// All LargeObject API calls must be within a transaction block
+conn.setAutoCommit(false);
+
+// Get the Large Object Manager to perform operations with
+LargeObjectManager lobj = ((org.postgresql.PGConnection)conn).getLargeObjectAPI();
+
+// Create a new large object
+int oid = lobj.create(LargeObjectManager.READ | LargeObjectManager.WRITE);
+
+// Open the large object for writing
+LargeObject obj = lobj.open(oid, LargeObjectManager.WRITE);
+
+// Now open the file
+File file = new File("myimage.gif");
+FileInputStream fis = new FileInputStream(file);
+
+// Copy the data from the file to the large object
+byte buf[] = new byte[2048];
+int s, tl = 0;
+while ((s = fis.read(buf, 0, 2048)) > 0) {
+    obj.write(buf, 0, s);
+    tl += s;
+}
+
+// Close the large object
+obj.close();
+
+// Now insert the row into imageslo
+PreparedStatement ps = conn.prepareStatement("INSERT INTO imageslo VALUES (?, ?)");
+ps.setString(1, file.getName());
+ps.setInt(2, oid);
+ps.executeUpdate();
+ps.close();
+fis.close();
+
+// Finally, commit the transaction.
+conn.commit();
+</programlisting>
+   </para>
+
+   <para>
+    Retrieving the image from the Large Object:
+
+<programlisting>
+// All LargeObject API calls must be within a transaction block
+conn.setAutoCommit(false);
+
+// Get the Large Object Manager to perform operations with
+LargeObjectManager lobj = ((org.postgresql.PGConnection)conn).getLargeObjectAPI();
+
+PreparedStatement ps = con.prepareStatement("SELECT imgoid FROM imageslo WHERE imgname = ?");
+ps.setString(1, "myimage.gif");
+ResultSet rs = ps.executeQuery();
+if (rs != null) {
+    while (rs.next()) {
+        // Open the large object for reading
+        int oid = rs.getInt(1);
+        LargeObject obj = lobj.open(oid, LargeObjectManager.READ);
+
+        // Read the data
+        byte buf[] = new byte[obj.size()];
+        obj.read(buf, 0, obj.size());
+        // Do something with the data read here
+
+        // Close the object
+        obj.close();
+    }
+    rs.close();
+}
+ps.close();
+
+// Finally, commit the transaction.
+conn.commit();
+</programlisting>
+   </para>
+
+  </example>
+ </chapter>
+
+
+ <chapter id="jdbc-ext">
+  <title><productname>PostgreSQL</productname> Extensions to the
+    <acronym>JDBC</acronym> <acronym>API</acronym></title>
+
+  <para>
+   <productname>PostgreSQL</productname> is an extensible database
+   system.  You can add your own functions to the server, which can
+   then be called from queries, or even add your own data types.  As
+   these are facilities unique to <productname>PostgreSQL</productname>,
+   we support them from Java, with a set of extension
+   <acronym>APIs</acronym>. Some features within the core of the
+   standard driver actually use these extensions to implement Large
+   Objects, etc.
+  </para>
+
+  <sect1>
+   <title>Accessing the Extensions</title>
+
+   <para>
+    To access some of the extensions, you need to use some extra
+    methods in the <classname>org.postgresql.PGConnection</classname>
+    class. In this case, you would need to case the return value of
+    <function>Driver.getConnection()</function>.  For example:
+<programlisting>
+Connection db = Driver.getConnection(url, username, password);
+// ...
+// later on
+Fastpath fp = ((org.postgresql.PGConnection)db).getFastpathAPI();
+</programlisting>
+   </para>
+  </sect1>
+
+
+  <sect1>
+   <title>Geometric Data Types</title>
+
+   <para>
+    <productname>PostgreSQL</productname> has a set of data types that
+    can store geometric features into a table. These include single
+    points, lines, and polygons.  We support these types in Java with
+    the org.postgresql.geometric package.  It contains classes that
+    extend the org.postgresql.util.PGobject class.  Refer to that
+    class for details on how to implement your own data type handlers.
+   </para>
+
+  </sect1>
+
+
+  <sect1>
+   <title>Large Objects</title>
+
+   <para>
+    Large objects are supported in the standard
+    <acronym>JDBC</acronym> specification.  However, that interface is
+    limited, and the <acronym>API</acronym> provided by <productname>PostgreSQL</productname> allows for random
+    access to the objects contents, as if it was a local file.
+   </para>
+
+   <para>
+    The org.postgresql.largeobject package provides to Java the <application>libpq</application>
+    C interface's large object <acronym>API</acronym>. It consists of
+    two classes, <classname>LargeObjectManager</classname>, which deals with creating,
+    opening and deleting large objects, and <classname>LargeObject</classname> which deals
+    with an individual object.
+   </para>
+  </sect1>
+
+  <sect1 id="listennotify">
+   <title>Listen / Notify</title>
+
+   <para>
+    Listen and Notify provide a simple form of signal or interprocess
+    communication mechanism for a collection of processes accessing
+    the same <productname>PostgreSQL</productname> database.  For more
+    information on notifications consult the main server documentation.
+    This section only deals with the <acronym>JDBC</acronym> specific
+    aspects of notifications.
+   </para>
+
+   <para>
+    Standard LISTEN, NOTIFY, and UNLISTEN commands are issued via the
+    standard <classname>Statement</classname> interface.  To retrieve
+    and process retrieved notifications the
+    <classname>Connection</classname> must be cast to the
+    <productname>PostgreSQL</productname> specific extension interface
+    <classname>PGConnection</classname>.  From there the
+    <function>getNotifications()</function> method can be used to retrieve
+    any outstanding notifications.
+   </para>
+
+   <note>
+    <para>
+     A key limitation of the <acronym>JDBC</acronym> driver is that it
+     cannot receive asynchronous notifications and must poll the
+     backend to check if any notifications were issued.  
+    </para>
+   </note>
+
+   <example>
+    <title>Receiving Notifications</title>
+
+<programlisting>
+import java.sql.*;
+
+public class NotificationTest {
+
+	public static void main(String args[]) throws Exception {
+		Class.forName("org.postgresql.Driver");
+		String url = "jdbc:postgresql://localhost:5432/test";
+
+		// Create two distinct connections, one for the notifier
+		// and another for the listener to show the communication
+		// works across connections although this example would
+		// work fine with just one connection.
+		Connection lConn = DriverManager.getConnection(url,"test","");
+		Connection nConn = DriverManager.getConnection(url,"test","");
+
+		// Create two threads, one to issue notifications and
+		// the other to receive them.
+		Listener listener = new Listener(lConn);
+		Notifier notifier = new Notifier(nConn);
+		listener.start();
+		notifier.start();
+	}
+
+}
+
+class Listener extends Thread {
+
+	private Connection conn;
+	private org.postgresql.PGConnection pgconn;
+
+	Listener(Connection conn) throws SQLException {
+		this.conn = conn;
+		this.pgconn = (org.postgresql.PGConnection)conn;
+		Statement stmt = conn.createStatement();
+		stmt.execute("LISTEN mymessage");
+		stmt.close();
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				// issue a dummy query to contact the backend
+				// and receive any pending notifications.
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT 1");
+				rs.close();
+				stmt.close();
+
+				org.postgresql.PGNotification notifications[] = pgconn.getNotifications();
+				if (notifications != null) {
+					for (int i=0; i&lt;notifications.length; i++) {
+						System.out.println("Got notification: " + notifications[i].getName());
+					}
+				}
+
+				// wait a while before checking again for new
+				// notifications
+				Thread.sleep(500);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+		}
+	}
+
+}
+
+class Notifier extends Thread {
+
+	private Connection conn;
+
+	public Notifier(Connection conn) {
+		this.conn = conn;
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				Statement stmt = conn.createStatement();
+				stmt.execute("NOTIFY mymessage");
+				stmt.close();
+				Thread.sleep(2000);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+		}
+	}
+
+}
+</programlisting>
+   </example>
+  </sect1>
+
+  <sect1 id="server-prepare">
+   <title>Server Prepared Statements</title>
+
+   <para>
+    The <productname>PostgreSQL</productname> server allows clients
+    to compile sql statements that are expected to be reused to avoid the
+    overhead of parsing and planning the statement for every execution. 
+    This functionality is available at the <acronym>SQL</acronym> level
+    via PREPARE and EXECUTE beginning with server version 7.3, and at the
+    protocol level beginning with server version 7.4, but as Java
+    developers we really just want to use the standard
+    <classname>PreparedStatement</classname> interface.
+   </para>
+
+   <note>
+    <para>
+     Previous versions of the driver used PREPARE and EXECUTE to
+     implement server-prepared statements.  This is supported on all server
+     versions beginning with 7.3, but produced application-visible changes
+     in query results, such as missing ResultSet metadata and row update
+     counts. The current driver uses the V3 protocol-level equivalents which
+     avoid these changes in query results, but the V3 protocol is only
+     available beginning with server version 7.4.  Enabling server-prepared
+     statements will have no affect when connected to a 7.3 server or when
+     explicitly using the V2 protocol to connect to a 7.4 server.
+    </para>
+   </note>
+
+   <para>
+    There are a number of ways to enable server side prepared statements
+    depending on your application's needs.  The general method is to
+    set a threshold for a <classname>PreparedStatement</classname>.
+    An internal counter keeps track of how many times the statement has
+    been executed and when it reaches the threshold it will start to
+    use server side prepared statements.
+   </para>
+
+   <note>
+    <para>
+     Server side prepared statements are planned only once by the server.
+     This avoids the cost of replanning the query every time, but also
+     means that the planner cannot take advantage of the particular
+     parameter values used in a particular execution of the query.
+     You should be cautious about enabling the use of server side prepared
+     statements globally.
+    </para>
+   </note>
+
+   <example>
+    <title>Using server side prepared statements</title>
+
+<programlisting>
+import java.sql.*;
+
+public class ServerSidePreparedStatement
+{
+
+	public static void main(String args[]) throws Exception
+	{
+		Class.forName("org.postgresql.Driver");
+		String url = "jdbc:postgresql://localhost:5432/test";
+		Connection conn = DriverManager.getConnection(url,"test","");
+
+		PreparedStatement pstmt = conn.prepareStatement("SELECT ?");
+
+		// cast to the pg extension interface
+		org.postgresql.PGStatement pgstmt = (org.postgresql.PGStatement)pstmt;
+
+		// on the third execution start using server side statements
+		pgstmt.setPrepareThreshold(3);
+
+		for (int i=1; i&lt;=5; i++)
+		{
+			pstmt.setInt(1,i);
+			boolean usingServerPrepare = pgstmt.isUseServerPrepare();
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			System.out.println("Execution: "+i+", Used server side: " + usingServerPrepare + ", Result: "+rs.getInt(1));
+			rs.close();
+		}
+
+		pstmt.close();
+		conn.close();
+	}
+}
+</programlisting>
+
+<para>Which produces the expected result of using server side prepared statements upon the third execution.</para>
+
+<programlisting>
+Execution: 1, Used server side: false, Result: 1
+Execution: 2, Used server side: false, Result: 2
+Execution: 3, Used server side: true, Result: 3
+Execution: 4, Used server side: true, Result: 4
+Execution: 5, Used server side: true, Result: 5
+</programlisting>
+
+   </example>
+
+   <para>
+    The example shown above requires the programmer to use
+    <productname>PostgreSQL</productname> specific code in a
+    supposedly portable API which is not ideal.  Also it sets the
+    threshold only for that particular statement which is some extra
+    typing if we wanted to use that threshold for every statement.
+    Let's take a look at the other ways to set the threshold to enable
+    server side prepared statements.  There is already a hierarchy in
+    place above a <classname>PreparedStatement</classname>, the
+    <classname>Connection</classname> it was created from, and above that
+    the source of the connection be it a <classname>Datasource</classname>
+    or a <acronym>URL</acronym>.  The server side prepared statement
+    threshold can be set at any of these levels such that the value
+    will be the default for all of it's children.
+   </para>
+
+<programlisting>
+// pg extension interfaces
+org.postgresql.PGConnection pgconn;
+org.postgresql.PGStatement pgstmt;
+
+// set a prepared statement threshold for connections created from this url
+String url = "jdbc:postgresql://localhost:5432/test?prepareThreshold=3";
+
+// see that the connection has picked up the correct threshold from the url
+Connection conn = DriverManager.getConnection(url,"test","");
+pgconn = (org.postgresql.PGConnection)conn;
+System.out.println(pgconn.getPrepareThreshold()); // Should be 3
+
+// see that the statement has picked up the correct threshold from the connection
+PreparedStatement pstmt = conn.prepareStatement("SELECT ?");
+pgstmt = (org.postgresql.PGStatement)pstmt;
+System.out.println(pgstmt.getPrepareThreshold()); // Should be 3
+
+// change the connection's threshold and ensure that new statements pick it up
+pgconn.setPrepareThreshold(5);
+PreparedStatement pstmt = conn.prepareStatement("SELECT ?");
+pgstmt = (org.postgresql.PGStatement)pstmt;
+System.out.println(pgstmt.getPrepareThreshold()); // Should be 5
+</programlisting>
+
+  </sect1>
+
+ </chapter>
+
+
+ <chapter id="jdbc-thread">
+  <title>Using the Driver in a Multithreaded or a Servlet Environment</title>
+
+  <indexterm zone="jdbc-thread">
+   <primary>threads</primary>
+   <secondary sortas="JDBC">with JDBC</secondary>
+  </indexterm>
+
+  <para>
+   A problem with many <acronym>JDBC</acronym> drivers is that only
+   one thread can use a <classname>Connection</classname> at any one
+   time --- otherwise a thread could send a query while another one is
+   receiving results, and this could cause severe confusion.
+  </para>
+
+  <para>
+   The <productname>PostgreSQL</productname> <acronym>JDBC</acronym> driver
+   is thread safe.
+   Consequently, if your application uses multiple threads then you do
+   not have to worry about complex algorithms to ensure that only one thread
+   uses the database at a time.
+  </para>
+
+  <para>
+   If a thread attempts to use the connection while another one is
+   using it, it will wait until the other thread has finished its
+   current operation.  If the operation is a regular <acronym>SQL</acronym>
+   statement, then the operation consists of sending the statement and
+   retrieving any <classname>ResultSet</classname> (in full).  If it
+   is a fast-path call (e.g., reading a block
+   from a large object) then it consists of
+   sending and retrieving the respective data.
+  </para>
+
+  <para>
+   This is fine for applications and applets but can cause a
+   performance problem with servlets.  If you have several threads
+   performing queries then each but one will pause.
+   To solve this, you are advised to create a pool of connections.
+   When ever a thread needs to use the database, it asks a manager
+   class for a <classname>Connection</classname> object. The manager
+   hands a free connection to the thread and marks it as busy. If a
+   free connection is not available, it opens one.  Once the thread
+   has finished using the connection, it returns it to the manager
+   which can then either close it or add it to the pool. The manager
+   would also check that the connection is still alive and remove it
+   from the pool if it is dead.  The down side of a connection pool is
+   that it increases the load on the server because a new session is
+   created for each <classname>Connection</classname> object.  It is
+   up to you and your applications' requirements.
+  </para>
+ </chapter>
+
+ <chapter id="jdbc-datasource">
+  <title>Connection Pools and Data Sources</title>
+
+  <indexterm zone="jdbc-datasource">
+   <primary>connection pool</primary>
+   <secondary sortas="JDBC">in JDBC</secondary>
+  </indexterm>
+
+  <indexterm zone="jdbc-datasource">
+   <primary>DataSource</primary>
+  </indexterm>
+
+  <para>
+    <acronym>JDBC</acronym> 2 introduced standard connection pooling features in an
+    add-on <acronym>API</acronym> known as the <acronym>JDBC</acronym> 2.0 Optional
+    Package (also known as the <acronym>JDBC</acronym> 2.0
+    Standard Extension).  These features have since been included in
+    the core <acronym>JDBC</acronym> 3 <acronym>API</acronym>.  The
+    <productname>PostgreSQL</productname> <acronym>JDBC</acronym> drivers
+    support these features if it has been compiled with
+    <acronym>JDK</acronym> 1.3.x in combination with the
+    <acronym>JDBC</acronym> 2.0 Optional Package
+    (<acronym>JDBC</acronym> 2), or with <acronym>JDK</acronym> 1.4 or higher
+    (<acronym>JDBC</acronym> 3).  Most application servers include
+    the <acronym>JDBC</acronym> 2.0 Optional Package, but it is
+    also available separately from the Sun
+    <ulink
+    url="http://java.sun.com/products/jdbc/download.html#spec"><acronym>JDBC</acronym> download site</ulink>.
+   </para>
+
+  <sect1 id="jdbc-ds-intro">
+   <title>Overview</title>
+
+    <para>
+     The <acronym>JDBC</acronym> <acronym>API</acronym> provides a client
+     and a server interface for connection pooling.  The client
+     interface is <literal>javax.sql.DataSource</literal>,
+     which is what application code will typically use to
+     acquire a pooled database connection.  The server interface
+     is <literal>javax.sql.ConnectionPoolDataSource</literal>,
+     which is how most application servers will interface with
+     the <productname>PostgreSQL</productname> <acronym>JDBC</acronym>
+     driver.
+    </para>
+
+    <para>
+     In an application server environment, the
+     application server configuration will typically refer to
+     the <productname>PostgreSQL</productname>
+     <literal>ConnectionPoolDataSource</literal> implementation,
+     while the application component code will typically acquire a
+     <literal>DataSource</literal> implementation provided by
+     the application server (not by
+     <productname>PostgreSQL</productname>).
+    </para>
+
+    <para>
+     For an environment without an application server,
+     <productname>PostgreSQL</productname> provides two implementations
+     of <literal>DataSource</literal> which an application can use
+     directly.  One implementation performs connection pooling,
+     while the other simply provides access to database connections
+     through the <literal>DataSource</literal> interface without
+     any pooling.  Again, these implementations should not be used
+     in an application server environment unless the application
+     server does not support the
+     <literal>ConnectionPoolDataSource</literal> interface.
+    </para>
+  </sect1>
+   
+  <sect1 id="jdbc-ds-cpds">
+   <title>Application Servers: <classname>ConnectionPoolDataSource</classname></title>
+
+   <para>
+    <productname>PostgreSQL</productname> includes one implementation
+    of <classname>ConnectionPoolDataSource</classname> for
+    <acronym>JDBC</acronym> 2 and one for <acronym>JDBC</acronym> 3,
+    as shown in <xref linkend="jdbc-ds-cpds-imp-table"/>.
+   </para>
+
+  
+   <table id="jdbc-ds-cpds-imp-table">
+    <title><classname>ConnectionPoolDataSource</classname> Implementations</title>
+  
+    <tgroup cols="2">
+     <thead>
+      <row>
+       <entry><acronym>JDBC</acronym></entry>
+       <entry>Implementation Class</entry>
+      </row>
+     </thead>
+ 
+     <tbody>
+      <row>
+       <entry>2</entry>
+       <entry><literal>org.postgresql.jdbc2.optional.ConnectionPool</literal></entry>
+      </row>
+ 
+      <row>
+       <entry>3</entry>
+       <entry><literal>org.postgresql.jdbc3.Jdbc3ConnectionPool</literal></entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+
+   <para>
+    Both implementations use the same configuration scheme.
+    <acronym>JDBC</acronym> requires that a
+    <classname>ConnectionPoolDataSource</classname> be configured via
+    JavaBean properties, shown in <xref linkend="jdbc-ds-cpds-props"/>,
+    so there are get and set methods for each of these properties.
+   </para>
+
+   <table id="jdbc-ds-cpds-props">
+    <title><classname>ConnectionPoolDataSource</classname> Configuration Properties</title>
+  
+    <tgroup cols="3">
+     <thead>
+      <row>
+       <entry>Property</entry>
+       <entry>Type</entry>
+       <entry>Description</entry>
+      </row>
+     </thead>
+ 
+     <tbody>
+      <row>
+       <entry><literal>serverName</literal></entry>
+       <entry><type>String</type></entry>
+       <entry><productname>PostgreSQL</productname> database server
+         host name</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>databaseName</literal></entry>
+       <entry><type>String</type></entry>
+       <entry><productname>PostgreSQL</productname> database name</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>portNumber</literal></entry>
+       <entry><type>int</type></entry>
+       <entry>
+        TCP port which the <productname>PostgreSQL</productname>
+        database server is listening on (or 0 to use the default port)
+       </entry>
+      </row>
+ 
+      <row>
+       <entry><literal>user</literal></entry>
+       <entry><type>String</type></entry>
+       <entry>User used to make database connections</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>password</literal></entry>
+       <entry><type>String</type></entry>
+       <entry>Password used to make database connections</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>defaultAutoCommit</literal></entry>
+       <entry><type>boolean</type></entry>
+       <entry>
+        Whether connections should have autocommit enabled or disabled
+        when they are supplied to the caller.  The default is
+        <literal>false</literal>, to disable autocommit.
+       </entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+
+   <para>
+    Many application servers use a properties-style syntax to
+    configure these properties, so it would not be unusual to enter
+    properties as a block of text.  If the application server provides
+    a single area to enter all the properties, they might be listed
+    like this:
+<programlisting>
+serverName=localhost
+databaseName=test
+user=testuser
+password=testpassword
+</programlisting>
+    Or, if semicolons are used as separators instead of newlines, it
+    could look like this:
+<programlisting>
+serverName=localhost;databaseName=test;user=testuser;password=testpassword
+</programlisting>
+   </para>
+
+  </sect1>
+
+  <sect1 id="jdbc-ds-ds">
+   <title>Applications: <classname>DataSource</classname></title>
+
+    <para><productname>PostgreSQL</productname> includes two
+     implementations of <literal>DataSource</literal>
+     for <acronym>JDBC</acronym> 2 and two for <acronym>JDBC</acronym>
+     3, as shown in <xref linkend="jdbc-ds-ds-imp"/>.
+     The pooling implementations do not actually close connections
+     when the client calls the <literal>close</literal> method, but
+     instead return the connections to a pool of available connections
+     for other clients to use.  This avoids any overhead of repeatedly
+     opening and closing connections, and allows a large number of
+     clients to share a small number of database connections.</para>
+    <para>The pooling data-source implementation provided here is not
+     the most feature-rich in the world.  Among other things,
+     connections are never closed until the pool itself is closed;
+     there is no way to shrink the pool.  As well, connections
+     requested for users other than the default configured user are
+     not pooled.  Many application servers
+     provide more advanced pooling features and use the
+     <literal>ConnectionPoolDataSource</literal> implementation
+     instead.</para>
+
+   <table id="jdbc-ds-ds-imp">
+    <title><classname>DataSource</classname> Implementations</title>
+  
+    <tgroup cols="3">
+     <thead>
+      <row>
+       <entry><acronym>JDBC</acronym></entry>
+       <entry>Pooling</entry>
+       <entry>Implementation Class</entry>
+      </row>
+     </thead>
+ 
+     <tbody>
+      <row>
+       <entry>2</entry>
+       <entry>No</entry>
+       <entry><literal>org.postgresql.jdbc2.optional.SimpleDataSource</literal></entry>
+      </row>
+ 
+      <row>
+       <entry>2</entry>
+       <entry>Yes</entry>
+       <entry><literal>org.postgresql.jdbc2.optional.PoolingDataSource</literal></entry>
+      </row>
+ 
+      <row>
+       <entry>3</entry>
+       <entry>No</entry>
+       <entry><literal>org.postgresql.jdbc3.Jdbc3SimpleDataSource</literal></entry>
+      </row>
+ 
+      <row>
+       <entry>3</entry>
+       <entry>Yes</entry>
+       <entry><literal>org.postgresql.jdbc3.Jdbc3PoolingDataSource</literal></entry>
+      </row>
+ 
+     </tbody>
+    </tgroup>
+    </table>
+
+    <para>
+     All the implementations use the same configuration scheme.
+     <acronym>JDBC</acronym> requires that a
+     <literal>DataSource</literal> be configured via JavaBean
+     properties, shown in <xref linkend="jdbc-ds-ds-props"/>, so there
+     are get and set methods for each of these properties.
+    </para>
+
+    <table id="jdbc-ds-ds-props">
+    <title><classname>DataSource</classname> Configuration Properties</title>
+  
+    <tgroup cols="3">
+     <thead>
+      <row>
+       <entry>Property</entry>
+       <entry>Type</entry>
+       <entry>Description</entry>
+      </row>
+     </thead>
+ 
+     <tbody>
+      <row>
+       <entry><literal>serverName</literal></entry>
+       <entry><type>String</type></entry>
+       <entry><productname>PostgreSQL</productname> database server
+         host name</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>databaseName</literal></entry>
+       <entry><type>String</type></entry>
+       <entry><productname>PostgreSQL</productname> database name</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>portNumber</literal></entry>
+       <entry><type>int</type></entry>
+       <entry>TCP port which the 
+        <productname>PostgreSQL</productname> database server is
+	listening on (or 0 to use the default port)</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>user</literal></entry>
+       <entry><type>String</type></entry>
+       <entry>User used to make database connections</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>password</literal></entry>
+       <entry><type>String</type></entry>
+       <entry>Password used to make database connections</entry>
+      </row>
+     </tbody>
+    </tgroup>
+    </table>
+
+    <para>The pooling implementations require some additional
+      configuration properties, which are shown in <xref linkend="jdbc-ds-ds-xprops"/>.</para>
+
+   <table id="jdbc-ds-ds-xprops">
+    <title>Additional Pooling <classname>DataSource</classname> Configuration Properties</title>
+  
+    <tgroup cols="3">
+     <thead>
+      <row>
+       <entry>Property</entry>
+       <entry>Type</entry>
+       <entry>Description</entry>
+      </row>
+     </thead>
+ 
+     <tbody>
+      <row>
+       <entry><literal>dataSourceName</literal></entry>
+       <entry><type>String</type></entry>
+       <entry>Every pooling <literal>DataSource</literal> must have a
+	 unique name.</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>initialConnections</literal></entry>
+       <entry><type>int</type></entry>
+       <entry>The number of database connections to be created
+	when the pool is initialized.</entry>
+      </row>
+ 
+      <row>
+       <entry><literal>maxConnections</literal></entry>
+       <entry><type>int</type></entry>
+       <entry>The maximum number of open database connections to
+	allow.  When more connections are requested, the caller
+	will hang until a connection is returned to the pool.</entry>
+      </row>
+     </tbody>
+    </tgroup>
+    </table>
+
+    <para><xref linkend="jdbc-ds-example"/> shows an example of typical application code using a
+     pooling <literal>DataSource</literal>.</para>
+ 
+   <example id="jdbc-ds-example">
+    <title><literal>DataSource</literal> Code Example</title>
+
+    <para>
+     Code to initialize a pooling <classname>DataSource</classname> might look like this:
+<programlisting>
+Jdbc3PoolingDataSource source = new Jdbc3PoolingDataSource();
+source.setDataSourceName("A Data Source");
+source.setServerName("localhost");
+source.setDatabaseName("test");
+source.setUser("testuser");
+source.setPassword("testpassword");
+source.setMaxConnections(10);
+</programlisting>
+      Then code to use a connection from the pool might look
+      like this.  Note that it is critical that the connections
+      are eventually closed.  Else the pool will <quote>leak</quote> connections and
+      will eventually lock all the clients out.
+<programlisting>
+Connection con = null;
+try {
+    con = source.getConnection();
+    // use connection
+} catch (SQLException e) {
+    // log error
+} finally {
+    if (con != null) {
+        try { con.close(); } catch (SQLException e) {}
+    }
+}
+</programlisting>
+    </para>
+   </example>
+  </sect1>
+  <sect1 id="tomcat">
+   <title>Tomcat setup</title>
+   <indexterm zone="tomcat">
+    <primary>tomcat</primary>
+   </indexterm>
+
+   <note>
+    <para>
+     The postgresql.jar file must be placed in $CATALINA_HOME/common/lib
+     in both Tomcat 4 and 5.
+    </para>
+   </note>
+
+   <para>
+    The absolute easiest way to set this up in either tomcat instance
+    is to use the admin web application that comes with Tomcat, simply
+    add the datasource to the context you want to use it in.
+   </para>
+
+   <para>
+    Setup for Tomcat 4 place the following inside the &lt;Context&gt; tag
+    inside conf/server.xml
+    <programlisting lang="xml">
+	<![CDATA[
+<Resource name="jdbc/postgres" scope="Shareable" type="javax.sql.DataSource"/>
+<ResourceParams name="jdbc/postgres">
+	<parameter>
+		<name>validationQuery</name>
+		<value>select version();</value>
+	</parameter>
+	<parameter>
+		<name>url</name>
+		<value>jdbc:postgresql://localhost/davec</value>
+	</parameter>
+	<parameter>
+		<name>password</name>
+		<value>davec</value>
+	</parameter>
+	<parameter>
+		<name>maxActive</name>
+		<value>4</value>
+	</parameter>
+	<parameter>
+		<name>maxWait</name>
+		<value>5000</value>
+	</parameter>
+	<parameter>
+		<name>driverClassName</name>
+		<value>org.postgresql.Driver</value>
+	</parameter>
+	<parameter>
+		<name>username</name>
+		<value>davec</value>
+	</parameter>
+	<parameter>
+		<name>maxIdle</name>
+		<value>2</value>
+	</parameter>
+</ResourceParams>]]>	
+    </programlisting>
+   </para>
+
+   <para>  
+    Setup for Tomcat 5, you can use the above method, except that it
+    goes inside the &lt;DefaultContext&gt; tag inside the &lt;Host&gt;
+    tag. eg. &lt;Host&gt; ... &lt;DefaultContext&gt; ...
+   </para> 
+   <para>
+    Alternatively there is a conf/Catalina/hostname/context.xml file.
+    For example http://localhost:8080/servlet-example has a directory
+    $CATALINA_HOME/conf/Catalina/localhost/servlet-example.xml file. 
+    Inside this file place the above xml inside the &lt;Context&gt; tag
+   </para>
+    
+   <para>
+    Then you can use the following code to access the connection.
+<programlisting lang="java">
+import javax.naming.*;
+import javax.sql.*;
+import java.sql.*;
+public class DBTest 
+{
+
+	String foo = "Not Connected";
+	int bar = -1;
+    
+	public void init() 
+	{
+    
+		try
+		{
+			Context ctx = new InitialContext();
+			if(ctx == null )
+				throw new Exception("Boom - No Context");
+	
+			// /jdbc/postgres is the name of the resource above 
+			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/postgres");
+	    
+			if (ds != null) 
+			{
+				Connection conn = ds.getConnection();
+	    
+				if(conn != null) 
+				{
+					foo = "Got Connection "+conn.toString();
+					Statement stmt = conn.createStatement();
+					ResultSet rst = stmt.executeQuery("select id, foo, bar from testdata");
+					if(rst.next()) {
+						foo=rst.getString(2);
+						bar=rst.getInt(3);
+					}
+					conn.close();
+				}
+			}
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public String getFoo() { return foo; }
+
+	public int getBar() { return bar;}
+}
+
+</programlisting>
+   </para>
+  </sect1>
+
+  <sect1 id="jdbc-jndi">
+   <title>Data Sources and <acronym>JNDI</acronym></title>
+
+   <indexterm zone="jdbc-jndi">
+    <primary>JNDI</primary>
+   </indexterm>
+
+    <para>
+     All the <literal>ConnectionPoolDataSource</literal> and
+     <literal>DataSource</literal> implementations can be stored
+     in <acronym>JNDI</acronym>.  In the case of the nonpooling
+     implementations, a new instance will be created every time the
+     object is retrieved from <acronym>JNDI</acronym>, with the
+     same settings as the instance that was stored.  For the
+     pooling implementations, the same instance will be retrieved
+     as long as it is available (e.g., not a different
+     <acronym>JVM</acronym> retrieving the pool from
+     <acronym>JNDI</acronym>), or a new instance with the same
+     settings created otherwise.
+    </para>
+
+    <para>
+     In the application server environment, typically the
+     application server's <literal>DataSource</literal> instance
+     will be stored in <acronym>JNDI</acronym>, instead of the
+     <productname>PostgreSQL</productname>
+     <literal>ConnectionPoolDataSource</literal> implementation.
+    </para>
+
+    <para>
+     In an application environment, the application may store
+     the <literal>DataSource</literal> in <acronym>JNDI</acronym>
+     so that it doesn't have to make a reference to the
+     <literal>DataSource</literal> available to all application
+     components that may need to use it.  An example of this is
+     shown in <xref linkend="jdbc-ds-jndi"/>.
+    </para>
+
+   <example id="jdbc-ds-jndi">
+    <title><classname>DataSource</classname> <acronym>JNDI</acronym> Code Example</title>
+
+    <para>
+     Application code to initialize a pooling <classname>DataSource</classname> and add
+     it to <acronym>JNDI</acronym> might look like this:
+<programlisting>
+Jdbc3PoolingDataSource source = new Jdbc3PoolingDataSource();
+source.setDataSourceName("A Data Source");
+source.setServerName("localhost");
+source.setDatabaseName("test");
+source.setUser("testuser");
+source.setPassword("testpassword");
+source.setMaxConnections(10);
+new InitialContext().rebind("DataSource", source);
+</programlisting>
+      Then code to use a connection from the pool might look
+      like this:
+<programlisting>
+Connection con = null;
+try {
+    DataSource source = (DataSource)new InitialContext().lookup("DataSource");
+    con = source.getConnection();
+    // use connection
+} catch (SQLException e) {
+    // log error
+} catch (NamingException e) {
+    // DataSource wasn't found in JNDI
+} finally {
+    if (con != null) {
+        try { con.close(); } catch (SQLException e) {}
+    }
+}
+</programlisting>
+    </para>
+   </example>
+  </sect1>
+
+ </chapter>
+
+ <chapter id="jdbc-reading">
+  <title>Further Reading</title>
+
+  <para>
+   If you have not yet read it, you are advised you read the
+   <acronym>JDBC</acronym> <acronym>API</acronym> Documentation
+   (supplied with Sun's <acronym>JDK</acronym>) and the
+   <acronym>JDBC</acronym> Specification.  Both are available from
+   <ulink
+   url="http://java.sun.com/products/jdbc/index.jsp"></ulink>.
+  </para>
+
+  <para>
+   <ulink
+   url="http://jdbc.postgresql.org/index.html"></ulink>
+   contains updated information not included in this chapter and
+   also offers precompiled drivers.
+  </para>
+ </chapter>
+</book>

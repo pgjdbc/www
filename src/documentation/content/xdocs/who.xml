@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Developers</title>
+  </header>
+  <body>
+    <section id="maintainers">
+      <title>Maintainers</title>
+      <ul>
+	<li>[blind] - Barry Lind (blind.at.xythos.com)</li>
+	<li>[davec] - Dave Cramer (pg.at.fastcrypt.com)</li>
+        <li>[jurka] - Kris Jurka (jurka.at.ejurka.com)</li>
+	<li>[oliver] - Oliver Jowett (oliver.at.opencloud.com)</li>
+      </ul>
+    </section>
+
+    <section id="authors">
+      <title>Original Authors</title>
+      <p>I am rather oblivious about the history of the driver before
+         the 7.2 release and who should be credited for it.  As far as I
+	 can tell it was originally developed by Peter Mount and Adrian Hall.
+	 If you know better please let us know.
+      </p>
+    </section>
+
+    <section id="contributors">
+      <title>Contributors</title>
+      <p>
+        People who have contributed significant code to the project.  These
+	are just those I could recall from the past year without an
+	endless poring over old emails and commit messages.  If you've
+	been forgetten, don't hesitate to let us know about it.
+      </p>
+      <ul>
+        <li>
+	  Jan Andre le Roux
+	  <ul>
+	    <li>ResultSetMetaData information based on the V3 protocol</li> 
+	  </ul>
+	</li>
+	<li>
+	  Jaroslaw J. Pyszny
+	  <ul>
+	  <li>Improve MetaData regarding the serial datatype</li>
+	  </ul>
+	</li>
+      </ul>
+    </section>
+  </body>
+</document>
+

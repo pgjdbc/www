@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Documentation</title>
+  </header>
+  <body>
+    <p>
+      This website contains the latest, most up to date version of the
+      documentation.  In general we hope the documentation here is accurate
+      and makes reference to specific version compatability issues, but we
+      know this isn't always true.  In some cases it may be valuable to
+      refere to the documentation written for your specific driver version.
+      For older documentation please consult the main PostgreSQL site:
+    </p>
+    <ul>
+      <li><a href="http://www.postgresql.org/docs/7.4/static/jdbc.html">7.4</a></li>
+      <li><a href="http://www.postgresql.org/docs/7.3/static/jdbc.html">7.3</a></li>
+      <li><a href="http://www.postgresql.org/docs/7.2/static/jdbc.html">7.2</a></li>
+      <li><a href="http://www.postgresql.org/docs/7.1/static/jdbc.html">7.1</a></li>
+    </ul>
+  </body>
+</document>
+
