@@ -51,6 +51,55 @@
 	    <li>Allow users to customize the SSL connection</li>
 	  </ul>
 	</li>
+	<li>
+	  Xavier Poinsard
+	  <ul>
+	    <li>Standard escaped functions {fn ...() }</li>
+	  </ul>
+	</li>
+      </ul>
+    </section>
+
+    <section id="translators">
+      <title>Translators</title>
+      <ul>
+        <li>
+	  es - Spanish
+	  <ul>
+	    <li>Diego A Gil</li>
+	  </ul>
+	</li>
+	<li>
+	  fr - French
+	  <ul>
+	    <li>Xavier Poinsard</li>
+	  </ul>
+	</li>
+	<li>
+	  pt_BR - Brazilian Portuguese
+	  <ul>
+	    <li>Euler Taveira de Oliveira</li>
+	  </ul>
+	</li>
+	<li>
+	  ru - Russian
+	  <ul>
+	    <li>Serguei Mokhov</li>
+	  </ul>
+	</li>
+	<li>
+	  tr - Turkish
+	  <ul>
+	    <li>Devrim Gunduz</li>
+	    <li>Nicolai Tufar</li>
+	  </ul>
+	</li>
+	<li>
+	  zh_TW - Traditional Chinese
+	  <ul>
+	    <li>Zhenbang Wei</li>
+	  </ul>
+	</li>
       </ul>
     </section>
   </body>
