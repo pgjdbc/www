@@ -158,7 +158,9 @@
    <exclude pattern="development/po/*.po" />
    <exclude pattern="development/po/messages.pot" />
 
+   <!--
    <uri src="favicon.ico"/>
+   -->
 
    <!--+
        |  File containing URIs (plain text, one per

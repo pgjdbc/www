@@ -41,11 +41,6 @@ See http://xml.apache.org/forrest/linking.html for more info
     <privateapi label="Private API" href="privateapi/index.html" />
   </development>
 
-  <all>
-    <whole_site_html label="Whole Site HTML" href="site.html"/>
-    <whole_site_html label="Whole Site PDF" href="site.pdf"/>
-  </all>
-
   <external-refs>
     <xml.apache.org href="http://xml.apache.org/">
       <forrest href="forrest/">
