@@ -14,7 +14,79 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
-    <release version="pg80.309" date="2005-01-17">
+    <release version="8.0-310" date="2005-02-02">
+      <action dev="oliver" type="fix" due-to="Xavier Poinsard">
+        Bugfixes and tests for two date-related bugs:
+
+	The jdbc escaped scalar function dayofweek should return values between
+	1 and 7 (1 for sunday) unlike the backend "extract dow" function which is
+	zero-based.
+
+	The literal escaped values for date/time/timestamp were not explicitly casted
+	which causes some problems. For example:   extract( dow from '2005-01-17 12:00:00')
+      </action>
+      <action dev="oliver" type="fix">
+        When locating driver configuration resources, if getClass().getClassLoader()
+	returns null (i.e. the driver was loaded via the bootstrap classloader)
+	then try the system classloader instead.
+
+	Load driver configuration in a privileged block, in case there is a lower-
+	privilege caller that does not have read access to the driver's jar.
+      </action>
+      <action dev="jurka" type="update">
+        Name documentation files after there id attributes, not chapter
+	and section numbers, so if people link to them and we reorganize
+	things they have a better change of pointing to the right place.
+      </action>
+      <action dev="oliver" type="fix" due-to="Jean-Pierre Pelletier">
+        Fix the PGInterval(String) ctor to correctly set the object's postgresql
+	type.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Implement Connection.nativeSQL.
+      </action>
+      <action dev="jurka" type="fix">
+        Don't map the escaped difference function to levenshtein because
+	that's not the same thing.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Document JDBC escape sequences.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Add basic support for JDBC escape for escape char in LIKE string
+	comparisons.
+      </action>
+      <action dev="oliver" type="fix" due-to="Martin Keller">
+        Bugfix and testcase for NPE when using an updateable resultset obtained from
+	a PreparedStatement on a v3 connection.
+      </action>
+      <action dev="oliver" type="fix">
+        Reject attempts to update a CONCUR_READ_ONLY resultset.
+	Test fixes and testcase for this.
+      </action>
+      <action dev="oliver" type="fix">
+        Correctly handle changes in parameter types when using server prepared statements,
+	by freeing the old statement and repreparin with the new types.
+
+	Previously, if a statement was prepared with one set of types and then reused
+	with a different set of types, the driver wouldn't notice and would continue
+	to (try to) use the original prepared statement.
+      </action>
+      <action dev="jurka" type="fix">
+        Reenable the refcursor unit test and make it pass.
+	Add a test and update the documentation to reflect that refcursor
+	ResultSets do have working MetaData (at least with the V3 protocol).
+      </action>
+      <action dev="jurka" type="add">
+        Implement the Describe Statement protocol message.  Reallow untyped
+	nulls and get the backend to resolve the type for us (if necessary).
+	Also use this message and a new non-executing query execution to
+	implement PreparedStatement.getMetaData() for an unexecuted
+	statement and PreparedStatement.getParameterMetaData().
+      </action>
+    </release>
+
+    <release version="8.0-309" date="2005-01-17">
       <action dev="jurka" type="fix">
         Fix warnings on javadoc because the comments were attached to
 	fields instead of functions.
@@ -134,7 +206,7 @@
         Update copyright year to 2005.
       </action>
       <action dev="jurka" type="fix">
-        When calling toString on a Statement, don't go into a infite loop.
+        When calling toString on a Statement, don't go into a infinite loop.
       </action>
       <action dev="jurka" type="fix">
         When determining if the user has changed the client_encoding to
@@ -165,7 +237,7 @@
       </action>
     </release>
 
-    <release version="pg80beta1" date="2004-11-09">
+    <release version="8.0beta1-308" date="2004-11-09">
       <action dev="jurka" type="update" due-to="Serguei Mokhov">
         Updated Russian translation.
       </action>
@@ -281,7 +353,7 @@
       </action>
     </release>
 
-    <release version="pgdev307" date="2004-10-19">
+    <release version="dev307" date="2004-10-19">
       <action dev="jurka" type="update">
         Some general code cleanups.  Remove unnecessary imports and a couple
         unused variables.  In the test suite ensure that assertEquals() uses
@@ -365,7 +437,7 @@
       </action>
     </release>
 
-    <release version="pgdev306" date="2004-09-16">
+    <release version="dev306" date="2004-09-16">
       <action dev="jurka" type="fix" due-to="David Bucciarelli">
         ResultSet.moveToCurrentRow was checking the cached updateability flag
 	assuming it had been set instead of correctly calling the
@@ -391,7 +463,7 @@
       </action>
     </release>
 
-    <release version="pgdev305" date="2004-08-12">
+    <release version="dev305" date="2004-08-12">
       <action dev="oliver" type="fix">
         My version of junit (3.7) doesn't have assertFalse.  ArrayTest uses
         it in a couple of places.  This patch changes assertFalse(condition)
@@ -461,7 +533,7 @@
       </action>
     </release>
     
-    <release version="pgdev304" date="2004-07-17">
+    <release version="dev304" date="2004-07-17">
       <action dev="jurka" type="fix" due-to="Dario V. Fassi">
         Some ResultSetMetaData fixes.
         Remove completely duplicated code in the jdbc1/jdbc2 implementations.
@@ -506,7 +578,7 @@
       </action>
     </release>
 
-    <release version="pgdev303" date="2004-07-01">
+    <release version="dev303" date="2004-07-01">
       <action dev="jurka" type="fix" due-to="Kevin MacClay">
         Don't throw an Exception in locatorsUpdateCopy() even though the
 	ability to update LOBs is unimplemented.  The 1.5 JDK's CachedRowSet
@@ -541,7 +613,7 @@
       </action>
     </release>
 
-    <release version="pgdev302" date="2004-06-15">
+    <release version="dev302" date="2004-06-15">
       <action dev="blind" type="add">
         Added a cvsignore for PSQLException.java since this file is now
 	generated.
@@ -643,7 +715,7 @@
       </action>
     </release>
     
-    <release version="pgdev301" date="2004-03-29">
+    <release version="dev301" date="2004-03-29">
       <action dev="jurka" type="update">
         Now that we are out of the main tree, we can't rely on the makefile
 	system to tell us about versions and ports and other options so we
@@ -781,11 +853,6 @@
   <todo>
     <actions priority="Known Bugs">
       <action context="bugs">
-        Existing subclasses of PGobject do not correctly support NULL
-	values which is necessary now that the driver requires strong
-	typing and disallows PreparedStatement.setNull(i, Types.OTHER).
-      </action>
-      <action context="bugs">
 	Timestamp without time zone doesn't work correctly when the
 	client and server are in different timezones.
       </action>
@@ -806,9 +873,6 @@
       <action context="JDBC1">
         Implement Statement.setQueryTimeout.
 	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?888">ref</link>
-      </action>
-      <action context="JDBC1">
-        ResultSets created from a refcursor return null for getMetaData().
       </action>
       <action context="JDBC2">
         Updatable ResultSet updateXXX don't do range checking.  This can
@@ -875,11 +939,6 @@
       </action>
       <action context="feature">
         Allow multi-dimensional array support.
-      </action>
-      <action context="feature">
-        Implement PreparedStatement.getParameterMetaData for those using
-	Java Studio Creator which needs it.  This isn't a compliance issue
-	because the spec allows us to return null.
       </action>
       <action context="code">
         Currently the internal type cache is not schema aware.
