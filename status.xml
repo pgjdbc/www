@@ -2,10 +2,10 @@
 <status>
 
   <developers>
-    <person name="Kris Jurka"      email="books@ejurka.com"      id="jurka" />
-    <person name="Oliver Jowett" id="oliver" />
-    <person name="Dave Cramer" id="davec" />
-    <person name="Barry Lind" id="blind" />
+    <person name="Kris Jurka"    email="books@ejurka.com"     id="jurka" />
+    <person name="Oliver Jowett" email="oliver@opencloud.com" id="oliver" />
+    <person name="Dave Cramer"   email="pg@fastcrypt.com"     id="davec" />
+    <person name="Barry Lind"    email="blind@xythos.com"     id="blind" />
   </developers>
 
   <changes>
@@ -14,7 +14,107 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
-    <release version="current" date="unreleased">
+    <release version="pg80beta1" date="2004-11-09">
+      <action dev="jurka" type="update" due-to="Serguei Mokhov">
+        Updated Russian translation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christian Niles">
+        Correctly cast the return value of a CallableStatement when getShort
+	is called.  getByte presents a can't happen situation as no function
+	can return a TINYINT because pg doesn't have an equivalent type.
+	Make this throw an exception if we get to this point.
+      </action>
+      <action dev="jurka" type="add" due-to="Diego A. Gil.">
+        New Spanish translation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Alexey Yudichev">
+        Make PreparedStatement.setNull(i, Types.BOOLEAN) strongly typed.
+	Previously only Types.BIT was used the boolean oid mapping and
+	Types.BOOLEAN used the unknown oid.
+      </action>
+      <action dev="jurka" type="fix" due-to="Alexey Yudichev">
+        When using large objects for binary data (compatibleVersion &lt; 7.2)
+	support setNull(i, Types.VARBINARY) to set the oid of the large
+	object to NULL.
+      </action>
+      <action dev="jurka" type="update" due-to="Vadim Nasardinov">
+        Update READMEs to reflect the current situation.
+      </action>
+      <action dev="jurka" type="fix">
+        When calling setNull or setObject with Types.CHAR, use the oid of
+        the bpchar pg type, not varchar.  Correct array creation that was
+	using char, not bpchar.  Type all textual data as varchar instead
+	of text because it allows the correct comparison to be made with
+	char data on text with trailing spaces: 
+	SELECT ' '::char = ' '::varchar;
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Alexey Yudichev">
+        Make fastpath/largeobject code aware of transaction state, so that
+	in autocommit off mode it will start a new transaction if necessary.
+      </action>
+      <action dev="jurka" type="fix" due-to="Alexey Yudichev">
+        Bit shifting code had a typo that incorrectly reconstructed an int
+	from a byte[].  This fixes a problem with large objects on systems
+	whose oid counter is >= 0x01000000.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christian Niles">
+        Make registerOutParameter work with Types.BOOLEAN.
+      </action>
+      <action dev="oliver" type="fix">
+        Disallow these cases as we have insufficient type information:
+	setNull(i, Types.OTHER), setObject(i, null),
+	setObject(i, null, Types.OTHER).  Fix updateable result sets so
+	they pass type information on when setting a column to NULL.
+      </action>
+      <action dev="jurka" type="fix">
+        Don't allow a negative fetch size to be set on a ResultSet.
+      </action>
+      <action dev="oliver" type="fix">
+        Make sure that ds/* really is included in the set of files to
+	compile (fixes some dependency problems with partial builds).
+      </action>
+      <action dev="jurka" type="fix">
+        Make escape syntax processing {oj (and friends) } case insensitive.
+      </action>
+      <action dev="oliver" type="fix">
+        Fixes for handling double-quotes and backslashes in single-quoted
+	literals when parsing queries for parameter placeholders.
+      </action>
+      <action dev="jurka" type="fix">
+        Updatable ResultSets need to check for an empty ResultSet because
+	isBeforeFirst and isAfterLast both return false for an empty result
+	so the checking to make sure the user is on a valid row wasn't
+	working.  Also don't allow an insert without specifying at least
+	one column value because INSERT INTO tab() values() is a syntax error.
+      </action>
+      <action dev="jurka" type="fix">
+        When splitting up a multistatement query to be executed individually
+	do not consider a whitespace only query to be significant.  The
+	original code correctly considered "SELECT 1;" to be one query, but
+	thought "SELECT 1; " was two queries.
+      </action>
+      <action dev="jurka" type="fix">
+        When a connection attempt is made that does not provide a username,
+	then let this go through to the server as the empty string producing
+	a "no user name specified" error instead of a NullPointerException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Alan Stange">
+        When executing a batch statement that has two statements in it, we
+	get confused and bail out with a "Too many update results" message.
+	This message construction was producing an
+	ArrayIndexOutOfBoundsException because it wasn't checking bounds
+	properly.
+      </action>
+      <action dev="jurka" type="update">
+        Standardize copyright notices and use of the PostgreSQL cvs
+	keyword.  Update copyright years to 2004.
+      </action>
+      <action dev="jurka" type="update">
+        Upgrade website to use forrest 0.6.
+      </action>
     </release>
 
     <release version="pgdev307" date="2004-10-19">
@@ -516,16 +616,14 @@
 
   <todo>
     <actions priority="Before 8.0 Release">
-      <action context="source">
-        Run a source code indenter over the codebase to clean up the
-	mess we've got.
+      <action context="bugs">
+        Allow changing of client_encoding to allow COPY to/from a file to
+	work for encodings other than unicode.
       </action>
-      <action context="source">
-        Check CVS repository's use of the  $PostgreSQL$ tag.  Make
-	sure it works and files have it.
-      </action>
-      <action context="performance" dev="jurka">
-        Default the prepareThreshold parameter to 5.
+      <action context="bugs">
+        Allow PGobject to be used to set NULL values to get strong typing
+	because we don't allow things like
+	PreparedStatement.setNull(i, Types.OTHER) anymore.
       </action>
       <action context="bugs">
         Investigate parsing/sending of date/time/timestamp datatypes:

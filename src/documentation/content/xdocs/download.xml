@@ -72,12 +72,12 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>8.0 Build 307</td>
+	  <td>8.0 Build 308</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/pgdev.307.jdbc2.jar">pgdev.307.jdbc2.jar</a></td>
-	  <td><a href="download/pgdev.307.jdbc2ee.jar">pgdev.307.jdbc2ee.jar</a></td>
-	  <td><a href="download/pgdev.307.jdbc3.jar">pgdev.307.jdbc3.jar</a></td>
-	  <td><a href="download/pgdev.307.src.tar.gz">pgdev.307.src.tar.gz</a></td>
+	  <td><a href="download/pg80b1.308.jdbc2.jar">pg80b1.308.jdbc2.jar</a></td>
+	  <td><a href="download/pg80b1.308.jdbc2ee.jar">pg80b1.308.jdbc2ee.jar</a></td>
+	  <td><a href="download/pg80b1.308.jdbc3.jar">pg80b1.308.jdbc3.jar</a></td>
+	  <td><a href="download/pg80b1.308.src.tar.gz">pg80b1.308.src.tar.gz</a></td>
 	</tr>
 	<tr>
 	  <td>7.4 Build 215</td>

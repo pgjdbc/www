@@ -23,7 +23,7 @@ See http://xml.apache.org/forrest/linking.html for more info
     <lists label="Mailing Lists" href="lists.html" />
     <who label="Developers" href="who.html" />
     <todo label="Todo" href="todo.html" />
-    <changes label="Release Notes" href="changes.html" />
+    <changes label="Changelog" href="changes.html" />
   </about>
 
   <documentation label="Documentation" href="documentation/" tab="documentation">
