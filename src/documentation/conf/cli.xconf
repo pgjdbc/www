@@ -158,6 +158,9 @@
    <exclude pattern="development/po/*.po" />
    <exclude pattern="development/po/messages.pot" />
 
+   <!-- documentation is generated from the source tree's docbook xml file -->
+   <exclude pattern="documentation/80/**" />
+
    <!--
    <uri src="favicon.ico"/>
    -->

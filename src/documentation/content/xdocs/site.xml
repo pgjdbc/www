@@ -28,7 +28,6 @@ See http://xml.apache.org/forrest/linking.html for more info
 
   <documentation label="Documentation" href="documentation/" tab="documentation">
     <docs label="Overview" href="docs.html" />
-    <docbook label="Documentation" href="pgjdbc.html" />
     <faq label="FAQ" href="faq.html" />
     <publicapi label="Public API" href="publicapi/index.html" />
   </documentation>

@@ -83,8 +83,10 @@ if (column < 1 || column > fields.length) {
       </p>
       <source>msgfmt -c -v -o /dev/null pofile</source>
       <p>
-        If everything checks out send the po file on over to
-	<a href="mailto:pgsql-jdbc@postgresql.org">pgsql-jdbc@postgresql.org</a>.
+        If everything checks out send the po file on over to the
+	<a href="mailto:pgsql-jdbc@postgresql.org">pgsql-jdbc@postgresql.org</a>
+	mailing list.  This list does have a size limit of 30k, so you will
+	need to compress the po file before sending it.
       </p>
     </section>
 

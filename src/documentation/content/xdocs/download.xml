@@ -72,12 +72,12 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>8.0 Build 308</td>
+	  <td>8.0 Build 309</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/pg80b1.308.jdbc2.jar">pg80b1.308.jdbc2.jar</a></td>
-	  <td><a href="download/pg80b1.308.jdbc2ee.jar">pg80b1.308.jdbc2ee.jar</a></td>
-	  <td><a href="download/pg80b1.308.jdbc3.jar">pg80b1.308.jdbc3.jar</a></td>
-	  <td><a href="download/pg80b1.308.src.tar.gz">pg80b1.308.src.tar.gz</a></td>
+	  <td><a href="download/postgresql-8.0.309.jdbc2.jar">8.0.309 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.0.309.jdbc2ee.jar">8.0.309 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.0.309.jdbc3.jar">8.0.309 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.0.309.src.tar.gz">8.0.309 Source</a></td>
 	</tr>
 	<tr>
 	  <td>7.4 Build 215</td>

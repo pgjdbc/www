@@ -14,6 +14,157 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="pg80.309" date="2005-01-17">
+      <action dev="jurka" type="fix">
+        Fix warnings on javadoc because the comments were attached to
+	fields instead of functions.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust DatabaseMetaData to acknowledge that 8.0 supports savepoints.
+      </action>
+      <action dev="jurka" type="fix">
+        Change error message to reflect the driverconfig.properties file name.
+      </action>
+      <action dev="oliver" type="fix">
+        Minor code rearrangement to avoid warnings from jikes.
+	Fix several switch-fallthrough bugs detected by jikes.
+      </action>
+      <action dev="jurka" type="update" due-to="Nicolai Tufar">
+        Updated Turkish translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Zhenbang Wei">
+        Updated Chinese translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Serguei Mokhov">
+        Updated Russian translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Updated Brazilian Portuguese translation.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Initial French translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Guillame Cottenceau">
+        Updated French translation.
+      </action>
+      <action dev="jurka" type="add" due-to="Andre Bialojahn">
+        Initial German translation.
+      </action>
+      <action dev="jurka" type="fix">
+        In a java MessageFormat you need to double single quotes to get
+	them to work correctly.
+      </action>
+      <action dev="oliver" type="fix">
+        Throw exceptions if cancelRowUpdates() or updateRow() are called
+	when on the insert row, per javadoc.
+      </action>
+      <action dev="jurka" type="fix">
+        Add a URL parameter (allowEncodingChanges) which allows a client
+	to change the client_encoding variable.  This is necessary because
+	server side COPY commands expect the file to be encoded in the
+	client_encoding.
+      </action>
+      <action dev="jurka" type="add">
+        Implement holdable ResultSet support by simply avoiding the use of
+	cursors and fetching all data at once.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Implementation of standard escaped functions ( {fn func()} )
+	by rewriting to existing PostgreSQL functions.
+      </action>
+      <action dev="jurka" type="fix">
+        Check to see if a ResultSet is closed before performing operations on
+	it.  This avoids potential NullPointerExceptions and other problems.
+      </action>
+      <action dev="jurka" type="fix">
+        Rewrite date/time/timestamp parsing code.  Instead of trying to jam
+	it into a format we can use DateFormat.parse on, just read the fields
+	individually.
+
+	This fixes problems with BC dates and dates past 9999.
+
+	It now also rejects +/- infinity instead of mapping these to
+	arbitrary java values.  There is no equivalent.
+      </action>
+      <action dev="jurka" type="fix">
+        Since getURL is not implemented, throw an exception, don't just
+	return null.
+      </action>
+      <action dev="jurka" type="update" due-to="Xavier Poinsard">
+        Reduce number of messages to translate by parameterizing common
+        error messages.
+      </action>
+      <action dev="jurka" type="fix">
+        When closing a Statement or ResultSet be sure to close the underlying
+	Query/ResultCursor to release backend resources.
+      </action>
+      <action dev="jurka" type="fix">
+        Do not use named statements when batch executing a whole bunch of
+	individual sql statements.  We'll never reuse them and they just
+	take up backend resources.
+      </action>
+      <action dev="jurka" type="fix">
+        When loading driverconfig.properties files from the classpath, ensure
+	that settings are read in reverse classpath order.  This means that
+	settings from files earlier in the classpath override settings from
+	files found at the end of the classpath.
+      </action>
+      <action dev="jurka" type="fix">
+        Allow the regression tests to pass when running against an 8.0 server
+	with default_with_oids turned off.  Some tests depend on a table
+	having oids.
+      </action>
+      <action dev="jurka" type="add">
+        Implement CallableStatement.getArray.
+      </action>
+      <action dev="jurka" type="fix">
+        When retrieving Int8 or Int16 protocol message formats, we need to
+	correctly truncate the Int32 storage used to sign these narrower
+	types.  This notably appeared in RowDescription message for
+	variable length datatypes.  The Field.length should have been -1, but
+	was 65535.
+      </action>
+      <action dev="jurka" type="update">
+        Rename PGConnectionPool to PGConnectionPoolDataSource to try and
+	better identify it as not actually being a connection pool.  Update
+	the documentation to point to the new common org.postgresql.ds
+	classes instead of separate jdbc2/jdbc3 implementations.
+      </action>
+      <action dev="jurka" type="update">
+        Update copyright year to 2005.
+      </action>
+      <action dev="jurka" type="fix">
+        When calling toString on a Statement, don't go into a infite loop.
+      </action>
+      <action dev="jurka" type="fix">
+        When determining if the user has changed the client_encoding to
+	something other than unicode, the comparison must be done case
+	insensitively.
+      </action>
+      <action dev="oliver" type="fix">
+        Add PSQLState codes to all PSQLExceptions thrown by the driver.
+	Remove the PSQLException ctor that does not take a PSQLState.
+
+	Intercept exceptions in PooledConnectionImpl's handlers. When a fatal
+	exception is seen (determined by looking at the exception's SQL state),
+	notify any connection event listeners.
+
+	Fix rethrowing of exceptions at the Connection level in
+	PooledConnectionImpl.
+      </action>
+      <action dev="oliver" type="update">
+        Change default autocommit of our CPDS implementation to on, to be
+	consistent with normal connections.
+      </action>
+      <action dev="jurka" type="update">
+        Bail out with a helpful error message if we cannot build or run the
+	test suite because of missing dependencies, junit or ant's junit task.
+      </action>
+      <action dev="jurka" type="add">
+        Add a chapter on SSL configuration to the documentation.
+      </action>
+    </release>
+
     <release version="pg80beta1" date="2004-11-09">
       <action dev="jurka" type="update" due-to="Serguei Mokhov">
         Updated Russian translation.
@@ -115,6 +266,19 @@
       <action dev="jurka" type="update">
         Upgrade website to use forrest 0.6.
       </action>
+      <action dev="oliver" type="add">
+        Allow configuration of the driver by a properties file.
+	All copies of org.postgresql.driverconfig.properties found in the
+	classpath will be read and used to setup defaults for the driver.
+	The most prominent use of this is to allow third parties to provide
+	 mappings for custom datatypes.
+      </action>
+      <action dev="jurka" type="update">
+        Set the default prepareThreshold to five per previous discussion.
+      </action>
+      <action dev="jurka" type="update">
+        Indent source code with: astyle -j -p --convert-tabs
+      </action>
     </release>
 
     <release version="pgdev307" date="2004-10-19">
@@ -182,7 +346,7 @@
 	version behavior.
       </action>
       <action dev="jurka" type="fix">
-        Restrucute DataSource code to provide a generic interface in
+        Restructure DataSource code to provide a generic interface in
 	org.postgresql.ds.*.  No longer is the jdbc version we compiled
 	for relevent.  This allows the driver and regression suite to be
 	compiled with the 1.5 jdk.
@@ -196,7 +360,7 @@
 	allow Exceptions or bad length parameters to cause the connection
 	state to get confused destroying the connection.
       </action>
-      <action dev="jurka" type="fix" due-to="Devrim GUNDUZ">
+      <action dev="jurka" type="add" due-to="Devrim GUNDUZ">
         Initial translation to Turkish.
       </action>
     </release>
@@ -615,47 +779,36 @@
   </changes>
 
   <todo>
-    <actions priority="Before 8.0 Release">
+    <actions priority="Known Bugs">
       <action context="bugs">
-        Allow changing of client_encoding to allow COPY to/from a file to
-	work for encodings other than unicode.
+        Existing subclasses of PGobject do not correctly support NULL
+	values which is necessary now that the driver requires strong
+	typing and disallows PreparedStatement.setNull(i, Types.OTHER).
       </action>
       <action context="bugs">
-        Allow PGobject to be used to set NULL values to get strong typing
-	because we don't allow things like
-	PreparedStatement.setNull(i, Types.OTHER) anymore.
+	Timestamp without time zone doesn't work correctly when the
+	client and server are in different timezones.
       </action>
       <action context="bugs">
-        Investigate parsing/sending of date/time/timestamp datatypes:
-	<ul>
-	  <li>8.0 can have BC timestamps.</li>
-	  <li>Look at the existing BC date support.</li>
-	  <li>See what happens when the server and client are in
-	      different timezones.</li>
-	  <li>Dates past 9999 don't work.</li>
-	  <li>The conversion to/from datatypes supporting infinity is
-	      silly because Java doesn't have a similar concept.  Throw an
-	      exception instead.</li>
-	  <li>This <link href="http://gborg.postgresql.org/pipermail/pgjdbc-commit/2004-February/000026.html">email</link> notes some fractional seconds
-	      problems, but I forget the details now.</li>
-	</ul>
+        Deallocating large numbers of server side statements can break the
+	connection by filling network buffers.  This is a very, very low
+	probability bug, but it is still possible.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-12/msg00115.php">ref</link>
       </action>
       <action context="bugs">
-        Investigate whether ACLs are still stored in the same format in 8.0.
-	I have a feeling they aren't and DatabaseMetaData will need to get
-	updated.
+        ACLs have changed format since the parsing code was written.  The
+	code only supports 7.3 style ACLs.  DatabaseMetaData methods like
+	getTablePrivileges do not work correctly against later servers.
       </action>
     </actions>
 
     <actions priority="Compliance">
       <action context="JDBC1">
-        Need a to check a ResultSet's closed status in a number of places to
-	avoid throwing NullPointerExceptions on some methods called on a
-	closed ResultSet.
-      </action>
-      <action context="JDBC1">
         Implement Statement.setQueryTimeout.
 	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?888">ref</link>
+      </action>
+      <action context="JDBC1">
+        ResultSets created from a refcursor return null for getMetaData().
       </action>
       <action context="JDBC2">
         Updatable ResultSet updateXXX don't do range checking.  This can
@@ -684,12 +837,6 @@
       </action>
       <action context="JDBC3">
         Implement Blob/Clob write/position methods.
-      </action>
-      <action context="JDBC3">
-        Implement holdable ResultSets by fetching all data into the driver,
-	although it would be better if we could use the backend support
-	for these.
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-07/msg00239.php">ref</link>
       </action>
     </actions>
 
@@ -720,13 +867,6 @@
     </actions>
 
     <actions priority="Other">
-      <action context="build">
-        Split the build.xml file out into a number of smaller files and
-	clean it up.
-      </action>
-      <action context="doc">
-        Add documentation for SSL connections: <link href="http://archives.postgresql.org/pgsql-jdbc/2003-08/msg00110.php">ref1</link> <link href="http://archives.postgresql.org/pgsql-jdbc/2004-02/msg00198.php">ref2</link>.
-      </action>
       <action context="test">
         Pass the JDBC CTS (Sun's test suite).
       </action>
@@ -740,10 +880,6 @@
         Implement PreparedStatement.getParameterMetaData for those using
 	Java Studio Creator which needs it.  This isn't a compliance issue
 	because the spec allows us to return null.
-      </action>
-      <action context="feature">
-        Add scalar functions specified in the {fn } escape syntax.
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-08/msg00084.php">ref</link>
       </action>
       <action context="code">
         Currently the internal type cache is not schema aware.
@@ -760,12 +896,6 @@
     </actions>
 
     <actions priority="Website">
-      <action context="">
-        Split the documentation up into chapter sized pieces.  Right now the
-	docbook source is in both cvs modules, decide if we want to require
-	forrest to build it or the existing ant + external stylesheets is
-	the way to go.
-      </action>
       <action context="">
         Setup a cron job somewhere to build and deploy the sight on a daily
 	basis to keep API changes and translations up to date.
