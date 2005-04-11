@@ -14,6 +14,86 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev400" date="2005-04-10">
+      <action dev="oliver" type="add">
+        Implement basic login timeout support via a 'loginTimeout' URL parameter.
+      </action>
+      <action dev="jurka" type="fix">
+        SQLWarning.getMessage wasn't reporting the message from a Notice
+	message in the V3 protocol.  Make the V2 and V3 cases return a
+	consistent message and add a test.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Siegmar">
+        Restore the ability for the JDBC driver to map infinite timestamp
+	values by using special constants in PGStatement.  The original
+	implementation was removed for being arbitrary and unidirectional.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Add method names to the not implemented exception to allow
+	unhelpful client programs that don't provide a stacktrace
+	to be debugged.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tore Halset">
+        Support setNull(x, Types.BLOB) and CLOB, reported by Tore Halset.
+      </action>
+      <action dev="oliver" type="fix" due-to="Ken Geis">
+        Avoid generating garbage byte[0] objects that we immediately discard in
+	ReceiveTupleV2 / ReceiveTupleV3. Also some minor rearrangements to avoid
+	an unnecessary assignment in the null case. This gives a small performance
+	improvement.
+      </action>
+      <action dev="jurka" type="add" due-to="Peter Royal">
+        Get DatabaseMetaData.getIndexInfo to return useful data for
+	functional indexes.  Return the expression used for the column name.
+      </action>
+      <action dev="jurka" type="fix" due-to="Prasanth">
+        When moveToCurrentRow is called and the current row is off the
+	end of the ResultSet we can't try to load that row because it
+	doesn't exist and will throw an Exception.
+      </action>
+      <action dev="jurka" type="add" due-to="Michael Barker">
+        Implement JDBC 3 Blob methods to allow writing.
+      </action>
+      <action dev="jurka" type="add">
+        Make all the fields of a server error message available.
+      </action>
+      <action dev="jurka" type="add">
+        Put all type info handling into a separate file.  This links oids,
+	pg type names, sql types, and java class names together.
+	Use this information to implement ParameterMetaData's
+	getParameterClassName.
+      </action>
+    </release>
+
+    <release version="8.0-311" date="2005-04-10">
+      <action dev="jurka" type="fix">
+        SQLWarning.getMessage wasn't reporting the message from a Notice
+	message in the V3 protocol.  Make the V2 and V3 cases return a
+	consistent message and add a test.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Siegmar">
+        Restore the ability for the JDBC driver to map infinite timestamp
+	values by using special constants in PGStatement.  The original
+	implementation was removed for being arbitrary and unidirectional.
+      </action>
+      <action dev="jurka" type="add" due-to="Xavier Poinsard">
+        Add method names to the not implemented exception to allow
+	unhelpful client programs that don't provide a stacktrace
+	to be debugged.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tore Halset">
+        Support setNull(x, Types.BLOB) and CLOB, reported by Tore Halset.
+      </action>
+      <action dev="jurka" type="fix" due-to="Prasanth">
+        When moveToCurrentRow is called and the current row is off the
+	end of the ResultSet we can't try to load that row because it
+	doesn't exist and will throw an Exception.
+      </action>
+      <action dev="jurka" type="fix">
+        Ensure PSQLWarning is Serializable.
+      </action>
+    </release>
+
     <release version="8.0-310" date="2005-02-02">
       <action dev="oliver" type="fix" due-to="Xavier Poinsard">
         Bugfixes and tests for two date-related bugs:
@@ -900,7 +980,7 @@
 	information.  Currently we only return JDBC 2 data for these methods.
       </action>
       <action context="JDBC3">
-        Implement Blob/Clob write/position methods.
+        Implement Clob write/position methods.
       </action>
     </actions>
 

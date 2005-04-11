@@ -6,7 +6,15 @@ my %langPcts;
 my $totalMessages;
 my $lang;
 
-while(<>) {
+if (@ARGV != 2) {
+	die "Usage: generatePoStatus.pl <file> <version>\n";
+}
+
+my $version = $ARGV[1];
+
+open INFILE, $ARGV[0] or die $!;
+
+while(<INFILE>) {
 	my $line = $_;
 	if ($line =~ /(\w+).po\n/) {
 		$lang = $1;
@@ -28,37 +36,17 @@ while(<>) {
 	}
 }
 
-print <<HEADER;
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
-<document>
-  <header>
-    <title>Translation Downloads</title>
-  </header>
-  <body>
-    <section id="current">
-      <title>Current Branch</title>
-      <p>
-        The numbers are percentages of translated messages.  The links are
-	to the message catalogs merged up against the latest source code.
-	If you wish to start a translation for a language not listed here,
-	download the template message catalog.
-      </p>
-HEADER
+close(INFILE);
+
+print "<section id=\"v" . $version . "\">\n";
+print "<title>Branch - " . $version . "</title>\n";
 
 print "<table><tr><th>&nbsp;</th>\n";
 foreach $lang (sort(keys(%langPcts))) {
 	print "<th>" . $lang . "</th>\n";
 }
-print "</tr><tr><td><a href=\"messages.pot\">Template</a><br />Messages: " . $totalMessages . "</td>\n";
+print "</tr><tr><td><a href=\"" . $version . "-messages.pot\">Template</a><br />Messages: " . $totalMessages . "</td>\n";
 foreach $lang (sort(keys(%langPcts))) {
-	print "<td><a href=\"" . $lang . ".po\">" . $langPcts{$lang} . "</a></td>\n";
+	print "<td><a href=\"" . $version . "-" . $lang . ".po\">" . $langPcts{$lang} . "</a></td>\n";
 }
-print "</tr></table>\n";
-
-print <<FOOTER;
-    </section>
-  </body>
-</document>
-FOOTER
-
+print "</tr></table></section>\n";
