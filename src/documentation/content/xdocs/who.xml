@@ -57,6 +57,19 @@
 	    <li>Standard escaped functions {fn ...() }</li>
 	  </ul>
 	</li>
+	<li>
+	  Oliver Siegmar
+	  <ul>
+	    <li>Support for infinity in the timestamp datatype</li>
+	    <li>Make PGInterval able to decode and manipulate interval data</li>
+	  </ul>
+	</li>
+	<li>
+	  Michael Barker
+	  <ul>
+	    <li>Blob write and position methods.</li>
+	  </ul>
+	</li>
       </ul>
     </section>
 
