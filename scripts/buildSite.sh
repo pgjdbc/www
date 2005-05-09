@@ -38,6 +38,10 @@ do
 
 	mkdir build/site/documentation/$version
 	cp $dir/build/doc/*.html build/site/documentation/$version
+	mv $dir/build/doc postgresql-jdbc-$version-doc
+	tar -czf build/site/documentation/postgresql-jdbc-$version-doc.tar.gz postgresql-jdbc-$version-doc
+	rm -rf postgresql-jdbc-$version-doc
+
 done
 
 cd src/documentation/content/xdocs/development/po && cat top head 80 bottom > status.xml && cd ../../../../../..

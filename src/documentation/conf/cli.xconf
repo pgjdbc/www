@@ -147,6 +147,7 @@
    <exclude pattern="download/*.jar" />
    <exclude pattern="download/*.tar.gz" />
    <exclude pattern="download/*.tgz" />
+   <exclude pattern="documentation/*.tar.gz" />
 
    <!-- Javadoc won't be there when building the site. -->
    <exclude pattern="documentation/publicapi/**" />

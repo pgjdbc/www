@@ -13,8 +13,8 @@
       refer to the documentation written for your specific driver version.
     </p>
     <ul>
-      <li><a href="head/index.html">Development Documentation</a></li>
-      <li><a href="80/index.html">8.0</a></li>
+      <li><a href="head/index.html">8.1dev</a> Download - <a href="postgresql-jdbc-head-doc.tar.gz">postgresql-jdbc-head-doc.tar.gz</a></li>
+      <li><a href="80/index.html">8.0</a> Download - <a href="postgresql-jdbc-80-doc.tar.gz">postgresql-jdbc-80-doc.tar.gz</a></li>
       <li><a href="http://www.postgresql.org/docs/7.4/static/jdbc.html">7.4</a></li>
       <li><a href="http://www.postgresql.org/docs/7.3/static/jdbc.html">7.3</a></li>
       <li><a href="http://www.postgresql.org/docs/7.2/static/jdbc.html">7.2</a></li>
