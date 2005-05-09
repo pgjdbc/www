@@ -965,11 +965,6 @@
       <action context="JDBC2">
         Implement SQLInput and SQLOutput to allow composite types to be used.
       </action>
-      <action context="JDBC2EE">
-        Implement the Datasource (and add a Connection) login timeout.
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-01/msg00085.php">ref1</link>,
-	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-01/msg00308.php">ref2</link>
-      </action>
       <action context="JDBC3">
         Implement Statement.getGeneratedKeys.
 	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?984">ref1</link>,
@@ -978,6 +973,7 @@
       <action context="JDBC3">
         The JDBC 3 DatabaseMetaData methods sometimes return additional
 	information.  Currently we only return JDBC 2 data for these methods.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-12/msg00038.php">ref</link>
       </action>
       <action context="JDBC3">
         Implement Clob write/position methods.
@@ -1021,6 +1017,14 @@
         Allow multi-dimensional array support.
       </action>
       <action context="code">
+      	Allow SSL to use client certificates.  This can probably be done with
+	our existing SSLSocketFactory customization code, but it would be
+	good to provide an example or other wrapper so a non-expert can set
+	it up.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-12/msg00077.php">ref1</link>,
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-12/msg00083.php">ref2</link>
+      </action>
+      <action context="code">
         Currently the internal type cache is not schema aware.
       </action>
       <action context="code">
@@ -1031,6 +1035,49 @@
       <action context="metadata">
         getTypeInfo returns table types because they are valid datatypes, but
 	it seems pointless to return toast tables' types here.
+      </action>
+    </actions>
+
+    <actions priority="Ideas">
+      <action>
+        Allow Blob/Clob to operate on bytea/text data.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-01/msg00058.php">ref</link>
+      </action>
+      <action>
+        Allow getByte/getInt/... to work on boolean values
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-01/msg00254.php">ref</link>
+      </action>
+      <action>
+        Add a URL parameter to make the driver not force a rollback on error
+	for compatibility with other dbs.  The driver can wrap each
+	statement in a Savepoint.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-01/msg00131.php">ref</link>
+      </action>
+      <action>
+        Combine DatabaseMetaData efforts with pl/java.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-02/msg00063.php">ref</link>
+      </action>
+      <action>
+        ResultSetMetaData calls that run queries are cached on a per column
+	basis, but it seems likely that they're going to be called for all
+	columns, so try to issue one query per ResultSet, not per column.
+      </action>
+      <action>
+        Make PGConnection, PGStatement, ... extend java.sql.XXX
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-01/msg00223.php">ref</link>
+      </action>
+    </actions>
+
+    <actions priority="Documentation">
+      <action>
+        The PGResultSetMetaData interface is not mentioned.
+      </action>
+      <action>
+        Timestamp +/- Infinity values are not mentioned.
+      </action>
+      <action>
+      	Async notifies are more async now.
+	<link href="http://archives.postgresql.org/pgsql-jdbc/2005-04/msg00056.php">ref</link>
       </action>
     </actions>
 
