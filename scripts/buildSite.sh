@@ -30,10 +30,10 @@ do
 	for po in $dir/org/postgresql/translation/*.po
 	do
 		base=`basename $po .po`
-		cp $po src/documentation/content/xdocs/development/po/$version-$base.po
+		cp $po build/site/development/po/$version-$base.po
 	done
 
-	cp $dir/org/postgresql/translation/messages.pot src/documentation/content/xdocs/development/po/$version-messages.pot
+	cp $dir/org/postgresql/translation/messages.pot build/site/development/po/$version-messages.pot
 	cd $dir && ant publicapi privateapi doc && cd ..
 
 	mkdir build/site/documentation/$version
