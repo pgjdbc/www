@@ -70,6 +70,12 @@
 	    <li>Blob write and position methods.</li>
 	  </ul>
 	</li>
+	<li>
+	  Andras Kadinger
+	  <ul>
+	    <li>Support asynchronous notification retrieval.</li>
+	  </ul>
+	</li>
       </ul>
     </section>
 
