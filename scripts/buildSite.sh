@@ -10,6 +10,10 @@ cvs update
 #cvs doesn't let us change permissions after the fact
 chmod +x scripts/generatePoStatus.pl
 
+# running from a clean tree we need this directory to put .po files
+# in before forrest will get around to creating it.
+mkdir -p build/site/development/po
+
 for version in 80 head
 do
 	dir=pgjdbc-$version
@@ -17,7 +21,6 @@ do
 	cd $dir && ant clean && cd ..
 	cd $dir && cvs update && cd ..
 	cd $dir && ./update-translations.sh && cd ..
-	mkdir src/documentation/content/xdocs/development/po
 
 	for i in $dir/org/postgresql/translation/*.po
 	do
@@ -36,7 +39,7 @@ do
 	cp $dir/org/postgresql/translation/messages.pot build/site/development/po/$version-messages.pot
 	cd $dir && ant publicapi privateapi doc && cd ..
 
-	mkdir build/site/documentation/$version
+	mkdir -p build/site/documentation/$version
 	cp $dir/build/doc/*.html build/site/documentation/$version
 	mv $dir/build/doc postgresql-jdbc-$version-doc
 	tar -czf build/site/documentation/postgresql-jdbc-$version-doc.tar.gz postgresql-jdbc-$version-doc
