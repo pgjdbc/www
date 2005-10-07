@@ -14,6 +14,102 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev402" date="2005-10-04">
+      <action dev="oliver" type="fix">
+        Fix a multitude of timestamp, timezone, and Calendar problems
+	resulting from the mismatch of Java's Timestamp object and the
+	SQL specs timestamp with and without time zone datatypes.
+      </action>
+      <action dev="jurka" type="fix">
+        getWarnings() should throw a SQLException if called on a closed
+	Statement.
+      </action>
+      <action dev="jurka" type="fix">
+        Make callable statements work again for JDK 1.5 builds.  Any code
+	in the jdbc3/Jdbc3 classes also needs to get into the corresponding
+	jdbc3g/Jdbc3g class.
+      </action>
+      <action dev="jurka" type="fix" due-to="Albe Laurenz">
+        Every execution of a Statement clears the warning chain from the
+	previous execution.  This was causing a memory leak by endlessly
+	chaining warnings together that should have been discarded.
+      </action>
+      <action dev="oliver" type="fix">
+        Fix updateRow() involving Date, Time, or Timestamp.
+      </action>
+      <action dev="jurka" type="add" due-to="Petr Dittrich">
+        Initial Czech translation.
+      </action>
+      <action dev="jurka" type="add">
+        Add the Detail: field to the default error message string.  This is
+	often includes valuable information that shouldn't require adjusting
+	the loglevel to receive.
+      </action>
+      <action dev="jurka" type="fix">
+        Remove direct manipulation of org.postgresql.Driver.logDebug in
+	tests for no apparent reason.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust DatabaseMetaData.getCatalogs to only return the current
+	connection's catalog.  PG doesn't support multiple catalogs on a
+	single connection and making this information available only confuses
+	people and applications.  Per discussion of Jan 2004.
+      </action>
+      <action dev="jurka" type="fix" due-to="Marc Herbert">
+        Map setObject calls for Types.BLOB, CLOB, and ARRAY to call the
+	related setXXX method if we don't need to do any conversion.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jean-Pierre Pelletier">
+        8.1 servers store interval day and hour information separately, so
+	we have to be prepared for more than two digits worth of hour data.
+	Also pre-7.4 servers do not return second information if it is zero,
+	so we cannot parse this field unless it is actually there.
+      </action>
+      <action dev="jurka" type="fix">
+        Add checks to prevent ResultSet.updateXXX methods from throwing
+	an ArrayIndexOutOfBoundsException.  We should only throw SQLExceptions
+	from here.
+      </action>
+      <action dev="jurka" type="fix" due-to="Karl von Randow">
+        ResultSet.getObject().getClass().getName() should match up with
+	ResultSetMetaData.getColumnClassName().  This wasn't true for the
+	java.sql.Types.SMALLINT case.
+      </action>
+      <action dev="jurka" type="fix" due-to="Marc Herbert">
+        Make setObject(int, Object) aware of the Blob, Clob, and Array types
+	when trying to infer the incoming object type.
+      </action>
+    </release>
+
+    <release version="8.0-313" date="2005-10-04">
+      <action dev="jurka" type="fix" due-to="Albe Laurenz">
+        Every execution of a Statement clears the warning chain from the
+	previous execution.  This was causing a memory leak by endlessly
+	chaining warnings together that should have been discarded.
+      </action>
+      <action dev="jurka" type="add" due-to="Petr Dittrich">
+        Initial Czech translation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Marc Herbert">
+        Map setObject calls for Types.BLOB, CLOB, and ARRAY to call the
+	related setXXX method if we don't need to do any conversion.
+      </action>
+      <action dev="jurka" type="fix">
+        Add checks to prevent ResultSet.updateXXX methods from throwing
+	an ArrayIndexOutOfBoundsException.  We should only throw SQLExceptions
+	from here.
+      </action>
+      <action dev="jurka" type="fix" due-to="Karl von Randow">
+        ResultSet.getObject().getClass().getName() should match up with
+	ResultSetMetaData.getColumnClassName().  This wasn't true for the
+	java.sql.Types.SMALLINT case.
+      </action>
+      <action dev="jurka" type="fix" due-to="Marc Herbert">
+        Make setObject(int, Object) aware of the Blob, Clob, and Array types
+	when trying to infer the incoming object type.
+      </action>
+    </release>
+
     <release version="dev401" date="2005-07-24">
       <action dev="oliver" type="add" due-to="Andras Kadinger">
         Support asynchronous notifications by looking for pending messages
@@ -1080,10 +1176,6 @@
   <todo>
     <actions priority="Known Bugs">
       <action context="bugs">
-	Timestamp without time zone doesn't work correctly when the
-	client and server are in different timezones.
-      </action>
-      <action context="bugs">
         Deallocating large numbers of server side statements can break the
 	connection by filling network buffers.  This is a very, very low
 	probability bug, but it is still possible.
@@ -1100,11 +1192,6 @@
       <action context="JDBC1">
         Implement Statement.setQueryTimeout.
 	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?888">ref</link>
-      </action>
-      <action context="JDBC2">
-        Updatable ResultSet updateXXX don't do range checking.  This can
-	result in an ArrayIndexOutOfBoundsException from a method that
-	should only throw SQLExceptions.
       </action>
       <action context="JDBC2">
         Sort DatabaseMetaData.getTypeInfo properly (by closest match).
