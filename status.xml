@@ -14,6 +14,21 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev403" date="2005-10-30">
+      <action dev="davec" type="update" due-to="Sergei Rogovskiy">
+        Improve performance of locating placeholders in queries.
+      </action>
+      <action dev="davec" type="update" due-to="Ken Geis">
+        Improve performance of timestamp and currency parsing.
+      </action>
+      <action dev="davec" type="add" due-to="Heikki Linnakangas">
+        XADataSource implementation.
+      </action>
+      <action dev="jurka" type="update" due-to="Xavier Poinsard">
+        French translation updates.
+      </action>
+    </release>
+
     <release version="dev402" date="2005-10-04">
       <action dev="oliver" type="fix">
         Fix a multitude of timestamp, timezone, and Calendar problems

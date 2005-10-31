@@ -10,9 +10,9 @@
       <question>Does the driver have XA support?</question>
       <answer>
         <p>
-          No.  The server does not support two phase commit which is needed.
-	  There are serious efforts being made to get this into the 8.1
-	  release, but we'll have to wait and see.
+          Yes, starting with the 8.1dev-403 driver XADataSource support
+	  is available.  It is not complete in that it does not support
+	  transaction interleaving.
         </p>
       </answer>
     </faq>

@@ -76,6 +76,12 @@
 	    <li>Support asynchronous notification retrieval.</li>
 	  </ul>
 	</li>
+	<li>
+	  Heikki Linnakangas
+	  <ul>
+	    <li>XADataSource implementation.</li>
+	  </ul>
+	</li>
       </ul>
     </section>
 
