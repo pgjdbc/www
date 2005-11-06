@@ -14,6 +14,48 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="8.1-404" date="2005-11-06">
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation updates.
+      </action>
+      <action dev="jurka" type="update" due-to="Nicolai Tufar">
+        Turkish translation updates.
+      </action>
+      <action dev="jurka" type="fix">
+        When formatting an interval value as text, override the system
+	locale settings for DecimalFormat.  We always want to use '.'
+	as the decimal separator regardless of locale because that's
+	what the server expects.
+      </action>
+      <action dev="jurka" type="fix">
+        When I added bounds checking for ResultSet.updateXXX methods, I
+	accidentally removed bounds checking for getXXX methods.  This
+	resulted in an ArrayIndexOutOfBoundsException being thrown instead
+	of the desired SQLException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jolly Chen">
+        The driver needs to break a statement into individual queries to
+	use the V3 extended query protocol.  The parsing code did not
+	recognize multiple rule actions separated by semi-colons as one
+	query.
+      </action>
+    </release>
+
+    <release version="8.0-314" date="2005-11-06">
+      <action dev="jurka" type="fix">
+        When I added bounds checking for ResultSet.updateXXX methods, I
+	accidentally removed bounds checking for getXXX methods.  This
+	resulted in an ArrayIndexOutOfBoundsException being thrown instead
+	of the desired SQLException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jolly Chen">
+        The driver needs to break a statement into individual queries to
+	use the V3 extended query protocol.  The parsing code did not
+	recognize multiple rule actions separated by semi-colons as one
+	query.
+      </action>
+    </release>
+
     <release version="dev403" date="2005-10-30">
       <action dev="davec" type="update" due-to="Sergei Rogovskiy">
         Improve performance of locating placeholders in queries.
