@@ -14,6 +14,70 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev500" date="2005-11-29">
+      <action dev="jurka" type="add" due-to="rupa">
+        Add a URL parameter to enable logging of Connections which are
+	finalized, but not closed.  This will help people debug leaks.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust ResultSetMetaData.getColumnDisplaySize to return
+        Integer.MAX_VALUE instead of -1 for variable length fields.
+      </action>
+      <action dev="jurka" type="fix">
+	Correct the display size calculations for numeric data.  Don't
+        add precision and scale because scale is just a subset of
+        precision.
+      </action>
+      <action dev="oliver" type="update">
+        Strip out call
+        tracing debugging from DatabaseMetaData -- it is only half there,
+        and it isn't really much use for debugging the driver. There are
+        better approaches for tracing application calls into the driver,
+        e.g. JTrace.  Update comments.  Update what the metadata claims
+	in a couple of places: getMaxStatements() returns 0 -- we are only
+	limited by heap size, not by e.g. a hard limit on the number of
+	simultaneous statements on the DB side - supportsMultipleResultSets()
+	returns true -- we support multiple results from execute(), e.g.
+	multiple SELECT statements in one query.
+      </action>
+      <action dev="oliver" type="update">
+        Debug logging overhaul:
+        Support for setting loglevel when running tests.  Tests log to a
+        separate file to avoid making ant run out of heap.  Misc test
+        tweaks to play nicely with logging.
+        Add a Logger class that handles logging a per-connection ID and
+	timestamp on each log line. There is one Logger instance per
+	Connection, and one for the Driver itself.
+        Rearrange per-connection initialization of log levels so it only
+        affects logging on that one particular connection. Default log
+        levels are taken from whatever is specified in the defaults
+        property file, or the current driver-wide loglevel if no default
+	is present. The driver-wide log level is also take from the
+	default property file unless explicitly overridden by
+	Driver.setLogLevel().
+      </action>
+      <action dev="oliver" type="add">
+         Add a new parameter 'stringtype' (values 'varchar' or 'unspecified')
+	 to control how parameters set via setString() are bound.
+	 Fix V3 parameter logic so that prepared statements are not reused
+	 when a non-NULL UNSPECIFIED parameter is set over the top of a
+	 previous parameter.
+      </action>
+      <action dev="oliver" type="update" due-to="Kevin Grittner">
+        Break most of AbstractJdbc2ResultSet.findColumn out into a separate
+        findColumnIndex() method that does not throw if the column isn't
+        found.  Use that method directly in isUpdateable() when looking
+        for the OID column to avoid creating/throwing/catching/discarding
+	an exception unnecessarily.  Clean up redundant try/catch and
+	unnecessary nesting in updateRow().
+      </action>
+      <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+        DatabaseMetaData.getTables should return all table type if passed
+        null as for the types array.  It was previously returning only
+        those tables that psql's \d command would for a null type filter.
+      </action>
+    </release>
+
     <release version="8.1-404" date="2005-11-06">
       <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
         Brazilian Portuguese translation updates.

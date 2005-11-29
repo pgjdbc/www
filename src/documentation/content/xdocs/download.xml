@@ -72,6 +72,14 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
+	  <td>8.2dev Build 500</td>
+	  <td>&nbsp;</td>
+	  <td><a href="download/postgresql-8.2dev-500.jdbc2.jar">8.2dev-500 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.2dev-500.jdbc2ee.jar">8.2dev-500 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.2dev-500.jdbc3.jar">8.2dev-500 JDBC 3</a></td>
+	  <td><a href="download/postgresql-jdbc-8.2dev-500.src.tar.gz">8.2dev-500 JDBC Source</a></td>
+	</tr>
+	<tr>
 	  <td>8.1 Build 404</td>
 	  <td>&nbsp;</td>
 	  <td><a href="download/postgresql-8.1-404.jdbc2.jar">8.1-404 JDBC 2</a></td>
