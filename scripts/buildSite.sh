@@ -2,8 +2,8 @@
 
 # This script is what it takes to build the website with stuff that comes
 # from the source tree (documentation, translations, and javadoc)
-# It requires two versions of the source tree checked out into
-# pgjdbc-head and pgjdbc-80 subdirectories.
+# It requires correct versions of the source tree checked out into
+# pgjdbc-80, pgjdbc-81, and pgjdbc-head subdirectories.
 
 cvs update
 
@@ -14,7 +14,7 @@ chmod +x scripts/generatePoStatus.pl
 # in before forrest will get around to creating it.
 mkdir -p build/site/development/po
 
-for version in 80 head
+for version in 80 81 head
 do
 	dir=pgjdbc-$version
 	rm $dir/org/postgresql/translation/*
@@ -47,7 +47,7 @@ do
 
 done
 
-cd src/documentation/content/xdocs/development/po && cat top head 80 bottom > status.xml && cd ../../../../../..
+cd src/documentation/content/xdocs/development/po && cat top head 81 80 bottom > status.xml && cd ../../../../../..
 
 forrest
 

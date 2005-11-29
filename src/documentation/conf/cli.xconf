@@ -161,6 +161,7 @@
 
    <!-- documentation is generated from the source tree's docbook xml file -->
    <exclude pattern="documentation/80/**" />
+   <exclude pattern="documentation/81/**" />
    <exclude pattern="documentation/head/**" />
 
    <!--+
