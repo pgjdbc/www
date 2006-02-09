@@ -14,6 +14,195 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev501" date="2006-02-09">
+      <action dev="jurka" type="fix" due-to="Oliver Jowett">
+        Statement.cancel was prone to race conditions even with a single
+        threaded client.  It would fire off a cancel message without
+        waiting for an acknowledgement of its success.  This resulted in
+        future queries being cancelled when the cancel message was
+        received by the backend.  Ensure we get an EOF from the server
+        before returning from the cancel call.  This still does nothing
+	about multi-threaded race conditions.
+      </action>
+      <action dev="jurka" type="update">
+        Remove the length argument from Field constructor for manually
+	created Fields.  The length was inconsistently and incorrectly
+	used and it is of little to us, so don't clutter things up by
+	requiring one.
+      </action>
+      <action dev="jurka" type="add">
+        Unify type metadata functions in TypeInfoCache.  Previously
+	ResultSetMetaData and DatabaseMetaData had their own
+	inconsistent versions of these.  Do not use pg_type.typlen when
+	calculating display sizes.  The backend storage size is unlikely
+	to relate to the textual display size of a datatype.
+	Add information for some more types interval, bit, varbit and do
+        some recalculation of the display sizes for numeric, time, and
+        timestamp datetypes.
+      </action>
+      <action dev="jurka" type="update" due-to="Giuseppe Sacco">
+        Italian translation updates.
+      </action>
+      <action dev="jurka" type="add" due-to="Gunnar Stefansson">
+        Update getObject and getArray methods that take a map to only
+	bail out with a not implemented exception if the supplied map
+	is not null and not empty.  Apparently Sun's WebRowSet
+	implementation passes empty Maps to these methods.
+      </action>
+      <action dev="davec" type="fix">
+        Fix the parameter indexing on CallableStatements that do not
+	return any parameters.
+      </action>
+      <action dev="jurka" type="fix">
+        The V2 protocol wasn't correctly handling EmptyQuery messages.
+	It expected a four byte message length after the EmptyQuery
+	message, but there is only a single null byte sent by the backend.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation updates.
+      </action>
+      <action dev="jurka" type="fix" due-to="Senden Kris">
+        When performing replace processing we must continue processing
+	until we hit the end of a user supplied query, not just once
+	we've detected the end of a valid query.  Consider the example:
+	SELECT a FROM t WHERE (1>0)) ORDER BY a; We must send the whole
+	query to the backend, not just the section before the last
+	closing parenthesis.
+      </action>
+      <action dev="jurka" type="fix" due-to="Paolo Predonzani">
+        escapeQuotes() in DatabaseMetaData was not correctly handling
+	backslashes which would result in incorrect searches and has the
+	potential for a SQL injection attack.
+      </action>
+      <action dev="jurka" type="fix" due-to="Till Toenges">
+        The TypeInfoCache had a static Map for the pg
+	type name to java.sql.Types conversion, but it was being
+	reinitialized for each new Connection.  Even though its content
+	is static make this an instance variable for simplicity.
+      </action>
+    </release>
+
+    <release version="8.1-405" date="2006-02-09">
+      <action dev="jurka" type="fix">
+	Correct the display size calculations for numeric data.  Don't
+        add precision and scale because scale is just a subset of
+        precision.
+      </action>
+      <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+        DatabaseMetaData.getTables should return all table type if passed
+        null as for the types array.  It was previously returning only
+        those tables that psql's \d command would for a null type filter.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Jowett">
+        Statement.cancel was prone to race conditions even with a single
+        threaded client.  It would fire off a cancel message without
+        waiting for an acknowledgement of its success.  This resulted in
+        future queries being cancelled when the cancel message was
+        received by the backend.  Ensure we get an EOF from the server
+        before returning from the cancel call.  This still does nothing
+	about multi-threaded race conditions.
+      </action>
+      <action dev="jurka">
+         Add scale information for time/timestamp/interval to
+         DatabaseMetaData.getColumns.  Include knowledge of interval in
+         ResultSetMetaData.
+      </action>
+      <action dev="jurka" type="update" due-to="Giuseppe Sacco">
+        Italian translation updates.
+      </action>
+      <action dev="jurka" type="add" due-to="Gunnar Stefansson">
+        Update getObject and getArray methods that take a map to only
+	bail out with a not implemented exception if the supplied map
+	is not null and not empty.  Apparently Sun's WebRowSet
+	implementation passes empty Maps to these methods.
+      </action>
+      <action dev="davec" type="fix">
+        Fix the parameter indexing on CallableStatements that do not
+	return any parameters.
+      </action>
+      <action dev="jurka" type="fix">
+        The V2 protocol wasn't correctly handling EmptyQuery messages.
+	It expected a four byte message length after the EmptyQuery
+	message, but there is only a single null byte sent by the backend.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation updates.
+      </action>
+      <action dev="jurka" type="fix" due-to="Senden Kris">
+        When performing replace processing we must continue processing
+	until we hit the end of a user supplied query, not just once
+	we've detected the end of a valid query.  Consider the example:
+	SELECT a FROM t WHERE (1>0)) ORDER BY a; We must send the whole
+	query to the backend, not just the section before the last
+	closing parenthesis.
+      </action>
+      <action dev="jurka" type="fix" due-to="Paolo Predonzani">
+        escapeQuotes() in DatabaseMetaData was not correctly handling
+	backslashes which would result in incorrect searches and has the
+	potential for a SQL injection attack.
+      </action>
+      <action dev="jurka" type="fix" due-to="Till Toenges">
+        The TypeInfoCache had a static Map for the pg
+	type name to java.sql.Types conversion, but it was being
+	reinitialized for each new Connection.  Even though its content
+	is static make this an instance variable for simplicity.
+      </action>
+    </release>
+
+    <release version="8.0-315" date="2006-02-09">
+      <action dev="jurka" type="fix">
+	Correct the display size calculations for numeric data.  Don't
+        add precision and scale because scale is just a subset of
+        precision.
+      </action>
+      <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+        DatabaseMetaData.getTables should return all table type if passed
+        null as for the types array.  It was previously returning only
+        those tables that psql's \d command would for a null type filter.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Jowett">
+        Statement.cancel was prone to race conditions even with a single
+        threaded client.  It would fire off a cancel message without
+        waiting for an acknowledgement of its success.  This resulted in
+        future queries being cancelled when the cancel message was
+        received by the backend.  Ensure we get an EOF from the server
+        before returning from the cancel call.  This still does nothing
+	about multi-threaded race conditions.
+      </action>
+      <action dev="jurka">
+         Add scale information for time/timestamp/interval to
+         DatabaseMetaData.getColumns.  Include knowledge of interval in
+         ResultSetMetaData.
+      </action>
+      <action dev="jurka" type="add" due-to="Gunnar Stefansson">
+        Update getObject and getArray methods that take a map to only
+	bail out with a not implemented exception if the supplied map
+	is not null and not empty.  Apparently Sun's WebRowSet
+	implementation passes empty Maps to these methods.
+      </action>
+      <action dev="jurka" type="fix">
+        The V2 protocol wasn't correctly handling EmptyQuery messages.
+	It expected a four byte message length after the EmptyQuery
+	message, but there is only a single null byte sent by the backend.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation updates.
+      </action>
+      <action dev="jurka" type="fix" due-to="Senden Kris">
+        When performing replace processing we must continue processing
+	until we hit the end of a user supplied query, not just once
+	we've detected the end of a valid query.  Consider the example:
+	SELECT a FROM t WHERE (1>0)) ORDER BY a; We must send the whole
+	query to the backend, not just the section before the last
+	closing parenthesis.
+      </action>
+      <action dev="jurka" type="fix" due-to="Paolo Predonzani">
+        escapeQuotes() in DatabaseMetaData was not correctly handling
+	backslashes which would result in incorrect searches and has the
+	potential for a SQL injection attack.
+      </action>
+    </release>
+
     <release version="dev500" date="2005-11-29">
       <action dev="jurka" type="add" due-to="rupa">
         Add a URL parameter to enable logging of Connections which are
