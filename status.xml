@@ -14,6 +14,222 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev502" date="2006-05-22">
+      <action dev="davec" type="fix" due-to="Luis Londono">
+        Fix a couple of bugs in CallableStatement outputs.  An oversight in
+	the checking of actual results vs. what the caller specified for
+	registerOutParameter was checking all register parameters against the
+	first out parameter, not the parameter it actually corresponded with.
+
+	Also with a function that has an in parameter and an out parameter,
+	the out parameter will be registered at position 2, but will be
+	returned in a result at position 1 because the first input parameter
+	generates no output.  The driver needs to correctly map between these
+	two parameter offsets.
+      </action>
+      <action dev="jurka" type="fix" due-to="Giuseppe Sacco">
+        Error messages were not run
+        through MessageFormat if it didn't have any parameters.  This was
+        a problem because all error messages are written expecting to be
+        run through the formatter and use two single quotes when only one
+        is desired in the output.  Without being run through the
+	formatter the two quotes appeared in the output.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German transalation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Till Toenges">
+        Add some more synchronization to the
+        TypeInfoCache.  We need synchronization around the
+        PreparedStatements because they may not be used by two threads at
+        the same time.  Additional synchronization is applied to the maps
+        to ensure that they are in sync with each other.  Make
+        _pgNameToSQLType static.
+      </action>
+      <action dev="jurka" type="add">
+        Add a protocolVersion
+        parameter to the test suite runner.  This allows testing the V2
+        protocol path on newer server versions.  Also fix tests that were
+        incorrectly using the server version for protocol version
+        dependent results.  To give it a try, just add protocolVersion=2
+        to your build.local.properties.
+      </action>
+      <action dev="jurka" type="fix" due-to="David Blasby">
+        An OutOfMemoryError during fe&lt;-&gt;be communication leaves the
+        protocol in an unknown state.  This prevents the caller from even
+        closing the connection.  Checking every allocation is a lot of
+        work, but the most likely error location is going to be when
+        receiving large result sets.  Put in checks around receiving row
+        data to detect memory exhaustion, keep the protocol in a known
+        state, and report the failure back to the user.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Jowett">
+        When we're unable to parse a timestamp
+        value, the error message should print out the bad value.  It was
+        printing a char array which showed up as a useless [C@xxxx.
+      </action>
+      <action dev="jurka" type="fix">
+        gij/gcj has some JDK1.5 classes in it, but it only supports
+        JDK1.4 as the default source level.  This confuses older ant
+        versions and our build script tries to compile a JDK1.5 version.
+        Instead of letting ant detect the java version, let the jvm tell
+        us that itself using java.specification.version as suggested by
+        Heikki Linnakangas.  Also put in a check for a JDK1.6 compile
+        attempt and bail out with an explanatory unsupported error
+        message instead of just failing at some random point.
+      </action>
+      <action dev="jurka" type="fix" due-to="Peter Eisentraut">
+        When a
+        prepared statement uses different parameter types than what the
+        statement was originally prepared for, the driver must replan the
+        query for the new types.  When doing this in batches the driver
+        was not correctly freeing old plans.
+
+        To cleanup prepared statements the driver records a reference to
+        a query object in response to the ParseComplete message.  The
+        problem in this case was that since the driver sends multiple
+        Parse messages before a Sync, when the driver receives the first
+        ParseComplete message the query object now contains a reference
+        to the latest parsed statement, not the first. So it was only
+        cleaning up the last parsed statement not all of them.
+      </action>
+      <action dev="jurka" type="fix" due-to="Niels Beekman">
+        When the
+        Connection retrieved from XAConnection.getConnection() is closed
+        we do not want to rollback the transaction because the underlying
+        connection is not closed and the transaction is being managed by
+        the XAResource, not the Connection.
+      </action>
+      <action dev="davec" type="add" due-to="Xavier Poinsard">
+        Add escape sequences for timestamp addition and difference.
+      </action>
+    </release>
+
+    <release version="8.1-406" date="2006-05-22">
+      <action dev="davec" type="fix" due-to="Luis Londono">
+        Fix a couple of bugs in CallableStatement outputs.  An oversight in
+	the checking of actual results vs. what the caller specified for
+	registerOutParameter was checking all register parameters against the
+	first out parameter, not the parameter it actually corresponded with.
+
+	Also with a function that has an in parameter and an out parameter,
+	the out parameter will be registered at position 2, but will be
+	returned in a result at position 1 because the first input parameter
+	generates no output.  The driver needs to correctly map between these
+	two parameter offsets.
+      </action>
+      <action dev="jurka" type="fix" due-to="Giuseppe Sacco">
+        Error messages were not run
+        through MessageFormat if it didn't have any parameters.  This was
+        a problem because all error messages are written expecting to be
+        run through the formatter and use two single quotes when only one
+        is desired in the output.  Without being run through the
+	formatter the two quotes appeared in the output.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German transalation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Till Toenges">
+        Add some more synchronization to the
+        TypeInfoCache.  We need synchronization around the
+        PreparedStatements because they may not be used by two threads at
+        the same time.  Additional synchronization is applied to the maps
+        to ensure that they are in sync with each other.  Make
+        _pgNameToSQLType static.
+      </action>
+      <action dev="jurka" type="fix" due-to="David Blasby">
+        An OutOfMemoryError during fe&lt;-&gt;be communication leaves the
+        protocol in an unknown state.  This prevents the caller from even
+        closing the connection.  Checking every allocation is a lot of
+        work, but the most likely error location is going to be when
+        receiving large result sets.  Put in checks around receiving row
+        data to detect memory exhaustion, keep the protocol in a known
+        state, and report the failure back to the user.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oliver Jowett">
+        When we're unable to parse a timestamp
+        value, the error message should print out the bad value.  It was
+        printing a char array which showed up as a useless [C@xxxx.
+      </action>
+      <action dev="jurka" type="fix">
+        gij/gcj has some JDK1.5 classes in it, but it only supports
+        JDK1.4 as the default source level.  This confuses older ant
+        versions and our build script tries to compile a JDK1.5 version.
+        Instead of letting ant detect the java version, let the jvm tell
+        us that itself using java.specification.version as suggested by
+        Heikki Linnakangas.  Also put in a check for a JDK1.6 compile
+        attempt and bail out with an explanatory unsupported error
+        message instead of just failing at some random point.
+      </action>
+      <action dev="jurka" type="fix" due-to="Peter Eisentraut">
+        When a
+        prepared statement uses different parameter types than what the
+        statement was originally prepared for, the driver must replan the
+        query for the new types.  When doing this in batches the driver
+        was not correctly freeing old plans.
+
+        To cleanup prepared statements the driver records a reference to
+        a query object in response to the ParseComplete message.  The
+        problem in this case was that since the driver sends multiple
+        Parse messages before a Sync, when the driver receives the first
+        ParseComplete message the query object now contains a reference
+        to the latest parsed statement, not the first. So it was only
+        cleaning up the last parsed statement not all of them.
+      </action>
+      <action dev="jurka" type="fix" due-to="Niels Beekman">
+        When the
+        Connection retrieved from XAConnection.getConnection() is closed
+        we do not want to rollback the transaction because the underlying
+        connection is not closed and the transaction is being managed by
+        the XAResource, not the Connection.
+      </action>
+    </release>
+
+    <release version="8.0-316" date="2006-05-22">
+      <action dev="jurka" type="fix" due-to="Giuseppe Sacco">
+        Error messages were not run
+        through MessageFormat if it didn't have any parameters.  This was
+        a problem because all error messages are written expecting to be
+        run through the formatter and use two single quotes when only one
+        is desired in the output.  Without being run through the
+	formatter the two quotes appeared in the output.
+      </action>
+      <action dev="jurka" type="fix" due-to="David Blasby">
+        An OutOfMemoryError during fe&lt;-&gt;be communication leaves the
+        protocol in an unknown state.  This prevents the caller from even
+        closing the connection.  Checking every allocation is a lot of
+        work, but the most likely error location is going to be when
+        receiving large result sets.  Put in checks around receiving row
+        data to detect memory exhaustion, keep the protocol in a known
+        state, and report the failure back to the user.
+      </action>
+      <action dev="jurka" type="fix">
+        gij/gcj has some JDK1.5 classes in it, but it only supports
+        JDK1.4 as the default source level.  This confuses older ant
+        versions and our build script tries to compile a JDK1.5 version.
+        Instead of letting ant detect the java version, let the jvm tell
+        us that itself using java.specification.version as suggested by
+        Heikki Linnakangas.  Also put in a check for a JDK1.6 compile
+        attempt and bail out with an explanatory unsupported error
+        message instead of just failing at some random point.
+      </action>
+      <action dev="jurka" type="fix" due-to="Peter Eisentraut">
+        When a
+        prepared statement uses different parameter types than what the
+        statement was originally prepared for, the driver must replan the
+        query for the new types.  When doing this in batches the driver
+        was not correctly freeing old plans.
+
+        To cleanup prepared statements the driver records a reference to
+        a query object in response to the ParseComplete message.  The
+        problem in this case was that since the driver sends multiple
+        Parse messages before a Sync, when the driver receives the first
+        ParseComplete message the query object now contains a reference
+        to the latest parsed statement, not the first. So it was only
+        cleaning up the last parsed statement not all of them.
+      </action>
+    </release>
+
     <release version="dev501" date="2006-02-09">
       <action dev="jurka" type="fix" due-to="Oliver Jowett">
         Statement.cancel was prone to race conditions even with a single
@@ -295,6 +511,63 @@
     </release>
 
     <release version="8.0-314" date="2005-11-06">
+      <action dev="jurka" type="fix">
+        When I added bounds checking for ResultSet.updateXXX methods, I
+	accidentally removed bounds checking for getXXX methods.  This
+	resulted in an ArrayIndexOutOfBoundsException being thrown instead
+	of the desired SQLException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jolly Chen">
+        The driver needs to break a statement into individual queries to
+	use the V3 extended query protocol.  The parsing code did not
+	recognize multiple rule actions separated by semi-colons as one
+	query.
+      </action>
+    </release>
+
+    <release version="dev403" date="2005-10-30">
+      <action dev="davec" type="update" due-to="Sergei Rogovskiy">
+        Improve performance of locating placeholders in queries.
+      </action>
+      <action dev="davec" type="update" due-to="Ken Geis">
+        Improve performance of timestamp and currency parsing.
+      </action>
+      <action dev="davec" type="add" due-to="Heikki Linnakangas">
+        XADataSource implementation.
+      </action>
+      <action dev="jurka" type="update" due-to="Xavier Poinsard">
+        French translation updates.
+      </action>
+    </release>
+
+    <release version="404" date="2005-11-06">
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation updates.
+      </action>
+      <action dev="jurka" type="update" due-to="Nicolai Tufar">
+        Turkish translation updates.
+      </action>
+      <action dev="jurka" type="fix">
+        When formatting an interval value as text, override the system
+	locale settings for DecimalFormat.  We always want to use '.'
+	as the decimal separator regardless of locale because that's
+	what the server expects.
+      </action>
+      <action dev="jurka" type="fix">
+        When I added bounds checking for ResultSet.updateXXX methods, I
+	accidentally removed bounds checking for getXXX methods.  This
+	resulted in an ArrayIndexOutOfBoundsException being thrown instead
+	of the desired SQLException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jolly Chen">
+        The driver needs to break a statement into individual queries to
+	use the V3 extended query protocol.  The parsing code did not
+	recognize multiple rule actions separated by semi-colons as one
+	query.
+      </action>
+    </release>
+
+    <release version="314" date="2005-11-06">
       <action dev="jurka" type="fix">
         When I added bounds checking for ResultSet.updateXXX methods, I
 	accidentally removed bounds checking for getXXX methods.  This
