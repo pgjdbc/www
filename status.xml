@@ -14,6 +14,57 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev503" date="2006-05-23">
+      <action dev="jurka" type="fix">
+        Using callable
+        statements against older server versions (7.4 or 8.0) did not
+        work because of recent changes to output parameter handling.  7.4
+        and 8.0 do not support function output parameters, but they still
+        must support the functions return value.  Every function must
+        have either a return value or an output parameter so we force the
+        minimum output parameter count to one.
+      </action>
+      <action dev="jurka" type="update">
+        Remove documentation's claim that we don't support functions
+	with out parameters.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+    </release>
+
+    <release version="8.1-407" date="2006-05-23">
+      <action dev="jurka" type="fix">
+        Using callable
+        statements against older server versions (7.4 or 8.0) did not
+        work because of recent changes to output parameter handling.  7.4
+        and 8.0 do not support function output parameters, but they still
+        must support the functions return value.  Every function must
+        have either a return value or an output parameter so we force the
+        minimum output parameter count to one.
+      </action>
+      <action dev="jurka" type="fix">
+        When running against a 8.1+ server with protocol version 2
+	we cannot handle output parameters and can only handle the
+	traditional function return value.
+      </action>
+      <action dev="jurka" type="update">
+        Remove documentation's claim that we don't support functions
+	with out parameters.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+    </release>
+
+    <release version="8.0-317" date="2006-05-23">
+      <action dev="jurka" type="fix" due-to="Glenn Holmer">
+        A bad merge of out of memory
+        detection and zero testing resulted in incorrectly handing of
+        null values.
+      </action>
+    </release>
+
     <release version="dev502" date="2006-05-22">
       <action dev="davec" type="fix" due-to="Luis Londono">
         Fix a couple of bugs in CallableStatement outputs.  An oversight in
