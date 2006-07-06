@@ -21,7 +21,7 @@
 
     <section id="authors">
       <title>Previous Maintainers</title>
-      <p>The original JDBC driver was written by Adrain Hall.  Peter Mount
+      <p>The original JDBC driver was written by Adrian Hall.  Peter Mount
         and Barry Lind have maintained it in the past, but have
         since moved on to other things.
       </p>
