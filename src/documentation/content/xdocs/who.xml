@@ -7,8 +7,12 @@
   <body>
     <section id="maintainers">
       <title>Maintainers</title>
+      <p>Please do not contact the maintainers directly unless you have
+	a specific need to contact just them.  Please use the
+	<a href="lists.html#general">pgsql-jdbc@postgresql.org</a>
+	mailing list if at all possible.
+      </p>
       <ul>
-	<li>[blind] - Barry Lind (blind.at.xythos.com)</li>
 	<li>[davec] - Dave Cramer (pg.at.fastcrypt.com)</li>
         <li>[jurka] - Kris Jurka (jurka.at.ejurka.com)</li>
 	<li>[oliver] - Oliver Jowett (oliver.at.opencloud.com)</li>
@@ -16,21 +20,20 @@
     </section>
 
     <section id="authors">
-      <title>Original Authors</title>
-      <p>I am rather oblivious about the history of the driver before
-         the 7.2 release and who should be credited for it.  As far as I
-	 can tell it was originally developed by Peter Mount and Adrian Hall.
-	 If you know better please let us know.
+      <title>Previous Maintainers</title>
+      <p>The original JDBC driver was written by Adrain Hall.  Peter Mount
+        and Barry Lind have maintained it in the past, but have
+        since moved on to other things.
       </p>
     </section>
 
     <section id="contributors">
       <title>Contributors</title>
       <p>
-        People who have contributed significant code to the project.  These
-	are just those I could recall from the past year without an
-	endless poring over old emails and commit messages.  If you've
-	been forgetten, don't hesitate to let us know about it.
+        People who have contributed significant code to the project since
+        the 7.4 release.  A careful historical study has not been
+        commissioned, but if you've done something valuable, we'd
+        be happy to recognize you for it.  Just let us know.
       </p>
       <ul>
         <li>
