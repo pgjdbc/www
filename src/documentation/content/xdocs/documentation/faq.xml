@@ -16,7 +16,50 @@
         </p>
       </answer>
     </faq>
+  </part>
 
+  <part id="problems">
+    <title>Problems</title>
+    
+    <faq id="upgradeTo80">
+      <question>
+         I upgraded from 7.x to 8.x.  Why did my application break?
+      </question>
+      <answer>
+        <p>
+          By default, 8.x versions of the driver use protocol version 3 when
+          communicating with servers 7.4 or higher.  This protocol allows for
+          more efficient query execution and enables true server-side
+          prepared statements, but also places some additional restrictions on
+          queries.  Problems with upgrading the driver generally fall into one
+          of two categories:
+        </p>
+        <p><strong>Parameter Typing.</strong> Previous versions of the driver
+          sent all PreparedStatement parameters to the server as untyped 
+          strings, and allowed the server to infer their types as appropriate.
+          When running protocol version 3 however, the driver specifies the
+          type of each parameter as it is being sent.  The upshot of this is 
+          that code which was previously able to call (for example): 
+          <code>PreparedStatement.setObject(1, "5")</code> to set an integer
+          parameter now breaks, because setting a String value for an integer
+          parameter is not allowed.
+        </p>
+        <p><strong>Parameter Position.</strong> Previous versions of the driver
+          emulated PreparedStatements by performing string replacements
+          each time the query was executed.  Newer drivers using protocol 3
+          however actually use server-side prepared statements with
+          placeholders for the positional parameters.  The upshot of this is
+          that '?' positional parameters are now only allowed where the 
+          PostgreSQL back-end allows parameters.
+        </p>
+        <p>In situations where it is difficult to modify the Java code and/or
+          queries to work with the newer protocol version, it is possible to
+          force the driver to use an older protocol version to restore the old
+          behavior.  Look in the documentation for the 
+          <code>protocolVersion</code> connection parameter.
+        </p>
+      </answer>
+    </faq>
   </part>
 
 </faqs>
