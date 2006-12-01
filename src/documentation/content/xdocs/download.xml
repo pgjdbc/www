@@ -57,6 +57,10 @@
           for SSL and javax.sql, but does not require J2EE as it has been
           added to the J2SE release.
 	</li>
+        <li>
+          JDK 1.6 - JDBC4.  Support for JDBC4 methods is virtually
+          non-existent.  The driver builds, but new methods are stubbed out.
+        </li>
       </ul>
     </section>
 
@@ -69,31 +73,35 @@
 	  <th>JDBC 2</th>
 	  <th>JDBC 2 EE</th>
 	  <th>JDBC 3</th>
+          <th>JDBC 4</th>
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>8.2dev Build 503</td>
+	  <td>8.2 Build 504</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-8.2dev-503.jdbc2.jar">8.2dev-503 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.2dev-503.jdbc2ee.jar">8.2dev-503 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.2dev-503.jdbc3.jar">8.2dev-503 JDBC 3</a></td>
-	  <td><a href="download/postgresql-jdbc-8.2dev-503.src.tar.gz">8.2dev-503 JDBC Source</a></td>
+	  <td><a href="download/postgresql-8.2-504.jdbc2.jar">8.2-504 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.2-504.jdbc2ee.jar">8.2-504 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.2-504.jdbc3.jar">8.2-504 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.2-504.jdbc4.jar">8.2-504 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.2-504.src.tar.gz">8.2-504 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.1 Build 407</td>
+	  <td>8.1 Build 408</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-8.1-407.jdbc2.jar">8.1-407 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.1-407.jdbc2ee.jar">8.1-407 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.1-407.jdbc3.jar">8.1-407 JDBC 3</a></td>
-	  <td><a href="download/postgresql-jdbc-8.1-407.src.tar.gz">8.1-407 JDBC Source</a></td>
+	  <td><a href="download/postgresql-8.1-408.jdbc2.jar">8.1-408 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.1-408.jdbc2ee.jar">8.1-408 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.1-408.jdbc3.jar">8.1-408 JDBC 3</a></td>
+	  <td>&nbsp;</td>
+	  <td><a href="download/postgresql-jdbc-8.1-408.src.tar.gz">8.1-408 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.0 Build 317</td>
+	  <td>8.0 Build 318</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-8.0-317.jdbc2.jar">8.0-317 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.0-317.jdbc2ee.jar">8.0-317 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.0-317.jdbc3.jar">8.0-317 JDBC 3</a></td>
-	  <td><a href="download/postgresql-jdbc-8.0-317.src.tar.gz">8.0-317 JDBC Source</a></td>
+	  <td><a href="download/postgresql-8.0-318.jdbc2.jar">8.0-318 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.0-318.jdbc2ee.jar">8.0-318 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.0-318.jdbc3.jar">8.0-318 JDBC 3</a></td>
+	  <td>&nbsp;</td>
+	  <td><a href="download/postgresql-jdbc-8.0-318.src.tar.gz">8.0-318 JDBC Source</a></td>
 	</tr>
 	<tr>
 	  <td>7.4 Build 216</td>
@@ -101,6 +109,7 @@
 	  <td><a href="download/pg74.216.jdbc2.jar">pg74.216.jdbc2.jar</a></td>
 	  <td><a href="download/pg74.216.jdbc2ee.jar">pg74.216.jdbc2ee.jar</a></td>
 	  <td><a href="download/pg74.216.jdbc3.jar">pg74.216.jdbc3.jar</a></td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -110,11 +119,13 @@
 	  <td><a href="download/pg73jdbc2ee.jar">pg73jdbc2ee.jar</a></td>
 	  <td><a href="download/pg73jdbc3.jar">pg73jdbc3.jar</a></td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>7.2</td>
 	  <td><a href="download/pg72jdbc1.jar">pg72jdbc1.jar</a></td>
 	  <td><a href="download/pg72jdbc2.jar">pg72jdbc2.jar</a></td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
@@ -126,11 +137,13 @@
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>7.0</td>
 	  <td><a href="download/jdbc7.0-1.1.jar">jdbc7.0-1.1.jar</a></td>
 	  <td><a href="download/jdbc7.0-1.2.jar">jdbc7.0-1.2.jar</a></td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
@@ -142,10 +155,12 @@
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>6.4</td>
 	  <td><a href="download/jdbc6.4-1.1.jar">jdbc6.4-1.1.jar</a></td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
@@ -158,9 +173,11 @@
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	</tr>
 	<tr>
 	  <td>6.2.1</td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
@@ -173,6 +190,7 @@
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	  <td><a href="download/JavaPostgres95-0.4.tar.gz">JavaPostgres95-0.4.tar.gz</a></td>
 	</tr>
 	<tr>
@@ -181,10 +199,12 @@
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
 	  <td><a href="download/JavaPostgres95-0.3.tar.gz">JavaPostgres95-0.3.tar.gz</a></td>
 	</tr>
 	<tr>
 	  <td>0.2</td>
+	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>

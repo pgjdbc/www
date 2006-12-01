@@ -14,6 +14,212 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="8.2-504" date="2006-12-01">
+      <action dev="jurka" type="add">
+        Make the driver build under the 1.6 JDK.
+      </action>
+      <action dev="jurka" type="update" due-to="Giuseppe Sacco">
+        Italian translation update.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Gilles Rayrat">
+        When issuing multiple queries on
+        one statement the driver was not clearing some intermediate state
+        between executions.  When an update, insert, or delete followed a
+        select, the select's results were still available and would be
+        returned instead of the non-query's affected row count.
+      </action>
+      <action dev="jurka" type="fix" due-to="Akira Sato">
+        When the
+        driver asks the server to resolve a type the resolved type is
+        stored in the SimpleQuery object.  When the statement is executed
+        again the driver determines whether the existing types match or
+        if it needs to be reprepared by comparing the current Statement's
+        settings with the SimpleQuery.  The Statement will have the
+        unspecified oid while the SimpleQuery will have the resolved oid,
+        so there will not be a match and the statement will needlessly be
+        reprepared.  Allow an unspecified oid to match any resolved type.
+      </action>
+      <action dev="jurka" type="fix">
+        When creating a ResultSet from a refcursor, respect the creating
+        ResultSet's scollability setting.  The way the ResultSet is
+        created means that it will always be scrollable anyway, so
+        there's no downside.  We cannot support updatable refcursor
+        ResultSets until we get updatable cursors.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix a bug in function escape
+        processing.  When dealing with an invalid escape the code
+        attempted to read until it hit the escape end and press on, but
+        it forgot to increment its position counter.  This lead to an
+        infinite loop that eventually resulted in an out of memory error.
+      </action>
+      <action dev="jurka" type="fix">
+        Update the documentation to reflect the fact that the
+        default prepareThreshold is five, not zero.
+      </action>
+      <action dev="jurka" type="add" due-to="Luis Vilar Flores">
+        Reduce memory usage when bytea
+        data is retrieved from ResultSet.getBytes by using an extra pass
+        over the data to determine the output buffer size ahead of time.
+      </action>
+      <action dev="jurka" type="add" due-to="Mikko Tiihonen">
+        Improve performance when
+        retrieving large ResultSets consisting of Strings, ints, and
+        longs.  Improve String retrieval by avoiding a copy from the
+        network buffer and using it directly to create the String
+        instance.  Improve integer retrieval by using a custom byte to
+        number conversion that uses knowledge of the encoding to avoid
+        creating an intermediate String representation first.
+      </action>
+      <action dev="jurka" type="add" due-to="Michael Paesold">
+        Add support for parsing dollar quotes and comments.
+      </action>
+      <action dev="jurka" type="fix">
+        Improve handling of incorrectly written user code using
+        CallableStatements.  Defend against trying to retrieve data
+        before the statement is executed.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust precision returned by meta data methods to reflect the
+        latest javadocs additional documentation.
+      </action>
+      <action dev="jurka" type="fix">
+        Correct error message in CallableStatement to identify the mismatch
+        with the registered return type.
+      </action>
+      <action dev="jurka" type="add" due-to="Eberhard Schulte">
+        Improve the
+        performance of getBoolean for false values by explicitly checking
+        for false rather than generating a NumberFormatException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Michael Paesold">
+        Correct escaping of named savepoints which follow identifier, not
+        literal rules.
+      </action>
+      <action dev="jurka" type="add" due-to="Michael Paesold">
+        Make the driver operate correctly
+        when standard_conforming_strings is on.
+      </action>
+      <action dev="jurka" type="fix" due-to="Allan Saddi">
+        XAConnections default autocommit state
+        should be true.  The driver was previously setting autocommit to
+        false and assuming it would stay that way.  This caused two
+        problems.  First, some applications expected to be able to issue
+        local autocommit transactions prior to begin().  Second, some TMs
+        (Geronimo) set the autocommit state to true themselves, which
+        causes problems as the driver did not expect it to be changed.
+        This patch correctly disables and enables autocommit around
+        start, prepare, commit, and rollback methods.
+      </action>
+      <action dev="jurka" type="add" due-to="Jan de Visser and Heikki Linnakangas">
+        Allow XAResource.start with TMJOIN in a limited set of circumstances
+        to work with WebLogic.  We allow TMJOIN only if the resource was
+        previously ended and the Xid is the same as the current Xid.
+      </action>
+    </release>
+
+    <release version="8.1-408" date="2006-12-01">
+      <action dev="jurka" type="update" due-to="Giuseppe Sacco">
+        Italian translation update.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Gilles Rayrat">
+        When issuing multiple queries on
+        one statement the driver was not clearing some intermediate state
+        between executions.  When an update, insert, or delete followed a
+        select, the select's results were still available and would be
+        returned instead of the non-query's affected row count.
+      </action>
+      <action dev="jurka" type="fix" due-to="Akira Sato">
+        When the
+        driver asks the server to resolve a type the resolved type is
+        stored in the SimpleQuery object.  When the statement is executed
+        again the driver determines whether the existing types match or
+        if it needs to be reprepared by comparing the current Statement's
+        settings with the SimpleQuery.  The Statement will have the
+        unspecified oid while the SimpleQuery will have the resolved oid,
+        so there will not be a match and the statement will needlessly be
+        reprepared.  Allow an unspecified oid to match any resolved type.
+      </action>
+      <action dev="jurka" type="fix">
+        When creating a ResultSet from a refcursor, respect the creating
+        ResultSet's scollability setting.  The way the ResultSet is
+        created means that it will always be scrollable anyway, so
+        there's no downside.  We cannot support updatable refcursor
+        ResultSets until we get updatable cursors.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix a bug in function escape
+        processing.  When dealing with an invalid escape the code
+        attempted to read until it hit the escape end and press on, but
+        it forgot to increment its position counter.  This lead to an
+        infinite loop that eventually resulted in an out of memory error.
+      </action>
+      <action dev="jurka" type="fix">
+        Update the documentation to reflect the fact that the
+        default prepareThreshold is five, not zero.
+      </action>
+      <action dev="jurka" type="fix">
+        Correct error message in CallableStatement to identify the mismatch
+        with the registered return type.
+      </action>
+      <action dev="jurka" type="fix" due-to="Michael Paesold">
+        Correct escaping of named savepoints which follow identifier, not
+        literal rules.
+      </action>
+    </release>
+
+    <release version="8.0-318" date="2006-12-01">
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Gilles Rayrat">
+        When issuing multiple queries on
+        one statement the driver was not clearing some intermediate state
+        between executions.  When an update, insert, or delete followed a
+        select, the select's results were still available and would be
+        returned instead of the non-query's affected row count.
+      </action>
+      <action dev="jurka" type="fix" due-to="Akira Sato">
+        When the
+        driver asks the server to resolve a type the resolved type is
+        stored in the SimpleQuery object.  When the statement is executed
+        again the driver determines whether the existing types match or
+        if it needs to be reprepared by comparing the current Statement's
+        settings with the SimpleQuery.  The Statement will have the
+        unspecified oid while the SimpleQuery will have the resolved oid,
+        so there will not be a match and the statement will needlessly be
+        reprepared.  Allow an unspecified oid to match any resolved type.
+      </action>
+      <action dev="jurka" type="fix">
+        When creating a ResultSet from a refcursor, respect the creating
+        ResultSet's scollability setting.  The way the ResultSet is
+        created means that it will always be scrollable anyway, so
+        there's no downside.  We cannot support updatable refcursor
+        ResultSets until we get updatable cursors.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix a bug in function escape
+        processing.  When dealing with an invalid escape the code
+        attempted to read until it hit the escape end and press on, but
+        it forgot to increment its position counter.  This lead to an
+        infinite loop that eventually resulted in an out of memory error.
+      </action>
+      <action dev="jurka" type="fix">
+        Update the documentation to reflect the fact that the
+        default prepareThreshold is five, not zero.
+      </action>
+      <action dev="jurka" type="fix" due-to="Michael Paesold">
+        Correct escaping of named savepoints which follow identifier, not
+        literal rules.
+      </action>
+    </release>
+
     <release version="dev503" date="2006-05-23">
       <action dev="jurka" type="fix">
         Using callable

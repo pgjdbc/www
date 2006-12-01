@@ -10,8 +10,8 @@
       <p>
         The PostgreSQL JDBC driver has some unique properties that you
 	should be aware of before starting to develop any code for it.
-	The current development driver supports five server versions and
-	four java environments.  This doesn't mean that every feature must
+	The current development driver supports six server versions and
+	six java environments.  This doesn't mean that every feature must
 	work in every combination, but a reasonable behavior must be
 	provided for non-supported versions.  While this extra compatibility
 	sounds like a lot of work, the actual goal is to reduce the amount

@@ -85,6 +85,25 @@
 	    <li>XADataSource implementation.</li>
 	  </ul>
 	</li>
+        <li>
+          Luis Vilar Flores
+          <ul>
+            <li>Reduce memory usage retrieving bytea data.</li>
+          </ul>
+        </li>
+        <li>
+          Michael Paesold
+          <ul>
+            <li>Correctly parse dollar quotes and comments.</li>
+            <li>Work with standard_conforming_strings = on.</li>
+          </ul>
+        </li>
+        <li>
+          Mikko Tiihonen
+          <ul>
+            <li>Improve speed of parsing ResultSet data.</li>
+          </ul>
+        </li>
       </ul>
     </section>
 
