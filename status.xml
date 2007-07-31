@@ -14,6 +14,250 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="dev601" date="2007-07-31">
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation update.
+      </action>
+      <action dev="jurka" type="update" due-to="Xavier Poinsard">
+        French translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Empty finalize method still has a performance impact, so comment
+	it out entirely.
+      </action>
+      <action dev="jurka" type="update" due-to="Mikko Tiihonen">
+	Make inner classes static where possible.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	Updatable ResultSets did
+        not work when updating bytea data and then retrieving it because
+        we send the data to the server in binary format, but the
+        ResultSet was expecting to read it in text format.  So we need to
+        convert the data from binary to text format before stuffing it
+        into the ResultSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	ResultSet.updateNClob(String, Reader) goes into an infinite loop.
+        It really meant to call updateNClob(int, Reader), but was
+        calling itself instead.
+      </action>
+      <action dev="jurka" type="add" due-to="Albe Laurenz">
+	Add SSL as an option for DataSources.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hui Ye">
+	Do escape processing on batch Statements prior to execution.
+	This already worked for PreparedStatements, but not plain Statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Andrei Badea">
+	Don't return quotes around identifiers in the results of
+        DatabaseMetaData.getIndexInfo even if they would require quoting
+        in SQL.
+      </action>
+      <action dev="jurka" type="add">
+	Add the proper META-INF entry for the driver jar file so that JDBC4
+	applications no longer have to say Class.forName() as the driver
+	gets loaded automatically.
+      </action>
+      <action dev="jurka" type="fix" due-to="Russell Francis">
+	Change how PGobject and
+        children support clone(), to get more reasonable behavior when
+        extending these classes.  Don't implement clone by calling the
+        constructor because you get the wrong class when cloning a
+        subclass.
+      </action>
+      <action dev="jurka" type="add" due-to="Adrian Custer">
+	Pull the default login timeout from DriverManager.getLoginTimeout()
+        if none has been specified as a URL parameter.
+      </action>
+      <action dev="jurka" type="add" due-to="Jeffrey Cox">
+	Add support for returning function parameter names and directions
+        to getProcedureColumns.
+      </action>
+      <action dev="jurka" type="fix">
+	When retrieving the columns of a function that returns a complex type,
+	don't retrieve system columns (like xmin/xmax/...)
+        that you'll find if the type is from a table.
+      </action>
+      <action dev="jurka" type="fix" due-to="Luca Ferrari, Heikki Linnakangas">
+	The previous fix to try and set a XA based Connection's autocommit
+	property correctly didn't quite work.  Calling
+	XAConnection.getConnection set autocommit to true even if we
+	already had a transaction in progress.
+      </action>
+      <action dev="jurka" type="update" due-to="Bojan Skaljac">
+	Serbian translation updates.
+      </action>
+      <action dev="jurka" type="add" due-to="Boom Roos">
+	Make setObject recognize a parameter of type java.lang.Byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Nathan Keynes">
+	Error message was reporting the wrong parameter type value in the V3
+	protocol's SimpleParameterList implementation.
+      </action>
+      <action dev="davec" type="add">
+	Allow CallableStatements to use batch execution.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tom Lane, Oliver Jowett">
+	Explicitly state which source level
+        we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
+        default to a 1.4 source level compile which tricks up our build
+        system.  This still doens't fix the case of running with a newer
+        VM than compiler, but I don't see what we can do about that.
+      </action>
+    </release>
+
+    <release version="8.2-506" date="2007-07-31">
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+        Brazilian Portuguese translation update.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	Updatable ResultSets did
+        not work when updating bytea data and then retrieving it because
+        we send the data to the server in binary format, but the
+        ResultSet was expecting to read it in text format.  So we need to
+        convert the data from binary to text format before stuffing it
+        into the ResultSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	ResultSet.updateNClob(String, Reader) goes into an infinite loop.
+        It really meant to call updateNClob(int, Reader), but was
+        calling itself instead.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hui Ye">
+	Do escape processing on batch Statements prior to execution.
+	This already worked for PreparedStatements, but not plain Statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Andrei Badea">
+	Don't return quotes around identifiers in the results of
+        DatabaseMetaData.getIndexInfo even if they would require quoting
+        in SQL.
+      </action>
+      <action dev="jurka" type="fix">
+	When retrieving the columns of a function that returns a complex type,
+	don't retrieve system columns (like xmin/xmax/...)
+        that you'll find if the type is from a table.
+      </action>
+      <action dev="jurka" type="fix" due-to="Luca Ferrari, Heikki Linnakangas">
+	The previous fix to try and set a XA based Connection's autocommit
+	property correctly didn't quite work.  Calling
+	XAConnection.getConnection set autocommit to true even if we
+	already had a transaction in progress.
+      </action>
+      <action dev="jurka" type="update" due-to="Bojan Skaljac">
+	Serbian translation updates.
+      </action>
+      <action dev="jurka" type="add" due-to="Boom Roos">
+	Make setObject recognize a parameter of type java.lang.Byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Nathan Keynes">
+	Error message was reporting the wrong parameter type value in the V3
+	protocol's SimpleParameterList implementation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tom Lane, Oliver Jowett">
+	Explicitly state which source level
+        we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
+        default to a 1.4 source level compile which tricks up our build
+        system.  This still doens't fix the case of running with a newer
+        VM than compiler, but I don't see what we can do about that.
+      </action>
+    </release>
+
+    <release version="8.1-410" date="2007-07-31">
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	Updatable ResultSets did
+        not work when updating bytea data and then retrieving it because
+        we send the data to the server in binary format, but the
+        ResultSet was expecting to read it in text format.  So we need to
+        convert the data from binary to text format before stuffing it
+        into the ResultSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hui Ye">
+	Do escape processing on batch Statements prior to execution.
+	This already worked for PreparedStatements, but not plain Statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Andrei Badea">
+	Don't return quotes around identifiers in the results of
+        DatabaseMetaData.getIndexInfo even if they would require quoting
+        in SQL.
+      </action>
+      <action dev="jurka" type="fix">
+	When retrieving the columns of a function that returns a complex type,
+	don't retrieve system columns (like xmin/xmax/...)
+        that you'll find if the type is from a table.
+      </action>
+      <action dev="jurka" type="fix" due-to="Luca Ferrari, Heikki Linnakangas">
+	The previous fix to try and set a XA based Connection's autocommit
+	property correctly didn't quite work.  Calling
+	XAConnection.getConnection set autocommit to true even if we
+	already had a transaction in progress.
+      </action>
+      <action dev="jurka" type="add" due-to="Boom Roos">
+	Make setObject recognize a parameter of type java.lang.Byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Nathan Keynes">
+	Error message was reporting the wrong parameter type value in the V3
+	protocol's SimpleParameterList implementation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Jan de Visser and Heikki Linnakangas">
+	Backpatch fix to 8.1: Allow XAResource.start
+        with TMJOIN in a limited set of circumstances to work with
+        WebLogic.  We allow TMJOIN only if the resource was previously
+        ended and the Xid is the same as the current Xid.
+      </action>
+      <action dev="jurka" type="fix" due-to="Allan Saddi">
+	Backpatch fix to 8.1: A XAConnections default
+        autocommit state should be true.  The driver was previously
+        setting autocommit to false and assuming it would stay that way.
+        This caused two problems.  First, some applications expected to
+        be able to issue local autocommit transactions prior to begin().
+        Second, some TMs (Geronimo) set the autocommit state to true
+        themselves, which causes problems as the driver did not expect it
+        to be changed.  This patch correctly disables and enables
+        autocommit around begin, prepare, commit, and rollback methods.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tom Lane, Oliver Jowett">
+	Explicitly state which source level
+        we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
+        default to a 1.4 source level compile which tricks up our build
+        system.  This still doens't fix the case of running with a newer
+        VM than compiler, but I don't see what we can do about that.
+      </action>
+    </release>
+
+    <release version="8.0-320" date="2007-07-31">
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+	Updatable ResultSets did
+        not work when updating bytea data and then retrieving it because
+        we send the data to the server in binary format, but the
+        ResultSet was expecting to read it in text format.  So we need to
+        convert the data from binary to text format before stuffing it
+        into the ResultSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hui Ye">
+	Do escape processing on batch Statements prior to execution.
+	This already worked for PreparedStatements, but not plain Statements.
+      </action>
+      <action dev="jurka" type="fix">
+	When retrieving the columns of a function that returns a complex type,
+	don't retrieve system columns (like xmin/xmax/...)
+        that you'll find if the type is from a table.
+      </action>
+      <action dev="jurka" type="add" due-to="Boom Roos">
+	Make setObject recognize a parameter of type java.lang.Byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Nathan Keynes">
+	Error message was reporting the wrong parameter type value in the V3
+	protocol's SimpleParameterList implementation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tom Lane, Oliver Jowett">
+	Explicitly state which source level
+        we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
+        default to a 1.4 source level compile which tricks up our build
+        system.  This still doens't fix the case of running with a newer
+        VM than compiler, but I don't see what we can do about that.
+      </action>
+    </release>
+
     <release version="dev600" date="2007-04-18">
       <action dev="jurka" type="fix" due-to="Ravi Periasmy">
         Statement.getTime, .getDate, and .getTimestamp methods which
