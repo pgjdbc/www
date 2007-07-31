@@ -49,7 +49,7 @@ done
 
 cd src/documentation/content/xdocs/development/po && cat top head 82 81 80 bottom > status.xml && cd ../../../../../..
 
-forrest
+forrest -Dforrest.jvmargs=-Djava.awt.headless=true
 
 cp -r pgjdbc-head/build/publicapi build/site/documentation
 cp -r pgjdbc-head/build/privateapi build/site/development
