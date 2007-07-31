@@ -40,8 +40,8 @@ do
 	cd $dir && ant publicapi privateapi doc && cd ..
 
 	mkdir -p build/site/documentation/$version
-	cp $dir/build/doc/*.html build/site/documentation/$version
-	mv $dir/build/doc postgresql-jdbc-$version-doc
+	cp $dir/build/doc/build/doc/*.html build/site/documentation/$version
+	mv $dir/build/doc/build/doc postgresql-jdbc-$version-doc
 	tar -czf build/site/documentation/postgresql-jdbc-$version-doc.tar.gz postgresql-jdbc-$version-doc
 	rm -rf postgresql-jdbc-$version-doc
 
