@@ -20,6 +20,7 @@ See http://xml.apache.org/forrest/linking.html for more info
     <index label="Index" href="index.html" />
     <license label="License" href="license.html" />
     <download label="Download" href="download.html" />
+    <extras label="Extras" href="extras.html" />
     <lists label="Mailing Lists" href="lists.html" />
     <who label="Developers" href="who.html" />
     <todo label="Todo" href="todo.html" />

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Extras</title>
+  </header>
+  <body>
+    <section id="intro">
+      <title>Introduction</title>
+      <p>Here is a collection of things that may be useful to you that
+        are not part of the core driver.  For assistance or support you
+        should contact the channels specified in each item, instead of
+        the core driver lists/team.
+      </p>
+    </section>
+
+    <section id="jdbccache">
+      <title>Statement Caching Wrapper</title>
+      <p>Wraps the core driver to enable caching of PreparedStatement
+        objects.  Not all application servers support this functionality
+        in their connection pools and not all applications are deployed
+        onto application servers.
+        <a href="http://jdbccache.projects.postgresql.org">http://jdbccache.projects.postgresql.org/</a>
+      </p>
+    </section>
+
+    <section id="copy">
+      <title>Copy Interface</title>
+      <p>The core driver currently does not support the COPY command and
+        while we have every intention of doing that eventually we haven't
+        gotten around to it yet.
+	<a href="http://kato.iki.fi/sw/db/postgresql/jdbc/copy/">http://kato.iki.fi/sw/db/postgresql/jdbc/copy/</a>
+      </p>
+    </section>
+
+  </body>
+</document>
+
