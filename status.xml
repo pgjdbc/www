@@ -2020,7 +2020,7 @@
         Update the translation system to use gettext instead of property
 	files.
       </action>
-      <action dev="jurka" type="fix" due-to="Ulrich Meis" fixes-bug="1004">
+      <action dev="jurka" type="fix" due-to="Ulrich Meis">
         For updateable ResultSets make insertRow and deleteRow quote column
         names like updateRow already does.  This makes these methods work
         on mixed case identifiers.
@@ -2078,13 +2078,13 @@
 	moveToInsertRow call which would set the flag, but this is not
 	required.
       </action>
-      <action dev="jurka" type="fix" fixes-bug="937">
+      <action dev="jurka" type="fix">
         Fix NullPointerException when doing a multiple query execution in
 	one statement using the V3 protocol.  For example
 	Statement.execute("SELECT 1; SELECT 2"); would not have any
 	parameters set and try to iterate over a null array.
       </action>
-      <action dev="jurka" type="add" fixes-bug="934">
+      <action dev="jurka" type="add">
         Implement support for the Savepoint interface.
       </action>
       <action dev="jurka" type="add">
@@ -2143,7 +2143,7 @@
         Modify version checking code and descriptions to match the decision
 	that 8.0 will be the next release, not 7.5.
       </action>
-      <action dev="jurka" type="fix" due-to="Mike Martin" fixes-bug="921">
+      <action dev="jurka" type="fix" due-to="Mike Martin">
         Revert ResultSetMetaData methods getColumnName, getTableName and
         getSchemaName to previous implementation that returned the column's
 	alias if available and "" for the table and schema.  Move the new
@@ -2500,7 +2500,6 @@
     <actions priority="Compliance">
       <action context="JDBC1">
         Implement Statement.setQueryTimeout.
-	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?888">ref</link>
       </action>
       <action context="JDBC2">
         Sort DatabaseMetaData.getTypeInfo properly (by closest match).
@@ -2510,7 +2509,6 @@
       </action>
       <action context="JDBC3">
         Implement Statement.getGeneratedKeys.
-	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?984">ref1</link>,
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00190.php">ref2</link>
       </action>
       <action context="JDBC3">
@@ -2572,7 +2570,6 @@
       </action>
       <action context="code">
         Need a much better lexer/parser than the ad hoc stuff in the driver.
-	<link href="http://gborg.postgresql.org/project/pgjdbc/bugs/bugupdate.php?793">ref1</link>,
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00062.php">ref2</link>
       </action>
       <action context="metadata">

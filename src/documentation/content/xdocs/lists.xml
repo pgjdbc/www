@@ -49,15 +49,15 @@
     </section>
 
     <section id="commits">
-      <title>Commit Messages - pgjdbc-commit@gborg.postgresql.org</title>
+      <title>Commit Messages - jdbc-commits@pgfoundry.org</title>
       <p>
         This mailing list is for people interested in carefully monitoring
 	the development process.  Every commit to the CVS repository sends
-	out an email with the log message and an attached diff.  This list
+	out an email with the log message and links to diffs.  This list
 	is not intended for people to post to (except perhaps in response
 	to a specific commit) and questions will not be answered here.
 	For more information on the list (subscriptions/archives) please see
-	the <a href="http://gborg.postgresql.org/mailman/listinfo/pgjdbc-commit">gborg site</a>.
+	the <a href="http://lists.pgfoundry.org/mailman/listinfo/jdbc-commits">pgfoundry site</a>.
       </p>
     </section>
   </body>
