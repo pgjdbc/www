@@ -104,6 +104,12 @@
             <li>Improve speed of parsing ResultSet data.</li>
           </ul>
         </li>
+        <li>
+          Marek Lewczuk
+          <ul>
+            <li>Support multi-dimensional arrays and NULL array elements.</li>
+          </ul>
+        </li>
       </ul>
     </section>
 

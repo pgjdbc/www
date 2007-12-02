@@ -14,7 +14,179 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
-    <release version="dev601" date="2007-07-31">
+    <release version="8.3-dev602" date="2007-12-02">
+      <action dev="jurka" type="fix" due-to="Eric Faulhaber">
+	When doing batch execution we can have multiple Parse and
+        DescribeStatement messages on the wire at the same time.  When we
+        finally get around to collecting the DescribeStatement results we
+        must check whether they still apply to the currently parsed
+        query.  Otherwise we'll overwrite our type information with stale
+        data that will cause failures down the line.
+      </action>
+      <action dev="jurka" type="add">
+	Provide a minimal ClientInfo implementation because of complaints
+	about exceptions continually being thrown on glassfish.
+      </action>
+      <action dev="jurka" type="add">
+	Set extra_float_digits=2 on connection startup so we get as much
+	data about floats as possible.
+      </action>
+      <action dev="jurka" type="update" due-to="Mikko Tiihonen">
+	Assorted cleanups to the source tree based on findbugs output.
+      </action>
+      <action dev="jurka" type="fix" due-to="Ludovico Bianchini">
+	CallableStatements with OUT parameters that get executed more than
+	prepareThreshold times failed if clearParameters() was called in
+	between executions.  When we've hit the prepareThreshold, we no
+	longer send Parse messages which invoke SimpleParameterList.getTypeOID
+	which has side effects required to setup the parameters correctly.
+        Add an explicit convertFunctionOutParameters method to do this work
+        instead that we call in all execution paths.
+      </action>
+      <action dev="jurka" type="fix" due-to="Michael Paesold">
+	The driver was incorrectly parsing identifiers that had parts that
+	look like dollar quotes.  Things like a$b$c are valid
+	identifiers, not dollar quotes.  When determining if a $ we've
+	found is a dollar quote start, look at the preceding character and
+	see if it is a valid identifier part to determine if we're in the
+	midst of an identifier or are starting a new token.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas">
+	Multiple calls to XAConnection.getConnection within the same user
+        transaction ended up restarting the transaction on the server
+        side as a result of manipulating the autocommit state.  When
+        retrieving a Connection, we must pay attention to whether a user
+        transaction is in progress when setting the autocommit state.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oleg Vasylenko">
+	Make code that parses queries for updateable resultsets aware of
+	the ONLY clause.
+      </action>
+      <action dev="jurka" type="add" due-to="Marek Lewczuk">
+	Support multi-dimensional arrays and returning arrays of primitive
+	server types as wrapped java Objects so that NULL values can be
+	detected.  Backwards compatibility is provided using the
+	compatible=8.2 URL option to return arrays of primitive types.
+      </action>
+      <action dev="jurka" type="fix">
+	While custom type maps are not implemented, the code to detect the
+	caller trying to use them threw a ClassCastException.  Correctly
+	detect the attempted use of custom types and bail out with a
+	SQLException.
+      </action>
+      <action dev="jurka" type="add">
+	Implement the JDBC4 method Connection.createArrayOf.  Now people can
+	portably and easily handle array data.
+      </action>
+      <action dev="jurka" type="fix" due-to="Tom Lane, Quinton Dolan">
+	When dealing with OIDs larger than 2^31 we can't retrieve these as
+	Java ints.  Using long throughout the driver would be a pain, one
+	reason is that you can't use a switch on a long variable.  PG supports
+	representing OIDs as signed ints (select '3000000000'::oid::int4), so
+	retrieve the values as longs, but then cast to int to get the signed
+	representation.
+      </action>
+    </release>
+
+    <release version="8.2-507" date="2007-12-02">
+      <action dev="jurka" type="fix" due-to="Eric Faulhaber">
+	When doing batch execution we can have multiple Parse and
+        DescribeStatement messages on the wire at the same time.  When we
+        finally get around to collecting the DescribeStatement results we
+        must check whether they still apply to the currently parsed
+        query.  Otherwise we'll overwrite our type information with stale
+        data that will cause failures down the line.
+      </action>
+      <action dev="jurka" type="fix" due-to="Ludovico Bianchini">
+	CallableStatements with OUT parameters that get executed more than
+	prepareThreshold times failed if clearParameters() was called in
+	between executions.  When we've hit the prepareThreshold, we no
+	longer send Parse messages which invoke SimpleParameterList.getTypeOID
+	which has side effects required to setup the parameters correctly.
+        Add an explicit convertFunctionOutParameters method to do this work
+        instead that we call in all execution paths.
+      </action>
+      <action dev="jurka" type="fix" due-to="Michael Paesold">
+	The driver was incorrectly parsing identifiers that had parts that
+	look like dollar quotes.  Things like a$b$c are valid
+	identifiers, not dollar quotes.  When determining if a $ we've
+	found is a dollar quote start, look at the preceding character and
+	see if it is a valid identifier part to determine if we're in the
+	midst of an identifier or are starting a new token.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas">
+	Multiple calls to XAConnection.getConnection within the same user
+        transaction ended up restarting the transaction on the server
+        side as a result of manipulating the autocommit state.  When
+        retrieving a Connection, we must pay attention to whether a user
+        transaction is in progress when setting the autocommit state.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christian Schröder">
+	Support NULL array elements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oleg Vasylenko">
+	Make code that parses queries for updateable resultsets aware of
+	the ONLY clause.
+      </action>
+      <action dev="jurka" type="fix">
+	While custom type maps are not implemented, the code to detect the
+	caller trying to use them threw a ClassCastException.  Correctly
+	detect the attempted use of custom types and bail out with a
+	SQLException.
+      </action>
+    </release>
+
+    <release version="8.1-411" date="2007-12-02">
+      <action dev="jurka" type="fix" due-to="Eric Faulhaber">
+	When doing batch execution we can have multiple Parse and
+        DescribeStatement messages on the wire at the same time.  When we
+        finally get around to collecting the DescribeStatement results we
+        must check whether they still apply to the currently parsed
+        query.  Otherwise we'll overwrite our type information with stale
+        data that will cause failures down the line.
+      </action>
+      <action dev="jurka" type="fix" due-to="Ludovico Bianchini">
+	CallableStatements with OUT parameters that get executed more than
+	prepareThreshold times failed if clearParameters() was called in
+	between executions.  When we've hit the prepareThreshold, we no
+	longer send Parse messages which invoke SimpleParameterList.getTypeOID
+	which has side effects required to setup the parameters correctly.
+        Add an explicit convertFunctionOutParameters method to do this work
+        instead that we call in all execution paths.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas">
+	Multiple calls to XAConnection.getConnection within the same user
+        transaction ended up restarting the transaction on the server
+        side as a result of manipulating the autocommit state.  When
+        retrieving a Connection, we must pay attention to whether a user
+        transaction is in progress when setting the autocommit state.
+      </action>
+      <action dev="jurka" type="fix" due-to="Oleg Vasylenko">
+	Make code that parses queries for updateable resultsets aware of
+	the ONLY clause.
+      </action>
+      <action dev="jurka" type="fix">
+	While custom type maps are not implemented, the code to detect the
+	caller trying to use them threw a ClassCastException.  Correctly
+	detect the attempted use of custom types and bail out with a
+	SQLException.
+      </action>
+    </release>
+
+    <release version="8.0-321" date="2007-12-02">
+      <action dev="jurka" type="fix" due-to="Oleg Vasylenko">
+	Make code that parses queries for updateable resultsets aware of
+	the ONLY clause.
+      </action>
+      <action dev="jurka" type="fix">
+	While custom type maps are not implemented, the code to detect the
+	caller trying to use them threw a ClassCastException.  Correctly
+	detect the attempted use of custom types and bail out with a
+	SQLException.
+      </action>
+    </release>
+
+    <release version="8.3-dev601" date="2007-07-31">
       <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
         Brazilian Portuguese translation update.
       </action>
@@ -258,7 +430,7 @@
       </action>
     </release>
 
-    <release version="dev600" date="2007-04-18">
+    <release version="8.3-dev600" date="2007-04-18">
       <action dev="jurka" type="fix" due-to="Ravi Periasmy">
         Statement.getTime, .getDate, and .getTimestamp methods which
 	are passed a Calendar object were rotating the timezone in the
@@ -689,7 +861,7 @@
       </action>
     </release>
 
-    <release version="dev503" date="2006-05-23">
+    <release version="8.2-dev503" date="2006-05-23">
       <action dev="jurka" type="fix">
         Using callable
         statements against older server versions (7.4 or 8.0) did not
@@ -740,7 +912,7 @@
       </action>
     </release>
 
-    <release version="dev502" date="2006-05-22">
+    <release version="8.2-dev502" date="2006-05-22">
       <action dev="davec" type="fix" due-to="Luis Londono">
         Fix a couple of bugs in CallableStatement outputs.  An oversight in
 	the checking of actual results vs. what the caller specified for
@@ -956,7 +1128,7 @@
       </action>
     </release>
 
-    <release version="dev501" date="2006-02-09">
+    <release version="8.2-dev501" date="2006-02-09">
       <action dev="jurka" type="fix" due-to="Oliver Jowett">
         Statement.cancel was prone to race conditions even with a single
         threaded client.  It would fire off a cancel message without
@@ -1145,7 +1317,7 @@
       </action>
     </release>
 
-    <release version="dev500" date="2005-11-29">
+    <release version="8.2-dev500" date="2005-11-29">
       <action dev="jurka" type="add" due-to="rupa">
         Add a URL parameter to enable logging of Connections which are
 	finalized, but not closed.  This will help people debug leaks.
@@ -1251,7 +1423,7 @@
       </action>
     </release>
 
-    <release version="dev403" date="2005-10-30">
+    <release version="8.1-dev403" date="2005-10-30">
       <action dev="davec" type="update" due-to="Sergei Rogovskiy">
         Improve performance of locating placeholders in queries.
       </action>
@@ -1308,7 +1480,7 @@
       </action>
     </release>
 
-    <release version="dev403" date="2005-10-30">
+    <release version="8.1-dev403" date="2005-10-30">
       <action dev="davec" type="update" due-to="Sergei Rogovskiy">
         Improve performance of locating placeholders in queries.
       </action>
@@ -1323,7 +1495,7 @@
       </action>
     </release>
 
-    <release version="dev402" date="2005-10-04">
+    <release version="8.1-dev402" date="2005-10-04">
       <action dev="oliver" type="fix">
         Fix a multitude of timestamp, timezone, and Calendar problems
 	resulting from the mismatch of Java's Timestamp object and the
@@ -1419,7 +1591,7 @@
       </action>
     </release>
 
-    <release version="dev401" date="2005-07-24">
+    <release version="8.1-dev401" date="2005-07-24">
       <action dev="oliver" type="add" due-to="Andras Kadinger">
         Support asynchronous notifications by looking for pending messages
 	when getNotifications() is called.  Doesn't always pick up on them
@@ -1566,7 +1738,7 @@
       </action>
     </release>
 
-    <release version="dev400" date="2005-04-10">
+    <release version="8.1-dev400" date="2005-04-10">
       <action dev="oliver" type="add">
         Implement basic login timeout support via a 'loginTimeout' URL parameter.
       </action>
@@ -1985,7 +2157,7 @@
       </action>
     </release>
 
-    <release version="dev307" date="2004-10-19">
+    <release version="8.0-dev307" date="2004-10-19">
       <action dev="jurka" type="update">
         Some general code cleanups.  Remove unnecessary imports and a couple
         unused variables.  In the test suite ensure that assertEquals() uses
@@ -2069,7 +2241,7 @@
       </action>
     </release>
 
-    <release version="dev306" date="2004-09-16">
+    <release version="8.0-dev306" date="2004-09-16">
       <action dev="jurka" type="fix" due-to="David Bucciarelli">
         ResultSet.moveToCurrentRow was checking the cached updateability flag
 	assuming it had been set instead of correctly calling the
@@ -2095,7 +2267,7 @@
       </action>
     </release>
 
-    <release version="dev305" date="2004-08-12">
+    <release version="8.0-dev305" date="2004-08-12">
       <action dev="oliver" type="fix">
         My version of junit (3.7) doesn't have assertFalse.  ArrayTest uses
         it in a couple of places.  This patch changes assertFalse(condition)
@@ -2165,7 +2337,7 @@
       </action>
     </release>
     
-    <release version="dev304" date="2004-07-17">
+    <release version="8.0-dev304" date="2004-07-17">
       <action dev="jurka" type="fix" due-to="Dario V. Fassi">
         Some ResultSetMetaData fixes.
         Remove completely duplicated code in the jdbc1/jdbc2 implementations.
@@ -2210,7 +2382,7 @@
       </action>
     </release>
 
-    <release version="dev303" date="2004-07-01">
+    <release version="8.0-dev303" date="2004-07-01">
       <action dev="jurka" type="fix" due-to="Kevin MacClay">
         Don't throw an Exception in locatorsUpdateCopy() even though the
 	ability to update LOBs is unimplemented.  The 1.5 JDK's CachedRowSet
@@ -2245,7 +2417,7 @@
       </action>
     </release>
 
-    <release version="dev302" date="2004-06-15">
+    <release version="8.0-dev302" date="2004-06-15">
       <action dev="blind" type="add">
         Added a cvsignore for PSQLException.java since this file is now
 	generated.
@@ -2347,7 +2519,7 @@
       </action>
     </release>
     
-    <release version="dev301" date="2004-03-29">
+    <release version="8.0-dev301" date="2004-03-29">
       <action dev="jurka" type="update">
         Now that we are out of the main tree, we can't rely on the makefile
 	system to tell us about versions and ports and other options so we
@@ -2550,12 +2722,6 @@
     <actions priority="Other">
       <action context="test">
         Pass the JDBC CTS (Sun's test suite).
-      </action>
-      <action context="feature">
-        Allow Java array types to be used in PreparedStatement.setObject.
-      </action>
-      <action context="feature">
-        Allow multi-dimensional array support.
       </action>
       <action context="code">
       	Allow SSL to use client certificates.  This can probably be done with

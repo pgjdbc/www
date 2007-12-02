@@ -27,8 +27,8 @@
 	javax.sql package.  It comes in two flavors, JDBC3 and JDBC4.  If
 	you are using the 1.6 JVM, then you should use the JDBC4 version.
       </p>
-      <p><a href="download/postgresql-8.2-506.jdbc3.jar">JDBC3 Postgresql Driver, Version 8.2-506</a></p>
-      <p><a href="download/postgresql-8.2-506.jdbc4.jar">JDBC4 Postgresql Driver, Version 8.2-506</a></p>
+      <p><a href="download/postgresql-8.2-507.jdbc3.jar">JDBC3 Postgresql Driver, Version 8.2-507</a></p>
+      <p><a href="download/postgresql-8.2-507.jdbc4.jar">JDBC4 Postgresql Driver, Version 8.2-507</a></p>
     </section>
 
     <section id="others">
@@ -80,36 +80,36 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>8.3dev Build 601</td>
-	  <td><a href="download/postgresql-8.3dev-601.jdbc2.jar">8.3dev-601 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.3dev-601.jdbc2ee.jar">8.3dev-601 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.3dev-601.jdbc3.jar">8.3dev-601 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.3dev-601.jdbc4.jar">8.3dev-601 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.3dev-601.src.tar.gz">8.3dev-601 JDBC Source</a></td>
+	  <td>8.3dev Build 602</td>
+	  <td><a href="download/postgresql-8.3dev-602.jdbc2.jar">8.3dev-602 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.3dev-602.jdbc2ee.jar">8.3dev-602 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.3dev-602.jdbc3.jar">8.3dev-602 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.3dev-602.jdbc4.jar">8.3dev-602 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.3dev-602.src.tar.gz">8.3dev-602 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.2 Build 506</td>
-	  <td><a href="download/postgresql-8.2-506.jdbc2.jar">8.2-506 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.2-506.jdbc2ee.jar">8.2-506 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.2-506.jdbc3.jar">8.2-506 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.2-506.jdbc4.jar">8.2-506 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.2-506.src.tar.gz">8.2-506 JDBC Source</a></td>
+	  <td>8.2 Build 507</td>
+	  <td><a href="download/postgresql-8.2-507.jdbc2.jar">8.2-507 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.2-507.jdbc2ee.jar">8.2-507 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.2-507.jdbc3.jar">8.2-507 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.2-507.jdbc4.jar">8.2-507 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.2-507.src.tar.gz">8.2-507 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.1 Build 410</td>
-	  <td><a href="download/postgresql-8.1-410.jdbc2.jar">8.1-410 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.1-410.jdbc2ee.jar">8.1-410 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.1-410.jdbc3.jar">8.1-410 JDBC 3</a></td>
+	  <td>8.1 Build 411</td>
+	  <td><a href="download/postgresql-8.1-411.jdbc2.jar">8.1-411 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.1-411.jdbc2ee.jar">8.1-411 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.1-411.jdbc3.jar">8.1-411 JDBC 3</a></td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-jdbc-8.1-410.src.tar.gz">8.1-410 JDBC Source</a></td>
+	  <td><a href="download/postgresql-jdbc-8.1-411.src.tar.gz">8.1-411 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.0 Build 320</td>
-	  <td><a href="download/postgresql-8.0-320.jdbc2.jar">8.0-320 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.0-320.jdbc2ee.jar">8.0-320 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.0-320.jdbc3.jar">8.0-320 JDBC 3</a></td>
+	  <td>8.0 Build 321</td>
+	  <td><a href="download/postgresql-8.0-321.jdbc2.jar">8.0-321 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.0-321.jdbc2ee.jar">8.0-321 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.0-321.jdbc3.jar">8.0-321 JDBC 3</a></td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-jdbc-8.0-320.src.tar.gz">8.0-320 JDBC Source</a></td>
+	  <td><a href="download/postgresql-jdbc-8.0-321.src.tar.gz">8.0-321 JDBC Source</a></td>
 	</tr>
       </table>
     </section>
