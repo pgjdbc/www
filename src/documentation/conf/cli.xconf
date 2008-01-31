@@ -163,6 +163,7 @@
    <exclude pattern="documentation/80/**" />
    <exclude pattern="documentation/81/**" />
    <exclude pattern="documentation/82/**" />
+   <exclude pattern="documentation/83/**" />
    <exclude pattern="documentation/head/**" />
 
    <!--+

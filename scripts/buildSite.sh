@@ -14,7 +14,7 @@ chmod +x scripts/generatePoStatus.pl
 # in before forrest will get around to creating it.
 mkdir -p build/site/development/po
 
-for version in 80 81 82 head
+for version in 80 81 82 83
 do
 	dir=pgjdbc-$version
 	rm $dir/org/postgresql/translation/*
@@ -47,10 +47,10 @@ do
 
 done
 
-cd src/documentation/content/xdocs/development/po && cat top head 82 81 80 bottom > status.xml && cd ../../../../../..
+cd src/documentation/content/xdocs/development/po && cat top 83 82 81 80 bottom > status.xml && cd ../../../../../..
 
 forrest -Dforrest.jvmargs=-Djava.awt.headless=true
 
-cp -r pgjdbc-head/build/publicapi build/site/documentation
-cp -r pgjdbc-head/build/privateapi build/site/development
+cp -r pgjdbc-83/build/publicapi build/site/documentation
+cp -r pgjdbc-83/build/privateapi build/site/development
 

@@ -14,6 +14,94 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="8.3-603" date="2008-01-31">
+      <action dev="jurka" type="add" due-to="Matt Magoffin">
+	When PreparedStatement.setObject(int, Object, Types.OTHER) is issued,
+        bind the String version of the object with an unspecified type.
+        This makes it easier to use types that Java doesn't have a
+        mapping for without enabling stringtype=unspecified for all
+        driver calls.
+      </action>
+      <action dev="jurka" type="add" due-to="Christian Schroder">
+	Implement the new JDBC3 + JDBC4 columns that are now returned by
+        DatabaseMetaData.getColumns.
+      </action>
+      <action dev="jurka" type="fix" due-to="Magne Mahre">
+	The JDBC spec says that when you have two duplicately named
+        columns in a ResultSet, a search by name should return the first
+	one.  Previously our code was returning the second match.
+      </action>
+      <action dev="jurka" type="add">
+	Throw an exception if people try to use setQueryTimeout with a
+	non-zero value as it is not implemented.
+      </action>
+      <action dev="jurka" type="fix" due-to="Altaf Malik">
+	While the driver currently doesn't support the copy protocol, it
+	needs to understand it enough to ignore it.  Now the connection
+	will not be irreparably broken when a COPY request is sent.
+      </action>
+      <action dev="jurka" type="update" due-to="Kuo ChaoYi">
+	Updated simplified and traditional Chinese translations.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+	Updated Brazilian Portuguese translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Devrim Gunduz">
+	Updated Turkish translation.
+      </action>
+    </release>
+
+    <release version="8.2-508" date="2008-01-31">
+      <action dev="jurka" type="fix" due-to="Altaf Malik">
+	While the driver currently doesn't support the copy protocol, it
+	needs to understand it enough to ignore it.  Now the connection
+	will not be irreparably broken when a COPY request is sent.
+      </action>
+      <action dev="davec" type="fix">
+	Fix batch execution of CallableStatements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Magne Mahre">
+	The JDBC spec says that when you have two duplicately named
+        columns in a ResultSet, a search by name should return the first
+	one.  Previously our code was returning the second match.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+	Updated Brazilian Portuguese translation.
+      </action>
+    </release>
+
+    <release version="8.1-412" date="2008-01-31">
+      <action dev="jurka" type="fix" due-to="Altaf Malik">
+	While the driver currently doesn't support the copy protocol, it
+	needs to understand it enough to ignore it.  Now the connection
+	will not be irreparably broken when a COPY request is sent.
+      </action>
+      <action dev="jurka" type="fix" due-to="Magne Mahre">
+	The JDBC spec says that when you have two duplicately named
+        columns in a ResultSet, a search by name should return the first
+	one.  Previously our code was returning the second match.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+	Updated Brazilian Portuguese translation.
+      </action>
+    </release>
+
+    <release version="8.0-322" date="2008-01-31">
+      <action dev="jurka" type="fix" due-to="Altaf Malik">
+	While the driver currently doesn't support the copy protocol, it
+	needs to understand it enough to ignore it.  Now the connection
+	will not be irreparably broken when a COPY request is sent.
+      </action>
+      <action dev="jurka" type="fix" due-to="Magne Mahre">
+	The JDBC spec says that when you have two duplicately named
+        columns in a ResultSet, a search by name should return the first
+	one.  Previously our code was returning the second match.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+	Updated Brazilian Portuguese translation.
+      </action>
+    </release>
+
     <release version="8.3-dev602" date="2007-12-02">
       <action dev="jurka" type="fix" due-to="Eric Faulhaber">
 	When doing batch execution we can have multiple Parse and
