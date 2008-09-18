@@ -16,7 +16,7 @@
 	<li><a href="site:docs">Documentation</a></li>
 	<li>
 	  Mailing list
-	  <a href="http://archives.postgresql.org/pgsql-jdbc">archives</a>, (Google interface to <a href="http://groups.google.com/groups?group=comp.databases.postgresql.interfaces.jdbc">older</a> and <a href="http://groups.google.com/groups?group=pgsql.interfaces.jdbc">newer</a> messages.)
+	  <a href="http://archives.postgresql.org/pgsql-jdbc">archives</a>, (Google interface to <a href="http://groups.google.com/group/pgsql.interfaces.jdbc">newer messages</a>.)
 	</li>
 	<li>
 	  Consider upgrading your JDBC driver to the latest version.  It
