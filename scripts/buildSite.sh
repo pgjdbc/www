@@ -5,21 +5,18 @@
 # It requires correct versions of the source tree checked out into
 # pgjdbc-80, pgjdbc-81, and pgjdbc-head subdirectories.
 
-cvs update
-
-#cvs doesn't let us change permissions after the fact
-chmod +x scripts/generatePoStatus.pl
+#cvs update
 
 # running from a clean tree we need this directory to put .po files
 # in before forrest will get around to creating it.
 mkdir -p build/site/development/po
 
-for version in 80 81 82 83
+for version in 80 81 82 83 head
 do
 	dir=pgjdbc-$version
 	rm $dir/org/postgresql/translation/*
 	cd $dir && ant clean && cd ..
-	cd $dir && cvs update && cd ..
+	cd $dir && cvs update org/postgresql/translation && cd ..
 	cd $dir && ./update-translations.sh && cd ..
 
 	for i in $dir/org/postgresql/translation/*.po
@@ -47,7 +44,7 @@ do
 
 done
 
-cd src/documentation/content/xdocs/development/po && cat top 83 82 81 80 bottom > status.xml && cd ../../../../../..
+cd src/documentation/content/xdocs/development/po && cat top head 83 82 81 80 bottom > status.xml && cd ../../../../../..
 
 forrest -Dforrest.jvmargs=-Djava.awt.headless=true
 

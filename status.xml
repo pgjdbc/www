@@ -14,6 +14,363 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="8.4dev-700" date="2008-11-16">
+      <action dev="jurka" type="update">
+        Make the build system aware of the 1.7 JDK (which icedtea reports itself
+        as) and add an explicit check and complaint if we find a JDK that
+        we don't support.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Do comparison of identifiers in a known Locale (specificially US).
+        In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
+        is false which makes looking up a column name case insensitively
+        a problem.
+      </action>
+      <action dev="jurka" type="fix" due-to="Gustav Trede">
+        Avoid making a copy of the current row after each positioning command,
+        for example next().  This is only needed if we have an updatable
+        ResultSet and is just a waste otherwise.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joao Rui Leal">
+        Fix a deadlock that occurs when retrieving notifications.  Normal
+        query execution enters the QueryExecutor monitor and then calls a
+        synchronized method in the ProtocolConnection to update the
+        transaction state.  Notification retrieval operates in the reverse
+        order, entering the ProtocolConnection monitor and then calling a
+        synchronized method in the QueryExecutor.
+
+        Remove the QueryExecutor call from ProtocolConnection and make
+        the higher level code responsible for calling it so we always
+        acquire locks in the same order.
+      </action>
+      <action dev="jurka" type="fix" due-to="Sam Lawrence, Albe Laurenz">
+        CallableStatement#getUpdateCount was returning 1 when a function
+        returned a ResultSet.  Return -1 instead.
+      </action>
+      <action dev="jurka" type="fix">
+        The DataSource options for ssl where not
+        correctly being serialized or included in the Reference.
+      </action>
+      <action dev="jurka" type="add" due-to="Toru Shimogaki">
+        Add a configuration option to enable tcp keep alives.
+      </action>
+      <action dev="jurka" type="update">
+        Refactor type information functions into a dedicated interface.  This
+        avoids making BaseConnection expose these and AbstractJdbc2Connection
+        just proxy these to the real type information handing.  Additionally
+        now type information can be setup differently for each JDBC
+        version which will be required for things like SQLXML support
+        because the JDBC2 code can't use the java.sql.Types values for
+        JDBC4.
+
+        This removes the long deprecated functions in the public
+        PGConnection interface, but hopefully no one is still using that.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mats Ekelund">
+        DatabaseMetaData.getTypeInfo provides two columns for indicating
+        the prefix and suffix that should be wrapped around a literal
+        when putting it into a query.  Return the correct quoting (') for
+        all non-numeric types.
+      </action>
+      <action dev="jurka" type="add">
+        For array types, return information about their base types for things
+        like getPrecision.
+      </action>
+      <action dev="jurka" type="fix">
+        Accept UTF8 as an equivalent of UNICODE
+        when trying to detect if client_encoding has changed to something
+        the driver doesn't understand.  Don't try to accept every
+        possible spelling (UTF-8) as UTF8 is the server's canonical name
+        and people shouldn't be messing with this anyway.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+      <action dev="jurka" type="add" due-to="Daniel Migowski">
+        Add more detail to the exception when interpreting a server error
+        message.
+      </action>
+      <action dev="jurka" type="add" due-to="Achilleas Mantzios">
+        Make datasources support the compatible parameter.
+      </action>
+      <action dev="jurka" type="add">
+        Send initial connection startup parameters
+        in UTF-8 rather than US-ASCII.  The initial connection encoding
+        is poorly defined as "whatever encoding the database is in" which
+        we don't know until after the authentication phase is complete.
+        UTF-8 supports everything ascii did and will now allow database
+        names, user names, and passwords to contain non-ascii characaters
+        as long as their database is in UTF-8, which is the most common
+        case.
+      </action>
+      <action dev="jurka" type="fix" due-to="Paul Lindner">
+        Avoid looking up the UTF-8
+        Charset by name.  When using multiple Charsets, this is a minor
+        performance hit in the single threaded case and a big point of
+        contention for multiple threads.
+      </action>
+      <action dev="jurka" type="remove">
+        Kill off JDBC2 specific code.  Simplify the build system now that we
+        require a 1.4 or higher JDK.
+      </action>
+      <action dev="jurka" type="add">
+        Map the database uuid type to java.util.UUID.  This only works for
+        relatively new server (8.3) and JDK (1.5) versions.
+      </action>
+      <action dev="jurka" type="add" due-to="Michael Enke">
+        Change the output of PreparedStatement.toString for V3 protocol
+        connections to output a textual representation of the query that is a
+        legal query in most cases.  Previously it didn't quote or escape
+        parameters.  It still doesn't correctly handle binary data and it may
+        not be exactly the same as executing it by the PreparedStatement (which
+        will have extra type information), but it is a nicer to work
+        with.
+      </action>
+      <action dev="jurka" type="add">
+        Implement support for
+        SQLXML.  All of the underlying XML tools don't seem to support
+        handling fragments, but these are allowed in the server xml type.
+        I'm also not sure there aren't any encoding problems, but it
+        mostly seems to work.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust the deadlock avoidance code for
+        the V3 protocol to be concerned with many statements in a single
+        execute call in addition to the existing worry about many
+        statements from an executeBatch call.  This doesn't prevent all
+        possible deadlocks as the deadlock avoidance calculation was
+        written for batch execution which should not be returning
+        ResultSets.  If many long queries that return significant results
+        are issued with a single execute we will still deadlock.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mythili Gopalakrishnan">
+        DatabaseMetaData.getTypeInfo was reporting whether the type was
+        signed or not, but the output column is really supposed to
+        indicate whether the the type is unsigned or not.
+      </action>
+      <action dev="jurka" type="add">
+        Implement basic generated keys
+        support.  It does not support returning columns by index because
+        that requires complicated parsing of the query to determine the
+        table being used.  Right now it supports returning all columns
+        and columns by name.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christophe Janton">
+        Support a parameter (?) for the amount part of the timestampadd
+        function.  Previously we only supported literals.
+      </action>
+    </release>
+
+    <release version="8.3-604" date="2008-11-16">
+      <action dev="jurka" type="update">
+        Make the build system aware of the 1.7 JDK (which icedtea reports itself
+        as) and add an explicit check and complaint if we find a JDK that
+        we don't support.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Do comparison of identifiers in a known Locale (specificially US).
+        In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
+        is false which makes looking up a column name case insensitively
+        a problem.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joao Rui Leal">
+        Fix a deadlock that occurs when retrieving notifications.  Normal
+        query execution enters the QueryExecutor monitor and then calls a
+        synchronized method in the ProtocolConnection to update the
+        transaction state.  Notification retrieval operates in the reverse
+        order, entering the ProtocolConnection monitor and then calling a
+        synchronized method in the QueryExecutor.
+
+        Remove the QueryExecutor call from ProtocolConnection and make
+        the higher level code responsible for calling it so we always
+        acquire locks in the same order.
+      </action>
+      <action dev="jurka" type="fix" due-to="Sam Lawrence, Albe Laurenz">
+        CallableStatement#getUpdateCount was returning 1 when a function
+        returned a ResultSet.  Return -1 instead.
+      </action>
+      <action dev="jurka" type="fix">
+        The DataSource options for ssl where not
+        correctly being serialized or included in the Reference.
+      </action>
+      <action dev="jurka" type="fix">
+        Accept UTF8 as an equivalent of UNICODE
+        when trying to detect if client_encoding has changed to something
+        the driver doesn't understand.  Don't try to accept every
+        possible spelling (UTF-8) as UTF8 is the server's canonical name
+        and people shouldn't be messing with this anyway.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust the deadlock avoidance code for
+        the V3 protocol to be concerned with many statements in a single
+        execute call in addition to the existing worry about many
+        statements from an executeBatch call.  This doesn't prevent all
+        possible deadlocks as the deadlock avoidance calculation was
+        written for batch execution which should not be returning
+        ResultSets.  If many long queries that return significant results
+        are issued with a single execute we will still deadlock.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mythili Gopalakrishnan">
+        DatabaseMetaData.getTypeInfo was reporting whether the type was
+        signed or not, but the output column is really supposed to
+        indicate whether the the type is unsigned or not.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christophe Janton">
+        Support a parameter (?) for the amount part of the timestampadd
+        function.  Previously we only supported literals.
+      </action>
+    </release>
+
+    <release version="8.2-509" date="2008-11-16">
+      <action dev="jurka" type="update">
+        Make the build system aware of the 1.7 JDK (which icedtea reports itself
+        as) and add an explicit check and complaint if we find a JDK that
+        we don't support.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Do comparison of identifiers in a known Locale (specificially US).
+        In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
+        is false which makes looking up a column name case insensitively
+        a problem.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joao Rui Leal">
+        Fix a deadlock that occurs when retrieving notifications.  Normal
+        query execution enters the QueryExecutor monitor and then calls a
+        synchronized method in the ProtocolConnection to update the
+        transaction state.  Notification retrieval operates in the reverse
+        order, entering the ProtocolConnection monitor and then calling a
+        synchronized method in the QueryExecutor.
+
+        Remove the QueryExecutor call from ProtocolConnection and make
+        the higher level code responsible for calling it so we always
+        acquire locks in the same order.
+      </action>
+      <action dev="jurka" type="fix" due-to="Sam Lawrence, Albe Laurenz">
+        CallableStatement#getUpdateCount was returning 1 when a function
+        returned a ResultSet.  Return -1 instead.
+      </action>
+      <action dev="jurka" type="fix">
+        Accept UTF8 as an equivalent of UNICODE
+        when trying to detect if client_encoding has changed to something
+        the driver doesn't understand.  Don't try to accept every
+        possible spelling (UTF-8) as UTF8 is the server's canonical name
+        and people shouldn't be messing with this anyway.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust the deadlock avoidance code for
+        the V3 protocol to be concerned with many statements in a single
+        execute call in addition to the existing worry about many
+        statements from an executeBatch call.  This doesn't prevent all
+        possible deadlocks as the deadlock avoidance calculation was
+        written for batch execution which should not be returning
+        ResultSets.  If many long queries that return significant results
+        are issued with a single execute we will still deadlock.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mythili Gopalakrishnan">
+        DatabaseMetaData.getTypeInfo was reporting whether the type was
+        signed or not, but the output column is really supposed to
+        indicate whether the the type is unsigned or not.
+      </action>
+      <action dev="jurka" type="fix" due-to="Christophe Janton">
+        Support a parameter (?) for the amount part of the timestampadd
+        function.  Previously we only supported literals.
+      </action>
+    </release>
+
+    <release version="8.1-413" date="2008-11-16">
+      <action dev="jurka" type="update">
+        Make the build system aware of the 1.7 JDK (which icedtea reports itself
+        as) and add an explicit check and complaint if we find a JDK that
+        we don't support.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Do comparison of identifiers in a known Locale (specificially US).
+        In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
+        is false which makes looking up a column name case insensitively
+        a problem.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joao Rui Leal">
+        Fix a deadlock that occurs when retrieving notifications.  Normal
+        query execution enters the QueryExecutor monitor and then calls a
+        synchronized method in the ProtocolConnection to update the
+        transaction state.  Notification retrieval operates in the reverse
+        order, entering the ProtocolConnection monitor and then calling a
+        synchronized method in the QueryExecutor.
+
+        Remove the QueryExecutor call from ProtocolConnection and make
+        the higher level code responsible for calling it so we always
+        acquire locks in the same order.
+      </action>
+      <action dev="jurka" type="fix" due-to="Sam Lawrence, Albe Laurenz">
+        CallableStatement#getUpdateCount was returning 1 when a function
+        returned a ResultSet.  Return -1 instead.
+      </action>
+      <action dev="jurka" type="fix">
+        Accept UTF8 as an equivalent of UNICODE
+        when trying to detect if client_encoding has changed to something
+        the driver doesn't understand.  Don't try to accept every
+        possible spelling (UTF-8) as UTF8 is the server's canonical name
+        and people shouldn't be messing with this anyway.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust the deadlock avoidance code for
+        the V3 protocol to be concerned with many statements in a single
+        execute call in addition to the existing worry about many
+        statements from an executeBatch call.  This doesn't prevent all
+        possible deadlocks as the deadlock avoidance calculation was
+        written for batch execution which should not be returning
+        ResultSets.  If many long queries that return significant results
+        are issued with a single execute we will still deadlock.
+      </action>
+    </release>
+
+    <release version="8.0-323" date="2008-11-16">
+      <action dev="jurka" type="update">
+        Make the build system aware of the 1.7 JDK (which icedtea reports itself
+        as) and add an explicit check and complaint if we find a JDK that
+        we don't support.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
+        Do comparison of identifiers in a known Locale (specificially US).
+        In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
+        is false which makes looking up a column name case insensitively
+        a problem.
+      </action>
+      <action dev="jurka" type="fix" due-to="Sam Lawrence, Albe Laurenz">
+        CallableStatement#getUpdateCount was returning 1 when a function
+        returned a ResultSet.  Return -1 instead.
+      </action>
+      <action dev="jurka" type="fix">
+        Accept UTF8 as an equivalent of UNICODE
+        when trying to detect if client_encoding has changed to something
+        the driver doesn't understand.  Don't try to accept every
+        possible spelling (UTF-8) as UTF8 is the server's canonical name
+        and people shouldn't be messing with this anyway.
+      </action>
+      <action dev="jurka" type="update" due-to="Andre Bialojahn">
+        Updated German translation.
+      </action>
+      <action dev="jurka" type="fix">
+        Adjust the deadlock avoidance code for
+        the V3 protocol to be concerned with many statements in a single
+        execute call in addition to the existing worry about many
+        statements from an executeBatch call.  This doesn't prevent all
+        possible deadlocks as the deadlock avoidance calculation was
+        written for batch execution which should not be returning
+        ResultSets.  If many long queries that return significant results
+        are issued with a single execute we will still deadlock.
+      </action>
+    </release>
+
     <release version="8.3-603" date="2008-01-31">
       <action dev="jurka" type="add" due-to="Matt Magoffin">
 	When PreparedStatement.setObject(int, Object, Types.OTHER) is issued,
