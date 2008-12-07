@@ -97,11 +97,11 @@
 	</tr>
 	<tr>
 	  <td>8.2 Build 509</td>
-	  <td><a href="download/postgresql-8.2-509.jdbc2.jar">8.2-508 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.2-509.jdbc2ee.jar">8.2-508 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.2-509.jdbc3.jar">8.2-508 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.2-509.jdbc4.jar">8.2-508 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.2-509.src.tar.gz">8.2-508 JDBC Source</a></td>
+	  <td><a href="download/postgresql-8.2-509.jdbc2.jar">8.2-509 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.2-509.jdbc2ee.jar">8.2-509 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.2-509.jdbc3.jar">8.2-509 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.2-509.jdbc4.jar">8.2-509 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.2-509.src.tar.gz">8.2-509 JDBC Source</a></td>
 	</tr>
 	<tr>
 	  <td>8.1 Build 413</td>
@@ -113,11 +113,11 @@
 	</tr>
 	<tr>
 	  <td>8.0 Build 323</td>
-	  <td><a href="download/postgresql-8.0-323.jdbc2.jar">8.0-322 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.0-323.jdbc2ee.jar">8.0-322 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.0-323.jdbc3.jar">8.0-322 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.0-323.jdbc2.jar">8.0-323 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.0-323.jdbc2ee.jar">8.0-323 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.0-323.jdbc3.jar">8.0-323 JDBC 3</a></td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-jdbc-8.0-323.src.tar.gz">8.0-322 JDBC Source</a></td>
+	  <td><a href="download/postgresql-jdbc-8.0-323.src.tar.gz">8.0-323 JDBC Source</a></td>
 	</tr>
       </table>
     </section>
