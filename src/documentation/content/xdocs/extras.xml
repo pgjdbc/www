@@ -24,15 +24,6 @@
       </p>
     </section>
 
-    <section id="copy">
-      <title>Copy Interface</title>
-      <p>The core driver currently does not support the COPY command and
-        while we have every intention of doing that eventually we haven't
-        gotten around to it yet.
-	<a href="http://kato.iki.fi/sw/db/postgresql/jdbc/copy/">http://kato.iki.fi/sw/db/postgresql/jdbc/copy/</a>
-      </p>
-    </section>
-
   </body>
 </document>
 

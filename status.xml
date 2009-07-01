@@ -14,6 +14,205 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="8.4-701" date="2009-07-01">
+      <action dev="jurka" type="fix">
+	Don't list toast table types in the output of DatabaseMetaData.getTypeInfo.
+      </action>
+      <action dev="jurka" type="add">
+        Add support for GSSAPI authentication.
+      </action>
+      <action dev="jurka" type="fix" due-to="Radu Buzila">
+        The Statement and
+          Connection proxies used for connection pooling code relied on the
+          underlying real connection and statement code for equals and
+          hashcode support.  When the proxies are closed we discard the
+          references to the real objects, so we can't rely on them for this
+          support because we'll get a NullPointerException.
+      </action>
+      <action dev="jurka" type="add">
+	Implement support for generated keys for PreparedStatements in addition
+	to the earlier support for plain Statements.
+      </action>
+      <action dev="jurka" type="fix">
+	Not all datatypes use a comma for the array element delimiter.  Lookup
+	the appropriate delimiter in the system catalogs.
+      </action>
+      <action dev="jurka" type="fix">
+	DatabaseMetaData.getColumns was broken for the JDBC 3 and 4 drivers when
+	running against 7.2 or older servers.
+      </action>
+      <action dev="jurka" type="fix" due-to="Dickson Guedes, Tom Lane">
+	Retrieve columns' default values from pg_attrdef.adbin rather than adsrc
+        because adsrc can get out of date when dependent objects are renamed while
+	adbin stays up to date.
+      </action>
+      <action dev="jurka" type="add" due-to="Heikki Linnakangas">
+	Speed up parsing of BigDecimal values in the common case of reasonably short,
+	 simple numbers.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heiiki Linnakangas">
+	Fix parsing of integer and long data.  Some malformed inputs (only a negative
+	sign) got treated as valid data.
+      </action>
+      <action dev="jurka" type="add" due-to="Heiiki Linnakangas">
+	Avoid sending extra Describe Portal messages to the server when
+        we've already done this for the query.  Caching the Field objects
+        across executions will also speed up ResultSetMetaData calls.
+      </action>
+      <action dev="jurka" type="add">
+	Avoid sending extra Describe Statement messages to the server
+        when we've already done this for the query.
+      </action>
+      <action dev="jurka" type="fix" due-to="Fujii Masao">
+	Initialize BatchUpdateExceptions
+        with the SQLState of the SQLException that they are wrapping.
+        Code that inspects the SQLStates of SQLExceptions, but doesn't
+        unwrap the nested exception will not understand the underlying
+        cause and may make incorrect decisions about the severity of the
+        error.
+      </action>
+      <action dev="jurka" type="update" due-to="Bojan Skaljac">
+	Updated Serbian translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Euler Taveira de Oliveira">
+	Updated Brazilian Portuguese translation.
+      </action>
+      <action dev="jurka" type="update" due-to="Devrim Gunduz">
+	Updated Turkish translation.
+      </action>
+      <action dev="jurka" type="add" due-to="Art Gramlich">
+	Add a connection
+        parameter for setting a socket read timeout.  This acts like a
+        global query timeout that shuts down the connection if exceeded.
+        This can be used to detect dead network connections if you can
+        reasonably estimate the upper bound of your queries.
+      </action>
+      <action dev="jurka" type="fix">
+	Initialize the prepareThreshold parameter for datasources to the same
+	value that would be used by a non-DataSource created connection.  By not
+        setting it, it effectively turned off the use of named statments.
+      </action>
+      <action dev="jurka" type="add">
+	Provide a way for the user to specify the desired length return value for
+	metadata about types of unknown length.  We've tried a number of things
+        and can't keep everyone happy, so it's their problem now.
+      </action>
+      <action dev="jurka" type="add" due-to="Kalle Hallivuori">
+	Implement support for COPY in the JDBC driver with a non-standard
+	postgresql CopyManager API.  This provides support for both copy from
+	the server and to the server and operating in either a source or sink
+        mode.
+      </action>
+    </release>
+
+    <release version="8.3-605" date="2009-07-01">
+      <action dev="jurka" type="fix" due-to="Radu Buzila">
+        The Statement and
+          Connection proxies used for connection pooling code relied on the
+          underlying real connection and statement code for equals and
+          hashcode support.  When the proxies are closed we discard the
+          references to the real objects, so we can't rely on them for this
+          support because we'll get a NullPointerException.
+      </action>
+      <action dev="jurka" type="fix">
+	DatabaseMetaData.getColumns was broken for the JDBC 3 and 4 drivers when
+	running against 7.2 or older servers.
+      </action>
+      <action dev="jurka" type="fix" due-to="Dickson Guedes, Tom Lane">
+	Retrieve columns' default values from pg_attrdef.adbin rather than adsrc
+        because adsrc can get out of date when dependent objects are renamed while
+	adbin stays up to date.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heiiki Linnakangas">
+	Fix parsing of integer and long data.  Some malformed inputs (only a negative
+	sign) got treated as valid data.
+      </action>
+      <action dev="jurka" type="fix" due-to="Fujii Masao">
+	Initialize BatchUpdateExceptions
+        with the SQLState of the SQLException that they are wrapping.
+        Code that inspects the SQLStates of SQLExceptions, but doesn't
+        unwrap the nested exception will not understand the underlying
+        cause and may make incorrect decisions about the severity of the
+        error.
+      </action>
+    </release>
+
+    <release version="8.2-510" date="2009-07-01">
+      <action dev="jurka" type="fix" due-to="Radu Buzila">
+        The Statement and
+          Connection proxies used for connection pooling code relied on the
+          underlying real connection and statement code for equals and
+          hashcode support.  When the proxies are closed we discard the
+          references to the real objects, so we can't rely on them for this
+          support because we'll get a NullPointerException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Dickson Guedes, Tom Lane">
+	Retrieve columns' default values from pg_attrdef.adbin rather than adsrc
+        because adsrc can get out of date when dependent objects are renamed while
+	adbin stays up to date.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heiiki Linnakangas">
+	Fix parsing of integer and long data.  Some malformed inputs (only a negative
+	sign) got treated as valid data.
+      </action>
+      <action dev="jurka" type="fix" due-to="Fujii Masao">
+	Initialize BatchUpdateExceptions
+        with the SQLState of the SQLException that they are wrapping.
+        Code that inspects the SQLStates of SQLExceptions, but doesn't
+        unwrap the nested exception will not understand the underlying
+        cause and may make incorrect decisions about the severity of the
+        error.
+      </action>
+    </release>
+
+    <release version="8.1-414" date="2009-07-01">
+      <action dev="jurka" type="fix" due-to="Radu Buzila">
+        The Statement and
+          Connection proxies used for connection pooling code relied on the
+          underlying real connection and statement code for equals and
+          hashcode support.  When the proxies are closed we discard the
+          references to the real objects, so we can't rely on them for this
+          support because we'll get a NullPointerException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Dickson Guedes, Tom Lane">
+	Retrieve columns' default values from pg_attrdef.adbin rather than adsrc
+        because adsrc can get out of date when dependent objects are renamed while
+	adbin stays up to date.
+      </action>
+      <action dev="jurka" type="fix" due-to="Fujii Masao">
+	Initialize BatchUpdateExceptions
+        with the SQLState of the SQLException that they are wrapping.
+        Code that inspects the SQLStates of SQLExceptions, but doesn't
+        unwrap the nested exception will not understand the underlying
+        cause and may make incorrect decisions about the severity of the
+        error.
+      </action>
+    </release>
+
+    <release version="8.0-324" date="2009-07-01">
+      <action dev="jurka" type="fix" due-to="Radu Buzila">
+        The Statement and
+          Connection proxies used for connection pooling code relied on the
+          underlying real connection and statement code for equals and
+          hashcode support.  When the proxies are closed we discard the
+          references to the real objects, so we can't rely on them for this
+          support because we'll get a NullPointerException.
+      </action>
+      <action dev="jurka" type="fix" due-to="Dickson Guedes, Tom Lane">
+	Retrieve columns' default values from pg_attrdef.adbin rather than adsrc
+        because adsrc can get out of date when dependent objects are renamed while
+	adbin stays up to date.
+      </action>
+      <action dev="jurka" type="fix" due-to="Fujii Masao">
+	Initialize BatchUpdateExceptions
+        with the SQLState of the SQLException that they are wrapping.
+        Code that inspects the SQLStates of SQLExceptions, but doesn't
+        unwrap the nested exception will not understand the underlying
+        cause and may make incorrect decisions about the severity of the
+        error.
+      </action>
+    </release>
+
     <release version="8.4dev-700" date="2008-11-16">
       <action dev="jurka" type="update">
         Make the build system aware of the 1.7 JDK (which icedtea reports itself
@@ -3154,9 +3353,6 @@
     </actions>
 
     <actions priority="PG Extensions">
-      <action dev="jurka">
-        Add support for COPY.
-      </action>
       <action>
         Allow configuration of GUC parameters via the Connection URL or
 	Datasource.  The most obvious example of usefulness is search_path.
@@ -3182,10 +3378,6 @@
       <action context="code">
         Need a much better lexer/parser than the ad hoc stuff in the driver.
 	<link href="http://archives.postgresql.org/pgsql-jdbc/2004-09/msg00062.php">ref2</link>
-      </action>
-      <action context="metadata">
-        getTypeInfo returns table types because they are valid datatypes, but
-	it seems pointless to return toast tables' types here.
       </action>
     </actions>
 

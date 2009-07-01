@@ -11,12 +11,12 @@
 # in before forrest will get around to creating it.
 mkdir -p build/site/development/po
 
-for version in 80 81 82 83 head
+for version in 80 81 82 83 84 head
 do
 	dir=pgjdbc-$version
-	rm $dir/org/postgresql/translation/*
+#	rm $dir/org/postgresql/translation/*
 	cd $dir && ant clean && cd ..
-	cd $dir && cvs update org/postgresql/translation && cd ..
+#	cd $dir && cvs update org/postgresql/translation && cd ..
 	cd $dir && ./update-translations.sh && cd ..
 
 	for i in $dir/org/postgresql/translation/*.po
@@ -44,10 +44,10 @@ do
 
 done
 
-cd src/documentation/content/xdocs/development/po && cat top head 83 82 81 80 bottom > status.xml && cd ../../../../../..
+cd src/documentation/content/xdocs/development/po && cat top head 84 83 82 81 80 bottom > status.xml && cd ../../../../../..
 
 forrest -Dforrest.jvmargs=-Djava.awt.headless=true
 
-cp -r pgjdbc-83/build/publicapi build/site/documentation
-cp -r pgjdbc-83/build/privateapi build/site/development
+cp -r pgjdbc-84/build/publicapi build/site/documentation
+cp -r pgjdbc-84/build/privateapi build/site/development
 
