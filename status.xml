@@ -14,6 +14,341 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="9.0-dev800" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Tom Lane">
+        Remove an unused Sun specific import that prevented compilation on non-Sun JDKs.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Kevin Grittner">
+        Check that a Connection hasn't been closed before allowing
+	any operations on it.
+      </action>
+      <action dev="jurka" type="fix" due-to="Kevin Grittner">
+	Don't allow rollback or commit when a Connection is in autocommit
+	mode.
+      </action>
+      <action dev="jurka" type="add">
+	Support reading the new hex escaped bytea format.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add support for returning the new TRUNCATE privilege, that was
+	added in 8.4, to the list of known table privileges.
+      </action>
+      <action dev="jurka" type="fix">
+	Change the SQLStates reported for using a closed Connection
+	and closed ResultSet to be more consistent.  Report
+	connection_does_not_exist (08003) for a closed Connection and
+	object_not_in_state (55000) for a ResultSet.
+      </action>
+      <action dev="jurka" type="fix" due-to="Maciek Sakrejda">
+	When a COPY operation is the first statement issued in a transaction,
+	it was not sending the BEGIN necessary to start the transaction.
+      </action>
+      <action dev="jurka" type="add" due-to="Mark Kirkwood">
+	Add the partial index constraint to the FILTER_CONDITION column
+	returned by DatabaseMetaData.getIndexInfo.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hiroshi Saito">
+	The 8.4 release added some
+        code to avoid re-describing a statement if we already had the
+        type information available by copying the resolved type
+        information from the query to the parameters.  Its goal was just
+        to overwrite parameters without a type (unknown), but it was
+        actually overwriting all types which could change the query's
+        desired behavior.
+      </action>
+      <action dev="jurka" type="fix">
+	Fix the ORDINAL_POSITION in the DatabaseMetaData.getColumns.
+	Previously we were returning
+          simply pg_attribute.attnum, but that doesn't work in the presence
+          of dropped columns because later columns don't get their attnum
+          decremented if a preceding column is dropped.  Instead use the
+          row_number window function for 8.4 and later servers to figure
+          out the live column position.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
+	Always specify an XA error code when creating an XAException.
+	Otherwise a transaction manager won't know what to do with
+	the error and may have to asssume the worst.
+      </action>
+      <action dev="jurka" type="add" due-to="Hiroshi Saito">
+	Japanese translation of error messages.
+      </action>
+      <action dev="jurka" type="add" due-to="Viktor Usunov">
+	Bulgarian translation of error messages.
+      </action>
+      <action dev="jurka" type="fix" due-to="Simon Kissane">
+	LOB truncation didn't allow truncating to zero length because
+	it was improperly using the positioning length checks which
+	don't allow a zero length.
+      </action>
+      <action dev="jurka" type="fix" due-to="Pierre Queinnec">
+	Protocol sync was lost when a batch statement parameter had an
+	embedded null byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Leonardo F">
+	Fix a problem using the Copy API to copy data to the server from
+        a Reader.  After reading data out of the Reader and into a
+        buffer, we were sending the entire buffer on to the server, not
+        just the subset of it that was filled by the read operation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
+	A XA transaction should not change the autocommit setting of a
+        Connection.  Ensure that we restore this property correctly after
+        the XA transaction completes.
+      </action>
+      <action dev="jurka" type="fix" due-to="Eric Jain">
+	PoolingDataSources were not picking up all of the properties
+	that were set for them.  Notably it would not give you a SSL
+	connection when asked.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add some more specific types to the return value for
+        DatabaseMetaData.getTables.  Return composite types, temporary
+        views, and temporary sequences with TABLE_TYPE values
+        specifically for them.
+      </action>
+      <action dev="jurka" type="add">
+	Add loglevel and protocolversion options to DataSources.
+      </action>
+    </release>
+
+    <release version="8.4-702" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Tom Lane">
+        Remove an unused Sun specific import that prevented compilation on non-Sun JDKs.
+      </action>
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add support for returning the new TRUNCATE privilege, that was
+	added in 8.4, to the list of known table privileges.
+      </action>
+      <action dev="jurka" type="fix" due-to="Maciek Sakrejda">
+	When a COPY operation is the first statement issued in a transaction,
+	it was not sending the BEGIN necessary to start the transaction.
+      </action>
+      <action dev="jurka" type="add" due-to="Mark Kirkwood">
+	Add the partial index constraint to the FILTER_CONDITION column
+	returned by DatabaseMetaData.getIndexInfo.
+      </action>
+      <action dev="jurka" type="fix" due-to="Hiroshi Saito">
+	The 8.4 release added some
+        code to avoid re-describing a statement if we already had the
+        type information available by copying the resolved type
+        information from the query to the parameters.  Its goal was just
+        to overwrite parameters without a type (unknown), but it was
+        actually overwriting all types which could change the query's
+        desired behavior.
+      </action>
+      <action dev="jurka" type="fix">
+	Fix the ORDINAL_POSITION in the DatabaseMetaData.getColumns.
+	Previously we were returning
+          simply pg_attribute.attnum, but that doesn't work in the presence
+          of dropped columns because later columns don't get their attnum
+          decremented if a preceding column is dropped.  Instead use the
+          row_number window function for 8.4 and later servers to figure
+          out the live column position.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
+	Always specify an XA error code when creating an XAException.
+	Otherwise a transaction manager won't know what to do with
+	the error and may have to asssume the worst.
+      </action>
+      <action dev="jurka" type="add" due-to="Hiroshi Saito">
+	Japanese translation of error messages.
+      </action>
+      <action dev="jurka" type="add" due-to="Viktor Usunov">
+	Bulgarian translation of error messages.
+      </action>
+      <action dev="jurka" type="fix" due-to="Simon Kissane">
+	LOB truncation didn't allow truncating to zero length because
+	it was improperly using the positioning length checks which
+	don't allow a zero length.
+      </action>
+      <action dev="jurka" type="fix" due-to="Pierre Queinnec">
+	Protocol sync was lost when a batch statement parameter had an
+	embedded null byte.
+      </action>
+      <action dev="jurka" type="fix" due-to="Leonardo F">
+	Fix a problem using the Copy API to copy data to the server from
+        a Reader.  After reading data out of the Reader and into a
+        buffer, we were sending the entire buffer on to the server, not
+        just the subset of it that was filled by the read operation.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
+	A XA transaction should not change the autocommit setting of a
+        Connection.  Ensure that we restore this property correctly after
+        the XA transaction completes.
+      </action>
+      <action dev="jurka" type="fix" due-to="Eric Jain">
+	PoolingDataSources were not picking up all of the properties
+	that were set for them.  Notably it would not give you a SSL
+	connection when asked.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add some more specific types to the return value for
+        DatabaseMetaData.getTables.  Return composite types, temporary
+        views, and temporary sequences with TABLE_TYPE values
+        specifically for them.
+      </action>
+    </release>
+
+    <release version="8.3-606" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
+	Always specify an XA error code when creating an XAException.
+	Otherwise a transaction manager won't know what to do with
+	the error and may have to asssume the worst.
+      </action>
+      <action dev="jurka" type="fix" due-to="Simon Kissane">
+	LOB truncation didn't allow truncating to zero length because
+	it was improperly using the positioning length checks which
+	don't allow a zero length.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
+	A XA transaction should not change the autocommit setting of a
+        Connection.  Ensure that we restore this property correctly after
+        the XA transaction completes.
+      </action>
+      <action dev="jurka" type="fix" due-to="Eric Jain">
+	PoolingDataSources were not picking up all of the properties
+	that were set for them.  Notably it would not give you a SSL
+	connection when asked.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add some more specific types to the return value for
+        DatabaseMetaData.getTables.  Return composite types, temporary
+        views, and temporary sequences with TABLE_TYPE values
+        specifically for them.
+      </action>
+    </release>
+
+    <release version="8.2-511" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
+	Always specify an XA error code when creating an XAException.
+	Otherwise a transaction manager won't know what to do with
+	the error and may have to asssume the worst.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
+	A XA transaction should not change the autocommit setting of a
+        Connection.  Ensure that we restore this property correctly after
+        the XA transaction completes.
+      </action>
+      <action dev="jurka" type="fix" due-to="Eric Jain">
+	PoolingDataSources were not picking up all of the properties
+	that were set for them.  Notably it would not give you a SSL
+	connection when asked.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+      <action dev="jurka" type="add" due-to="Thomas Kellerer">
+	Add some more specific types to the return value for
+        DatabaseMetaData.getTables.  Return composite types, temporary
+        views, and temporary sequences with TABLE_TYPE values
+        specifically for them.
+      </action>
+    </release>
+
+    <release version="8.1-415" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
+	Always specify an XA error code when creating an XAException.
+	Otherwise a transaction manager won't know what to do with
+	the error and may have to asssume the worst.
+      </action>
+      <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
+	A XA transaction should not change the autocommit setting of a
+        Connection.  Ensure that we restore this property correctly after
+        the XA transaction completes.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+    </release>
+
+    <release version="8.0-325" date="2010-05-11">
+      <action dev="jurka" type="fix" due-to="Joseph Shraibman">
+	Change the processing of Statement.executeUpdate to complain
+	if any of the results of a multi-statement query string return
+	a ResultSet.  Previously we were only checking the first result
+	which resulted in silent partial execution of later SELECT
+	statements.
+      </action>
+      <action dev="jurka" type="fix" due-to="Martti Jeenicke">
+        When setNull is called with a TIME or TIMESTAMP type we cannot
+	pass that type information on to the backend because we really
+	don't know whether it is with or without a time zone.  For a NULL
+	value it doesn't matter, but we can't establish a type because a
+	later call with a non-null value using the same PreparedStatement
+	can potentially end up using a specific type that is incorrect.
+      </action>
+    </release>
+
     <release version="8.4-701" date="2009-07-01">
       <action dev="jurka" type="fix">
 	Don't list toast table types in the output of DatabaseMetaData.getTypeInfo.

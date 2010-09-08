@@ -27,8 +27,8 @@
 	javax.sql package.  It comes in two flavors, JDBC3 and JDBC4.  If
 	you are using the 1.6 JVM, then you should use the JDBC4 version.
       </p>
-      <p><a href="download/postgresql-8.4-701.jdbc3.jar">JDBC3 Postgresql Driver, Version 8.4-701</a></p>
-      <p><a href="download/postgresql-8.4-701.jdbc4.jar">JDBC4 Postgresql Driver, Version 8.4-701</a></p>
+      <p><a href="download/postgresql-8.4-702.jdbc3.jar">JDBC3 Postgresql Driver, Version 8.4-702</a></p>
+      <p><a href="download/postgresql-8.4-702.jdbc4.jar">JDBC4 Postgresql Driver, Version 8.4-702</a></p>
     </section>
 
     <section id="others">
@@ -63,9 +63,27 @@
 	</li>
         <li>
           JDK 1.6 - JDBC4.  Support for JDBC4 methods is limited.
-          The driver builds, but the majority of new methods are stubbed out.
+          The driver builds, but the several of the new methods are stubbed out.
         </li>
       </ul>
+    </section>
+
+    <section id="development">
+      <title>Development Versions</title>
+      <table>
+        <tr>
+	  <th>Version</th>
+	  <th>JDBC 3</th>
+          <th>JDBC 4</th>
+	  <th>Source</th>
+	</tr>
+	<tr>
+	  <td>9.0 Dev Build 900</td>
+	  <td><a href="download/postgresql-9.0dev-800.jdbc3.jar">9.0dev-800 JDBC 3</a></td>
+	  <td><a href="download/postgresql-9.0dev-800.jdbc4.jar">9.0dev-800 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-9.0dev-800.src.tar.gz">9.0dev-800 JDBC Source</a></td>
+	</tr>
+      </table>
     </section>
 
     <section id="supported">
@@ -80,44 +98,44 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>8.4 Build 701</td>
+	  <td>8.4 Build 702</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-8.4-701.jdbc3.jar">8.4-701 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.4-701.jdbc4.jar">8.4-701 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.4-701.src.tar.gz">8.4-701 JDBC Source</a></td>
+	  <td><a href="download/postgresql-8.4-702.jdbc3.jar">8.4-702 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.4-702.jdbc4.jar">8.4-702 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.4-702.src.tar.gz">8.4-702 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.3 Build 605</td>
-	  <td><a href="download/postgresql-8.3-605.jdbc2.jar">8.3-605 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.3-605.jdbc2ee.jar">8.3-605 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.3-605.jdbc3.jar">8.3-605 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.3-605.jdbc4.jar">8.3-605 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.3-605.src.tar.gz">8.3-605 JDBC Source</a></td>
+	  <td>8.3 Build 606</td>
+	  <td><a href="download/postgresql-8.3-606.jdbc2.jar">8.3-606 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.3-606.jdbc2ee.jar">8.3-606 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.3-606.jdbc3.jar">8.3-606 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.3-606.jdbc4.jar">8.3-606 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.3-606.src.tar.gz">8.3-606 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.2 Build 510</td>
-	  <td><a href="download/postgresql-8.2-510.jdbc2.jar">8.2-510 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.2-510.jdbc2ee.jar">8.2-510 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.2-510.jdbc3.jar">8.2-510 JDBC 3</a></td>
-	  <td><a href="download/postgresql-8.2-510.jdbc4.jar">8.2-510 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-8.2-510.src.tar.gz">8.2-510 JDBC Source</a></td>
+	  <td>8.2 Build 511</td>
+	  <td><a href="download/postgresql-8.2-511.jdbc2.jar">8.2-511 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.2-511.jdbc2ee.jar">8.2-511 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.2-511.jdbc3.jar">8.2-511 JDBC 3</a></td>
+	  <td><a href="download/postgresql-8.2-511.jdbc4.jar">8.2-511 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-8.2-511.src.tar.gz">8.2-511 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.1 Build 414</td>
-	  <td><a href="download/postgresql-8.1-414.jdbc2.jar">8.1-414 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.1-414.jdbc2ee.jar">8.1-414 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.1-414.jdbc3.jar">8.1-414 JDBC 3</a></td>
+	  <td>8.1 Build 415</td>
+	  <td><a href="download/postgresql-8.1-415.jdbc2.jar">8.1-415 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.1-415.jdbc2ee.jar">8.1-415 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.1-415.jdbc3.jar">8.1-415 JDBC 3</a></td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-jdbc-8.1-414.src.tar.gz">8.1-414 JDBC Source</a></td>
+	  <td><a href="download/postgresql-jdbc-8.1-415.src.tar.gz">8.1-415 JDBC Source</a></td>
 	</tr>
 	<tr>
-	  <td>8.0 Build 324</td>
-	  <td><a href="download/postgresql-8.0-324.jdbc2.jar">8.0-324 JDBC 2</a></td>
-	  <td><a href="download/postgresql-8.0-324.jdbc2ee.jar">8.0-324 JDBC 2EE</a></td>
-	  <td><a href="download/postgresql-8.0-324.jdbc3.jar">8.0-324 JDBC 3</a></td>
+	  <td>8.0 Build 325</td>
+	  <td><a href="download/postgresql-8.0-325.jdbc2.jar">8.0-325 JDBC 2</a></td>
+	  <td><a href="download/postgresql-8.0-325.jdbc2ee.jar">8.0-325 JDBC 2EE</a></td>
+	  <td><a href="download/postgresql-8.0-325.jdbc3.jar">8.0-325 JDBC 3</a></td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-jdbc-8.0-324.src.tar.gz">8.0-324 JDBC Source</a></td>
+	  <td><a href="download/postgresql-jdbc-8.0-325.src.tar.gz">8.0-325 JDBC Source</a></td>
 	</tr>
       </table>
     </section>
