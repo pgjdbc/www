@@ -78,7 +78,7 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>9.0 Dev Build 900</td>
+	  <td>9.0 Dev Build 800</td>
 	  <td><a href="download/postgresql-9.0dev-800.jdbc3.jar">9.0dev-800 JDBC 3</a></td>
 	  <td><a href="download/postgresql-9.0dev-800.jdbc4.jar">9.0dev-800 JDBC 4</a></td>
 	  <td><a href="download/postgresql-jdbc-9.0dev-800.src.tar.gz">9.0dev-800 JDBC Source</a></td>
