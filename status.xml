@@ -14,6 +14,45 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="9.0-801" date="2010-09-20">
+      <action dev="jurka" type="fix" due-to="Matthew Wakeling">
+        Work around a bug in the server's implementation of the binary
+        copy protocol.
+      </action>
+      <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+        Make ResultSetMetaData.getColumnType match the results of
+        DatabaseMetaData.getColumns.DATA_TYPE for domain and composite
+        types.
+      </action>
+      <action dev="jurka" type="fix">
+        Fix DatabaseMetaData.getColumns for 7.2 servers.  This was
+        accidentally broken in the previous release.
+      </action>
+      <action dev="jurka" type="fix" due-to="Pierre Queinnec">
+        Fix a minor concurrency issue during the setup for processing escape
+        functions.
+      </action>
+      <action dev="jurka" type="fix" due-to="Adam Rauch">
+        Fix DatabaseMetaData routines that return index information
+        for a change in the 9.0 server that no longer renames the
+        pg_attribute entries for the index, but only adjust the
+        table's attributes on a column renmae.
+      </action>
+      <action dev="jurka" type="add">
+        Implement returning ASC/DESC order information in getIndexInfo.
+      </action>
+      <action dev="jurka" type="add" due-to="Vitalii Tymchyshyn">
+        Support PreparedStatement.setObject(int, Character).
+      </action>
+      <action dev="jurka" type="fix" due-to="Altaf Malik">
+        Track the tail of the SQLWarning chain so we can quickly add a
+        new element to it instead of having to walk the entire chain
+        from the head.  This is important for the performance of handling
+        plpgsql functions which do a ton of RAISE NOTICES which get
+        translated into warnings.
+      </action>
+    </release>
+
     <release version="9.0-dev800" date="2010-05-11">
       <action dev="jurka" type="fix" due-to="Tom Lane">
         Remove an unused Sun specific import that prevented compilation on non-Sun JDKs.
