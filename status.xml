@@ -14,6 +14,113 @@
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
 
+    <release version="9.1dev-900" date="2011-04-18">
+	  <action dev="jurka" type="fix" due-to="danap">
+	    Report permission metadata for a table with no permissions
+		correctly.
+      </action>
+	  <action dev="jurka" type="update">
+	    Update default permissions to account for changes in different
+		server versions.  8.2 removed the rule permission while 8.4
+		added a trunctate permission.
+      </action>
+	  <action dev="jurka" type="fix" due-to="Yaocl">
+	    Ensure that an XAConnection throws SQLExceptions appropriately
+		even though it's a proxy class.  Before this change it was
+		throwing an InvocationTargetException instead of the actual cause.
+      </action>
+	  <action dev="jurka" type="fix" due-to="Michael Musset">
+	    Make updatable ResultSets work with SQLXML data.
+      </action>
+	  <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+	    If a domain has a not null constraint, report that information
+		in the metadata for both DatabaseMetaData.getColumns and
+		ResultSetMetaData.isNullable.
+      </action>
+	  <action dev="jurka" type="fix" due-to="Thomas Kellerer">
+	    In DatabaseMetaData.getSchemas, return the user's own temp schemas,
+        but no others.  Previously it wasn't returning the users own temp
+        schema, but was showing all toast temp schemas.
+      </action>
+	  <action dev="jurka" type="update">
+	    Newer server versions (9.0+) allow extra_float_digits to be set
+        to 3 instead of the old limit of 2 to get the maximum precsion of
+        floating point values out of the server.
+	  </action>
+	  <action dev="jurka" type="add">
+	    Add support for setting application_name on both connection
+		startup and later through Connection.setClientInfo.
+	  </action>
+	  <action dev="jurka" type="add">
+	    Fetch all metadata for the ResultSet in one query instead of
+		making a trip for each attribute of each column.
+	  </action>
+	  <action dev="jurka" type="fix">
+	    Change ResultSetMetaData to return information on serial
+		datatypes in getColumnTypeName to match up with the behavior
+		of DatabaseMetaData.getColumns.
+	  </action>
+	  <action dev="jurka" type="add">
+        Bring getSchemas up to JDBC 4 compliance.  Return the additional
+		TABLE_CATALOG column that was added in JDBC 3.  Additionally
+		support the getSchemas method added in JDBC 4 which filters
+		the returned schemas.
+      </action>
+	  <action dev="jurka" type="add" due-to="Thor Michael Store">
+        Bring getProcedures/getProcedureColumns up to JDBC 4 compliance.
+        Both methods have added a SPECIFIC_NAME column that can be used
+        to differentiate between overloaded functions.
+        getProcedureColumns has added some other additional columns to
+        describe the datatype being returned.
+      </action>
+	  <action dev="jurka" type="update" due-to="Mike Fowler">
+	    Update the date tests for changes in the 1.6 JVM.  Older versions
+		allowed five digit years and single digit days and months.  The
+		latest code only allows a strict yyyy-mm-dd.  This changed
+		somewhere between 1.6.0_11 and 1.6.0_21.
+      </action>
+	  <action dev="jurka" type="add" due-to="Vitalii Tymchyshyn">
+	    Allow the driver to support setObject with Types.DISTINCT.  We
+		report metadata indicating that values are of this type, so we'd
+		better accept it coming back in.
+      </action>
+	  <action dev="jurka" type="fix">
+	    Fix literals that are injected into a SQL query to contain the PG
+       specific E'' marker if they are using the
+	   non-standard-conforming-strings backslash escaping.  This will
+       get rid of the warnings from escape_string_warning.
+      </action>
+	  <action dev="jurka" type="update" due-to="Donald Fraser and Kevin Grittner">
+	    Use slightly different SQL State error codes for the different types
+        of connection setup failures to indicate which can be retried and
+		which cannot.
+      </action>
+	  <action dev="jurka" type="add">
+	    Support building with the 1.7 JDK.
+      </action>
+	  <action dev="jurka" type="fix">
+	    Clear the generated keys associated with a Statement at the next
+		execution.  If the next execution doesn't want generated keys,
+		we don't want to leave the old keys around.
+      </action>
+	  <action dev="jurka" type="add">
+	    Support returning generated keys from batch statement execution.
+		Unfortunately we need to disable the actual batching that the
+		driver does behind the scenes because now that it is returning
+		potentially large result values we must avoid a deadlock.
+      </action>
+      <action dev="jurka" type="fix" due-to="Mike Fowler">
+        The 9.1 server canonicalizes the client_encoding setting, so if
+        we ask for unicode we get utf8.  This confused the driver because
+        previous versions just echo back what we asked for.  Ask for the
+        canonical name now.
+      </action>
+      <action dev="jurka" type="fix" due-to="Kevin Grittner">
+        When running tests, don't assume that we know the server's
+        default transaction isolation level.
+      </action>
+    </release>
+
     <release version="9.0-801" date="2010-09-20">
       <action dev="jurka" type="fix" due-to="Matthew Wakeling">
         Work around a bug in the server's implementation of the binary
