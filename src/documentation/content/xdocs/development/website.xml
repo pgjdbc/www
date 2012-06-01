@@ -21,7 +21,7 @@
 	the <a href="http://forrest.apache.org">Forrest website</a> for
 	installation instructions.  After installing Forrest you need to get
 	the website project.  This is available from the same
-	<a href="site:cvs">cvs repository</a> that the main source code is,
+	<a href="site:git">git repository</a> that the main source code is,
 	it's just a different module, <code>www</code>.  Checkout this module
 	and then decide if you want to build the generated content like
 	javadoc and translation information, or just the static site.  To
@@ -33,7 +33,7 @@
 	To generate the complete site, a copy of the driver source is also
 	required since several parts of the website are generated from the
 	source code itself.  Checkout the driver source into a subdirectory
-	of the www module.  From inside the toplevel directory of the newly
+	of the www module.  From inside the top level directory of the newly
 	checked out www module, run <code>./scripts/buildSite.sh</code>.  This
 	will generate all of the content needed and from then on you can
 	simply run <code>forrest</code> to build the static content and see
