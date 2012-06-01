@@ -9,7 +9,7 @@
       <title>About</title>
       <p>
         Binary JAR file downloads of the JDBC driver are available here.
-	Becuase Java is platform neutral, it is a simple process of just
+	Because Java is platform neutral, it is a simple process of just
 	downloading the appropriate JAR file and dropping it into your
 	classpath.  Source versions are also available here for recent
 	driver versions.  Prior to the 8.0 release the JDBC driver was
@@ -23,12 +23,12 @@
         This is the current version of the driver.  Unless you have unusual
 	requirements (running old applications or JVMs), this is the driver
 	you should be using.  It supports Postgresql 7.2 or newer and
-	requires a 1.4 or newer JVM.  It contains support for SSL and the
-	javax.sql package.  It comes in two flavors, JDBC3 and JDBC4.  If
+	requires a 1.5 or newer JVM.  It contains support for SSL and the
+	javax.sql package.  It comes in two flavours, JDBC3 and JDBC4.  If
 	you are using the 1.6 or 1.7 JVM, then you should use the JDBC4 version.
       </p>
-      <p><a href="download/postgresql-9.1-901.jdbc3.jar">JDBC3 Postgresql Driver, Version 9.1-901</a></p>
-      <p><a href="download/postgresql-9.1-901.jdbc4.jar">JDBC4 Postgresql Driver, Version 9.1-901</a></p>
+      <p><a href="download/postgresql-9.1-902.jdbc3.jar">JDBC3 Postgresql Driver, Version 9.1-902</a></p>
+      <p><a href="download/postgresql-9.1-902.jdbc4.jar">JDBC4 Postgresql Driver, Version 9.1-902</a></p>
     </section>
 
     <section id="others">
@@ -81,12 +81,12 @@
 	  <th>Source</th>
 	</tr>
 	<tr>
-	  <td>9.1 Build 901</td>
+	  <td>9.1 Build 902</td>
 	  <td>&nbsp;</td>
 	  <td>&nbsp;</td>
-	  <td><a href="download/postgresql-9.1-901.jdbc3.jar">9.1-901 JDBC 3</a></td>
-	  <td><a href="download/postgresql-9.1-901.jdbc4.jar">9.1-901 JDBC 4</a></td>
-	  <td><a href="download/postgresql-jdbc-9.1-901.src.tar.gz">9.1-901 JDBC Source</a></td>
+	  <td><a href="download/postgresql-9.1-902.jdbc3.jar">9.1-901 JDBC 3</a></td>
+	  <td><a href="download/postgresql-9.1-902.jdbc4.jar">9.1-901 JDBC 4</a></td>
+	  <td><a href="download/postgresql-jdbc-9.1-902.src.tar.gz">9.1-901 JDBC Source</a></td>
         </tr>
 	<tr>
 	  <td>9.0 Build 802</td>

@@ -12,7 +12,7 @@
 	should be aware of before starting to develop any code for it.
 	The current development driver supports six server versions and
 	six java environments.  This doesn't mean that every feature must
-	work in every combination, but a reasonable behavior must be
+	work in every combination, but a reasonable behaviour must be
 	provided for non-supported versions.  While this extra compatibility
 	sounds like a lot of work, the actual goal is to reduce the amount
 	of work by maintaining only one code base.
@@ -28,7 +28,7 @@
         <li><a href="http://java.sun.com/j2se">Java 2 Standard Edition Development Kit</a> At least JDK 1.2.</li>
 	<li><a href="http://ant.apache.org">Apache Ant</a> At least 1.5.</li>
 	<li><a href="http://www.junit.org">JUnit</a> At least 3.7.</li>
-	<li><a href="http://www.cvshome.org">CVS</a></li>
+	<li><a href="http://git-scm.com">GIT</a></li>
       </ul>
     </section>
 
@@ -36,7 +36,7 @@
       <title>Build Process</title>
       <p>
         After retrieving the source from the
-        <a href="site:cvs">cvs repository</a>.
+        <a href="site:git">git repository</a>.
 	Move into the top level <code>pgjdbc</code> directory and simply
 	type <code>ant</code>.  This will build the appropriate driver for
 	your current Java version and place it into

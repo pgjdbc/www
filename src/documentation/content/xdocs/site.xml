@@ -35,7 +35,7 @@ See http://xml.apache.org/forrest/linking.html for more info
 
   <development label="Development" href="development/" tab="development">
     <devintro label="Introduction" href="intro.html" />
-    <cvs label="CVS" href="cvs.html" />
+    <cvs label="GIT" href="git.html" />
     <translation label="Translations" href="translation.html" />
     <website label="Website" href="website.html" />
     <privateapi label="Private API" href="privateapi/index.html" />
