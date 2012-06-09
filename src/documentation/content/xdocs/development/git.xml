@@ -17,7 +17,7 @@
     <section id="newretrieve">
       <title>Retrieving the Code</title>
       <p>
-        Do an initial login to the CVS server:
+        Clone the PostgreSQL JDBC repository from Github:
       </p>
       <source>git clone git://github.com/pgjdbc/pgjdbc.gitt</source>
       
