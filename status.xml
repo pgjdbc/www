@@ -13,7 +13,35 @@
       defined for 'add', 'fix', 'remove', 'update' and 'hack'. If you add
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
+	
+    <release version="9.1-902" date="2011-04-18">
+	  <action dev="jurka" type="fix" due-to="Owen Tran, ">
+		Fix ResultSetMetaData retrieval when the oid counter exceeds INT_MAX.
+	    Since Java doesn't have unsigned ints we retrieve the values as long
+		and then truncate to int, so it may have a negative value.      
+	  </action>
+	  <action dev="jurka" type="fix" due-to="Steven Schlansker">
+		Cache a copy of ResultSetMetaData in the ResultSet.
 
+		This solves a major performance problem for ResultSetMetaData users
+		which did not cache the ResultSetMetaData object.  One of the users
+		is the driver's own implementation of updatable ResultSets, so this
+		can't be worked around solely in end user code.
+
+		In the 9.0 and earlier releases, the Field objects were used to hold
+		database lookup results and these were longer lived than the
+		ResultSetMetaData object.  Now that ResultSetMetaData is holding
+		these database lookups we must hold onto the object to avoid
+		repeating the database queries. 
+	  </action>
+	
+	</release>
+	
+	<release version="9.1-901" date="2011-04-18">
+	  <action dev="jurka" type="update" due-to="jurka">
+	    Set version to 901 for release
+      </action>
+	</release>
     <release version="9.1dev-900" date="2011-04-18">
 	  <action dev="jurka" type="fix" due-to="danap">
 	    Report permission metadata for a table with no permissions
@@ -44,7 +72,7 @@
       </action>
 	  <action dev="jurka" type="update">
 	    Newer server versions (9.0+) allow extra_float_digits to be set
-        to 3 instead of the old limit of 2 to get the maximum precsion of
+        to 3 instead of the old limit of 2 to get the maximum precision of
         floating point values out of the server.
 	  </action>
 	  <action dev="jurka" type="add">
@@ -57,7 +85,7 @@
 	  </action>
 	  <action dev="jurka" type="fix">
 	    Change ResultSetMetaData to return information on serial
-		datatypes in getColumnTypeName to match up with the behavior
+		datatypes in getColumnTypeName to match up with the behaviour
 		of DatabaseMetaData.getColumns.
 	  </action>
 	  <action dev="jurka" type="add">
@@ -143,7 +171,7 @@
         Fix DatabaseMetaData routines that return index information
         for a change in the 9.0 server that no longer renames the
         pg_attribute entries for the index, but only adjust the
-        table's attributes on a column renmae.
+        table's attributes on a column rename.
       </action>
       <action dev="jurka" type="add">
         Implement returning ASC/DESC order information in getIndexInfo.
@@ -207,7 +235,7 @@
         information from the query to the parameters.  Its goal was just
         to overwrite parameters without a type (unknown), but it was
         actually overwriting all types which could change the query's
-        desired behavior.
+        desired behaviour.
       </action>
       <action dev="jurka" type="fix">
 	Fix the ORDINAL_POSITION in the DatabaseMetaData.getColumns.
@@ -221,7 +249,7 @@
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
 	Always specify an XA error code when creating an XAException.
 	Otherwise a transaction manager won't know what to do with
-	the error and may have to asssume the worst.
+	the error and may have to assume the worst.
       </action>
       <action dev="jurka" type="add" due-to="Hiroshi Saito">
 	Japanese translation of error messages.
@@ -317,7 +345,7 @@
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
 	Always specify an XA error code when creating an XAException.
 	Otherwise a transaction manager won't know what to do with
-	the error and may have to asssume the worst.
+	the error and may have to assume the worst.
       </action>
       <action dev="jurka" type="add" due-to="Hiroshi Saito">
 	Japanese translation of error messages.
@@ -377,7 +405,7 @@
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
 	Always specify an XA error code when creating an XAException.
 	Otherwise a transaction manager won't know what to do with
-	the error and may have to asssume the worst.
+	the error and may have to assume the worst.
       </action>
       <action dev="jurka" type="fix" due-to="Simon Kissane">
 	LOB truncation didn't allow truncating to zero length because
@@ -421,7 +449,7 @@
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
 	Always specify an XA error code when creating an XAException.
 	Otherwise a transaction manager won't know what to do with
-	the error and may have to asssume the worst.
+	the error and may have to assume the worst.
       </action>
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
 	A XA transaction should not change the autocommit setting of a
@@ -460,7 +488,7 @@
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Justin Bertram">
 	Always specify an XA error code when creating an XAException.
 	Otherwise a transaction manager won't know what to do with
-	the error and may have to asssume the worst.
+	the error and may have to assume the worst.
       </action>
       <action dev="jurka" type="fix" due-to="Heikki Linnakangas, Achilleas Mantzios">
 	A XA transaction should not change the autocommit setting of a
@@ -571,7 +599,7 @@
       <action dev="jurka" type="fix">
 	Initialize the prepareThreshold parameter for datasources to the same
 	value that would be used by a non-DataSource created connection.  By not
-        setting it, it effectively turned off the use of named statments.
+        setting it, it effectively turned off the use of named statements.
       </action>
       <action dev="jurka" type="add">
 	Provide a way for the user to specify the desired length return value for
@@ -779,7 +807,7 @@
         is poorly defined as "whatever encoding the database is in" which
         we don't know until after the authentication phase is complete.
         UTF-8 supports everything ascii did and will now allow database
-        names, user names, and passwords to contain non-ascii characaters
+        names, user names, and passwords to contain non-ascii characters
         as long as their database is in UTF-8, which is the most common
         case.
       </action>
@@ -848,7 +876,7 @@
         we don't support.
       </action>
       <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
-        Do comparison of identifiers in a known Locale (specificially US).
+        Do comparison of identifiers in a known Locale (specifically US).
         In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
         is false which makes looking up a column name case insensitively
         a problem.
@@ -911,7 +939,7 @@
         we don't support.
       </action>
       <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
-        Do comparison of identifiers in a known Locale (specificially US).
+        Do comparison of identifiers in a known Locale (specifically US).
         In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
         is false which makes looking up a column name case insensitively
         a problem.
@@ -970,7 +998,7 @@
         we don't support.
       </action>
       <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
-        Do comparison of identifiers in a known Locale (specificially US).
+        Do comparison of identifiers in a known Locale (specifically US).
         In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
         is false which makes looking up a column name case insensitively
         a problem.
@@ -1020,7 +1048,7 @@
         we don't support.
       </action>
       <action dev="jurka" type="fix" due-to="Mikko Tiihonen">
-        Do comparison of identifiers in a known Locale (specificially US).
+        Do comparison of identifiers in a known Locale (specifically US).
         In Turkish for example "id".toLowerCase().equals("ID".toLowerCase())
         is false which makes looking up a column name case insensitively
         a problem.
@@ -1454,7 +1482,7 @@
 	Explicitly state which source level
         we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
         default to a 1.4 source level compile which tricks up our build
-        system.  This still doens't fix the case of running with a newer
+        system.  This still doesn't fix the case of running with a newer
         VM than compiler, but I don't see what we can do about that.
       </action>
     </release>
@@ -1550,7 +1578,7 @@
 	Explicitly state which source level
         we are compiling.  Newer versions of gij/gcj run a 1.5 VM, but
         default to a 1.4 source level compile which tricks up our build
-        system.  This still doens't fix the case of running with a newer
+        system.  This still doesn't fix the case of running with a newer
         VM than compiler, but I don't see what we can do about that.
       </action>
     </release>
@@ -1802,15 +1830,15 @@
         driver asks the server to resolve a type the resolved type is
         stored in the SimpleQuery object.  When the statement is executed
         again the driver determines whether the existing types match or
-        if it needs to be reprepared by comparing the current Statement's
+        if it needs to be re-prepared by comparing the current Statement's
         settings with the SimpleQuery.  The Statement will have the
         unspecified oid while the SimpleQuery will have the resolved oid,
         so there will not be a match and the statement will needlessly be
-        reprepared.  Allow an unspecified oid to match any resolved type.
+        re-prepared.  Allow an unspecified oid to match any resolved type.
       </action>
       <action dev="jurka" type="fix">
         When creating a ResultSet from a refcursor, respect the creating
-        ResultSet's scollability setting.  The way the ResultSet is
+        ResultSet's scrollability setting.  The way the ResultSet is
         created means that it will always be scrollable anyway, so
         there's no downside.  We cannot support updatable refcursor
         ResultSets until we get updatable cursors.
@@ -1906,15 +1934,15 @@
         driver asks the server to resolve a type the resolved type is
         stored in the SimpleQuery object.  When the statement is executed
         again the driver determines whether the existing types match or
-        if it needs to be reprepared by comparing the current Statement's
+        if it needs to be re-prepared by comparing the current Statement's
         settings with the SimpleQuery.  The Statement will have the
         unspecified oid while the SimpleQuery will have the resolved oid,
         so there will not be a match and the statement will needlessly be
-        reprepared.  Allow an unspecified oid to match any resolved type.
+        re-prepared.  Allow an unspecified oid to match any resolved type.
       </action>
       <action dev="jurka" type="fix">
         When creating a ResultSet from a refcursor, respect the creating
-        ResultSet's scollability setting.  The way the ResultSet is
+        ResultSet's scrollability setting.  The way the ResultSet is
         created means that it will always be scrollable anyway, so
         there's no downside.  We cannot support updatable refcursor
         ResultSets until we get updatable cursors.
@@ -1956,15 +1984,15 @@
         driver asks the server to resolve a type the resolved type is
         stored in the SimpleQuery object.  When the statement is executed
         again the driver determines whether the existing types match or
-        if it needs to be reprepared by comparing the current Statement's
+        if it needs to be re-prepared by comparing the current Statement's
         settings with the SimpleQuery.  The Statement will have the
         unspecified oid while the SimpleQuery will have the resolved oid,
         so there will not be a match and the statement will needlessly be
-        reprepared.  Allow an unspecified oid to match any resolved type.
+        re-prepared.  Allow an unspecified oid to match any resolved type.
       </action>
       <action dev="jurka" type="fix">
         When creating a ResultSet from a refcursor, respect the creating
-        ResultSet's scollability setting.  The way the ResultSet is
+        ResultSet's scrollability setting.  The way the ResultSet is
         created means that it will always be scrollable anyway, so
         there's no downside.  We cannot support updatable refcursor
         ResultSets until we get updatable cursors.
@@ -2059,7 +2087,7 @@
 	formatter the two quotes appeared in the output.
       </action>
       <action dev="jurka" type="update" due-to="Andre Bialojahn">
-        Updated German transalation.
+        Updated German translation.
       </action>
       <action dev="jurka" type="fix" due-to="Till Toenges">
         Add some more synchronization to the
@@ -2150,7 +2178,7 @@
 	formatter the two quotes appeared in the output.
       </action>
       <action dev="jurka" type="update" due-to="Andre Bialojahn">
-        Updated German transalation.
+        Updated German translation.
       </action>
       <action dev="jurka" type="fix" due-to="Till Toenges">
         Add some more synchronization to the
