@@ -4,8 +4,9 @@
   <developers>
     <person name="Kris Jurka"    email="books@ejurka.com"     id="jurka" />
     <person name="Oliver Jowett" email="oliver@opencloud.com" id="oliver" />
-    <person name="Dave Cramer"   email="pg@fastcrypt.com"     id="davec" />
+    <person name="Dave Cramer"   email="dave.cramer@credativ.com" id="davec" />
     <person name="Barry Lind"    email="blind@xythos.com"     id="blind" />
+	<person name="Craig Ringer"  email="craig@2ndquadrant.com" id="ringerc"/>
   </developers>
 
   <changes>
@@ -13,9 +14,75 @@
       defined for 'add', 'fix', 'remove', 'update' and 'hack'. If you add
       src/documentation/resources/images/<foo>.jpg images, these will
       automatically be used for entries of type <foo>. -->
+	<release version="9.2-1002" date="2012-11-14">	
+		<action dev='davec' type='fix' >
+			Fix Statement.toString to handle binary integer and Float types
+		</action>	
+	</release>
+	<release version="9.2-1001" date="2012-10-31">	
+		<action dev='davec' type='fix' due-to='Scott Harrington, Kris Jurka'>
+			Fix performance regression introduced by using InetSocketAddress.getHostName
+		</action>	
+	</release>
+	<release version="9.2-1000" date="2012-09-27">
+		<action dev='davec' type='add' due-to='davec'>
+			Implemented query timeout	
+		</action>
+		<action dev='davec' type='add' due-to='Mikko Tiihonen'>
+			First pass implementation of binary protocol
+		</action>	
+		<action dev='davec' type='fix' due-to='Mike Fowler'>
+			Fixed broken jdk 1.4 builds
+		</action>
+		<action dev='davec' type='fix' due-to='Mike Fowler'>
+			Stack overflow fix
+		</action>
+		<action dev='davec' type='update' due-to='Andras Bodor'>
+			SSL implementation to mimic libpq more closely
+		</action>	
+		<action dev='davec' type='add' due-to='Christian Ullrich'>
+			SSPI authentication support
+		</action>
+		<action dev='davec' type='add' due-to='Louis Flores'>
+			isValid implementation
+		</action>
+		<action dev='jurka' type='fix'>
+			A BitSet is a compact representation if we're only considering
+			builtin types that will have low oids, but if any user defined
+			types are enabled, all bets are off.  Once the oid counter exceeds
+			INT_MAX, database connections were failing outright even if no
+			high oid types used binary transfer because we represent these
+			oids with negative values that a BitSet cannot handle.
+		</action>
+		<action dev='davec' type='update' due-to='Mikko Tiihonen'>
+			fix to build for java 1.8
+		</action>
+		<action dev='davec' type='add' due-to='Mikko Tiihonen'>
+			Add support for hstore 
+		</action>
+		<action dev='davec' type='add' due-to='Johann Oskarsson'>
+			Implemented JDBC4 setBinaryStream 
+		</action>
+		<action dev='davec' type='add' due-to='Mikko Tiihonen'>
+			Implementation of simple connection failover
+		</action>
+		<action dev="davec" type="update" due-to="Euler Taveira de Oliveira">
+			Updated Brazilian Portuguese translation.
+	    </action>
+		<action dev='davec' type="add" due-to='Bernd Helme'>
+			Allow changing of send recv buffer sizes
+		</action>
+		<action dev='ringerc' type='update'>
+			Documentation updates
+		</action>
+		<action dev='davec' type='fix' >
+			Fix attacl for servers below 8.3
+		</action>
+	</release>
+	
 	
     <release version="9.1-902" date="2011-04-18">
-	  <action dev="jurka" type="fix" due-to="Owen Tran, ">
+	  <action dev="jurka" type="fix" due-to="Owen Tran ">
 		Fix ResultSetMetaData retrieval when the oid counter exceeds INT_MAX.
 	    Since Java doesn't have unsigned ints we retrieve the values as long
 		and then truncate to int, so it may have a negative value.      
