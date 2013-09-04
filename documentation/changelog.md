@@ -6,7 +6,7 @@ nav: ../
 ---
 
 # History of Changes
-* [Introduction and explanation of symbols](#introduction")
+* [Introduction and explanation of symbols](#introduction)
 * [Version 9.2-1003 (2013-07-08)](#version_9.2-1003)
     * [Contributors to this release](#contributors_9.2-1003)
 * [Version 9.2-1002 (2012-11-14)](#version_9.2-1002)
@@ -28,7 +28,7 @@ nav: ../
 * [Archived Versions 8.0-8.4](pgjdbc_changelog-8.0-8.4.tar.gz)
 * [All Committers](#all-committers)
 
-[![](../media/img/rss.png)](changes.rss)
+[![](../media/img/rss.png)](../changes.rss)
 
 <a name="introduction"></a>
 ## Introduction and explanation of symbols
