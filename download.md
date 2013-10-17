@@ -17,7 +17,8 @@ nav:
 <a name="about"></a>
 ## About
 				
-Binary JAR file downloads of the JDBC driver are available here.
+Binary JAR file downloads of the JDBC driver are available here
+and the current version with [Maven Repository](http://mvnrepository.com/artifact/org.postgresql).
 Because Java is platform neutral, it is a simple process of just
 downloading the appropriate JAR file and dropping it into your
 classpath.  Source versions are also available here for recent
