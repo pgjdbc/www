@@ -53,9 +53,18 @@ mailing list archives for more information.
 ***
 <a name="problems"></a>
 ## 2. Problems
+<a name="executeBatch hangs without error">
+### 2.1. executeBatch hangs without error Possible solutions
+ 
+This is related to batched queries and synchronous TCP. 
+
+The thing to look at is setting the network buffer 
+sizes to use to large values to avoid the deadlock.  The default values 
+are machine dependent which also explains it working or not on different 
+machines (credit to Kris Jurka)
 
 <a name="upgradeTo80"></a>
-### 2.1. I upgraded from 7.x to 8.x.  Why did my application break?
+### 2.2. I upgraded from 7.x to 8.x.  Why did my application break?
 						
 By default, 8.x versions of the driver use protocol version 3 when
 communicating with servers 7.4 or higher.  This protocol allows for
