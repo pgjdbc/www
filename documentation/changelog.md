@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
+* [Version 9.2-1004 (2013-10-31)](#version_9.2-1004)
 * [Version 9.2-1003 (2013-07-08)](#version_9.2-1003)
     * [Contributors to this release](#contributors_9.2-1003)
 * [Version 9.2-1002 (2012-11-14)](#version_9.2-1002)
@@ -39,8 +41,8 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
-<a name="version_9_3_1100"></a>
-## Version 9.3-1100 (2013-10-31)
+<a name="version_9.3-1100"></a>
+## Version 9.3-1100 (2013-11-01)
 
 Author: Dave Cramer <davecramer@gmail.com>
 Date:   Thu Oct 17 08:29:07 2013 -0400
