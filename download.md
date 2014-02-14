@@ -37,11 +37,11 @@ javax.sql package.  It comes in two flavours, JDBC3 and JDBC4.  If
 you are using the 1.6 then you should use the JDBC4 version. If 
 you are using 1.7 or 1.8 then you should use the JDBC41 version.
 					
-[JDBC3 Postgresql Driver, Version 9.3-1100](download/postgresql-9.3-1100.jdbc3.jar)
+[JDBC3 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc3.jar)
 
-[JDBC4 Postgresql Driver, Version 9.3-1100](download/postgresql-9.3-1100.jdbc4.jar)
+[JDBC4 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc4.jar)
 
-[JDBC41 Postgresql Driver, Version 9.3-1100](download/postgresql-9.3-1100.jdbc41.jar)
+[JDBC41 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc41.jar)
 
 ***				
 <a name="others"></a>

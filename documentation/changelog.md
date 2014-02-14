@@ -7,6 +7,7 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.3-1104 (XXX)](#version_9.3-1101)
 * [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
 * [Version 9.2-1004 (2013-10-31)](#version_9.2-1004)
 * [Version 9.2-1003 (2013-07-08)](#version_9.2-1003)
@@ -41,6 +42,165 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.3-1101"></a>
+## Version 9.3-1101 (2014-02-14)
+
+Author:Jeremy Whiting <jwhiting@redhat.com>
+
+    Added feature to disable column name sanitiser with a new property. 
+	disableColumnSanitiser= boolean
+	remove toLower calls for performance
+
+Author:Craig Ringer <craig@2ndquadrant.com>
+
+    Add a MainClass that tells the user they can't just run the JDBC driver    
+    After one too many reports of
+        "Failed to load Main-Class manifest attribute from postgresql-xxx.jar"
+    I'm submitting a dummy main-class that tells the user what they should
+    do instead.
+    
+    The message looks like:
+    
+    ------------
+    PostgreSQL x.y JDBC4.1 (build bbbb)
+    Found in: jar:file:/path/to/postgresql-x.y-bbbb.jdbc41.jar!/org/postgresql/Driver.class
+    
+    The PgJDBC driver is not an executable Java program.
+    
+    You must install it according to the JDBC driver installation instructions for your application / container / appserver, then use it by specifying a JDBC URL of the form
+        jdbc:postgresql://
+    or using an application specific method.
+    
+    See the PgJDBC documentation: http://jdbc.postgresql.org/documentation/head/index.html
+    
+    This command has had no effect.
+    ------------
+
+
+    fixed bug PreparedStatement.getMetaData failed if result set was closed
+    reported by Emmanuel Guiton
+
+Author: cchantep <chantepie@altern.org>
+Date:   Thu Dec 12 15:54:55 2013 +0100
+
+    Base table more usefull than "" as basic table name
+
+
+    fixed driver fails to find foreign tables fix from plalg@hotmail.com
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Fix various setQueryTimeout bugs.
+    
+    1. If you call setQueryTimeout(5), wait 10 seconds, and call execute(), the
+    cancel timer has already expired, and the statement will be allowed to run
+    forever. Likewise, if you call setQueryTimeout(5), wait 4 seconds, and call
+    execute(), the statement will be canceled after only 1 second.
+    
+    2. If you call setQueryTimeout on a PreparedStatement, and execute the same
+    statement several times, the timeout only takes affect on the first
+    statement.
+    
+    3. If you call setQueryTimeout on one Statement, but don't execute it, the
+    timer will still fire, possible on an unrelated victim Statement.
+    
+    The root cause of all of these bugs was that the timer was started at the
+    setQueryTimeout() call, not on the execute() call.
+    
+    Also, remove the finally-block from the cancellation task's run-method,
+    because that might erroneously cancel the timer for the next query, if a
+    new query is started using the same statement fast enough.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Use StringBuffer to construct a string.
+    
+    This piece of code isn't performance-critical at all, but silences a
+    Coverity complaint.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Avoid integer overflow.
+    
+    The function returns long, but does the calculation first in int. If someone
+    sets the timeout to 600 hours in the URL, it will overflow, even though the
+    return value of the function is long and hence could return a larger value.
+    
+    To silence a Coverity complaint.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Plug some Statement leaks in metadata queries.
+    
+    These are fairly harmless, nobody calls these metadata methods frequently
+    enough for the leaks to matter, and a regular Statement doesn't hold onto
+    any server resources anyway. But let's appease Coverity.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Make sure file is closed on exception.
+    
+    The system will eventually close the file anyway, and this read is highly
+    unlikely to throw an IOException in practice.
+    
+    Also, use RandomAccessFile.readFully(byte[]) to slurp the file into byte
+    array, rather than FileInputStream.read(byte[]). The latter would need to
+    be called in a loop to protect from short reads.
+    
+    Both issues were complained of by Coverity.
+
+
+Author: Stephen Nelson <stephen@eccostudio.com>
+
+    Generate a non-Maven JAR filename using build-time version and JDBC API level.
+
+Author: Stephen Nelson <stephen@eccostudio.com>
+
+    Build script changes to allow packaging and deployment to Maven central using maven-ant-tasks
+    
+    Updated build.properties to contain the sonatype urls. Updated build.xml so that gpg signing works for each accompanying artifact type. Updated pom.xml to allow templated group and artifact ids.
+
+Author: Craig Ringer <craig@2ndquadrant.com>
+
+    NonValidatingFactory should be included in both JDBC3 and JDBC4
+
+Author: Michael McCaskill <michael@team.shoeboxed.com>
+
+    Use proper System property
+    
+    Using 'path.separator' results in malformed paths such as:
+    /default/dir:./postgresql/root.crt
+    This corrects the problem.
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    reset interrupted bit and throw unchecked exception if we get interrupted while trying to connect
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    add functions to allow LargeObjectMaager to commit on close from Marc Cousin
+
+Author: tminglei <tmlneu@gmail.com>
+
+    add uuid array support (rename ArrayElementBuilder to ArrayAssistant)
+
+Author: Nick White <nwhite@palantir.com>
+
+    allow the first query to be binary
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Merge pull request #107 from cchantep/rs-basic-tblname
+    
+    Basic table name for resultset metadata
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    fixed bug PreparedStatement.getMetaData failed if result set was closed
+    reported by Emmanuel Guiton #bugfix#
+
+
+
 <a name="version_9.3-1100"></a>
 ## Version 9.3-1100 (2013-11-01)
 
