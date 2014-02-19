@@ -84,13 +84,13 @@ versions of the JVM with the JDBC specification implemented.
 	<th>Source</th>
 </tr>
 <tr>
-	<td>9.3 Build 1100</td>
+	<td>9.3 Build 1101</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td><a href="download/postgresql-9.3-1100.jdbc3.jar">9.3-1100 JDBC 3</a></td>
-	<td><a href="download/postgresql-9.3-1100.jdbc4.jar">9.3-1100 JDBC 4</a></td>
-	<td><a href="download/postgresql-9.3-1100.jdbc41.jar">9.3-1100 JDBC 41</a></td>
-	<td><a href="download/postgresql-jdbc-9.3-1100.src.tar.gz">9.3-1100 JDBC Source</a></td>
+	<td><a href="download/postgresql-9.3-1101.jdbc3.jar">9.3-1101 JDBC 3</a></td>
+	<td><a href="download/postgresql-9.3-1101.jdbc4.jar">9.3-1101 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.3-1101.jdbc41.jar">9.3-1101 JDBC 41</a></td>
+	<td><a href="download/postgresql-jdbc-9.3-1101.src.tar.gz">9.3-1101 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>9.2 Build 1004</td>
