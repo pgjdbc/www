@@ -7,7 +7,7 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
-* [Version 9.3-1104 (XXX)](#version_9.3-1101)
+* [Version 9.3-1101 (2014-02-19)](#version_9.3-1101)
 * [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
 * [Version 9.2-1004 (2013-10-31)](#version_9.2-1004)
 * [Version 9.2-1003 (2013-07-08)](#version_9.2-1003)
