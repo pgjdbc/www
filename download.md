@@ -37,11 +37,11 @@ javax.sql package.  It comes in two flavours, JDBC3 and JDBC4.  If
 you are using the 1.6 then you should use the JDBC4 version. If 
 you are using 1.7 or 1.8 then you should use the JDBC41 version.
 					
-[JDBC3 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc3.jar)
+[JDBC3 Postgresql Driver, Version 9.3-1102](download/postgresql-9.3-1102.jdbc3.jar)
 
-[JDBC4 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc4.jar)
+[JDBC4 Postgresql Driver, Version 9.3-1102](download/postgresql-9.3-1102.jdbc4.jar)
 
-[JDBC41 Postgresql Driver, Version 9.3-1101](download/postgresql-9.3-1101.jdbc41.jar)
+[JDBC41 Postgresql Driver, Version 9.3-1102](download/postgresql-9.3-1102.jdbc41.jar)
 
 ***				
 <a name="others"></a>
@@ -84,13 +84,13 @@ versions of the JVM with the JDBC specification implemented.
 	<th>Source</th>
 </tr>
 <tr>
-	<td>9.3 Build 1101</td>
+	<td>9.3 Build 1102</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td><a href="download/postgresql-9.3-1101.jdbc3.jar">9.3-1101 JDBC 3</a></td>
-	<td><a href="download/postgresql-9.3-1101.jdbc4.jar">9.3-1101 JDBC 4</a></td>
-	<td><a href="download/postgresql-9.3-1101.jdbc41.jar">9.3-1101 JDBC 41</a></td>
-	<td><a href="download/postgresql-jdbc-9.3-1101.src.tar.gz">9.3-1101 JDBC Source</a></td>
+	<td><a href="download/postgresql-9.3-1102.jdbc3.jar">9.3-1102 JDBC 3</a></td>
+	<td><a href="download/postgresql-9.3-1102.jdbc4.jar">9.3-1102 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.3-1102.jdbc41.jar">9.3-1102 JDBC 41</a></td>
+	<td><a href="download/postgresql-jdbc-9.3-1102.src.tar.gz">9.3-1102 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>9.2 Build 1004</td>
