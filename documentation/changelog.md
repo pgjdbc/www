@@ -7,6 +7,7 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.3-1102 (2014-07-10)](#version_9.3-1102)
 * [Version 9.3-1101 (2014-02-19)](#version_9.3-1101)
 * [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
 * [Version 9.2-1004 (2013-10-31)](#version_9.2-1004)
@@ -42,6 +43,35 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.3-1102"></a>
+## Version 9.3-1102 (2014-07-10)
+
+    fix copyOut close hanging bug #161 from epgrubmair
+
+    backpatch exception during close of fully read stream from romank0
+
+
+    Added caching for ResultSetMetaData from Christophe Canovas complete commit
+
+    NullPointerException in AbstractJdbc2DatabaseMetaData.getUDTs
+    Fix from Elizabeth Chatman
+
+    setNull, setString, setObject may fail if a specified type cannot be transferred in a binary mode #151
+
+
+    backpatch fix for changing datestyle before copy
+
+
+    binary transfer fixes new feature -1 for forceBinaryTransfer
+	from TomonariKatsumata
+	
+    connectTimeout property support backpatch from Sergey Chernov
+    
+    fix prepared statement ERROR due to EMPTY_QUERY defined as static. Reported by: Naoya Anzai
+
+
+
+
 <a name="version_9.3-1101"></a>
 ## Version 9.3-1101 (2014-02-14)
 
