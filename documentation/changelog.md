@@ -7,6 +7,9 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.4-1200 (2015-01-02)](#version_9.4-1200)
+	* [Contributors to this release](#contributors_9.4-1200)
+* [Version 9.3-1103 (2015-01-02)](#version_9.3-1103)
 * [Version 9.3-1102 (2014-07-10)](#version_9.3-1102)
 * [Version 9.3-1101 (2014-02-19)](#version_9.3-1101)
 * [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
@@ -43,33 +46,157 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1200"></a>
+## Version 9.4-1200 (2015-01-02)
+Author: [Alexis Meneses](https://github.com/alexismeneses)
+	
+* ![fix](../media/img/fix.jpg)	Support for setBinaryStream with unknown length [PR #220](https://github.com/pgjdbc/pgjdbc/pull/220)		
+* ![add](../media/img/add.jpg) Improved support for BLOBS [PR #219](https://github.com/pgjdbc/pgjdbc/pull/219)
+* 	Added the support for very large objects (4TB) when backend is at least 9.3 using lo_xxx64 functions (see release 9.3 notes).
+* 	Added support for various JDBC4 methods related to Blobs:  
+    setBlob with input stream in PreparedStatement  
+    getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
+* ![fix](../media/img/fix.jpg)	Fix for setStringType in DataSource [PR #221](https://github.com/pgjdbc/pgjdbc/pull/221)
+		
+Author: [Sehrope Sarkuni](https://github.com/sehrope)
+
+* ![fix](../media/img/fix.jpg) Fix Timer thread classloader leak [PR #197](https://github.com/pgjdbc/pgjdbc/pull/197)
+	
+Author: [Mikko Tiihonen](https://github/com/gmokki)
+
+* ![add](../media/img/add.jpg) Enhance connection fail-over with master/slave restriction and loadbalancing [PR #209](https://github.com/pgjdbc/pgjdbc/pull/209) Based on work by chenhj@cn.fujitsu.com
+	
+Author: [Minglei Tu](https://github.com/tminglei)
+	
+* ![add](../media/img/add.jpg) add ?-contained operator support [PR#227](https://github.com/pgjdbc/pgjdbc/pull/227)
+	
+Author: [Martin Simka](https://github.com/simkam)
+
+* ![fix](../media/img/fix.jpg) GSS: fall back to old authentication when Subject doesn't contain instance of GssCredentials [PR#228](https://github.com/pgjdbc/pgjdbc/pull/228)
+
+Author: [bryonv](https://github.com/byronvf)
+
+* ![fix](../media/img/fix.jpg) Honor stringtype=unspecified when also saving null values
+*Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
+*For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
+
+<a name="contributors_9.4-1200"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+This is a list of all people who participated as committers:
+[Alexis Meneses](https://github.com/alexismeneses)
+[Sehrope Sarkuni](https://github.com/sehrope)
+[Minglei Tu](https://github.com/tminglei)
+[Martin Simka](https://github.com/simkam)
+[Mikko Tiihonen](https://github/com/gmokki)
+[bryonv](https://github.com/byronvf)
+
+***	
+<a name="version_9.3-1103"></a>
+## Version 9.3-1103 (2015-01-02)
+Author: Ancoron <ancoron.luciferis@gmail.com>
+
+    Backport PGXAConnection.equals() fix from master
+
+Author: Ancoron <ancoron.luciferis@gmail.com>
+
+    Fix connection URL generation for 'stringtype' parameter in BaseDataSource
+	
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Fix equals-method of the wrapper returned by PGXAConnection.getConnection()
+    Patch by Florent Guillaume
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Fixes on get/set/current-schema (9.3 branch)
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Add a TestSuite for JDBC 4.1
+    
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Unescape/unquote result of getSchema
+    
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Setting the search_path from currentSchema property is done in startup packet (v3 protocol only)
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Add tests for schema name containing special characters
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Escape schema name when setting search_path
+
+Author: Damiano Albani <damiano.albani@gmail.com>
+
+    Add support for "currentSchema" connection property.
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Fixed timezone test as per Tom Lane's suggestion. …
+    Now using Europe/Helsinki as the exemplar.
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Clob will now use the connection encoding
+    pull #121 from brekka/clob_encoding
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    backpatched Statement.isClosed() implementation of PGPoolingDataSource with some performance improvements. #180
+
+Author: nicolas-f <github@nettrader.fr>
+
+	Implement hashcode in PGObject 9.3
+    Handle null value
+    
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Mon Aug 18 12:30:48 2014 +0000
+
+    NPE fix in org.postgresql.Driver.getPropertyInfo #176 \
+    from Sergey Ignatov
+
 <a name="version_9.3-1102"></a>
 ## Version 9.3-1102 (2014-07-10)
 
+Author:epgrubmair bug #161
+
     fix copyOut close hanging bug #161 from epgrubmair
+
+Author:romank0
 
     backpatch exception during close of fully read stream from romank0
 
+Author:Christophe Canovas
 
-    Added caching for ResultSetMetaData from Christophe Canovas complete commit
+    Added caching for ResultSetMetaData  complete commit
+
+Author:Elizabeth Chatman
 
     NullPointerException in AbstractJdbc2DatabaseMetaData.getUDTs
-    Fix from Elizabeth Chatman
+
 
     setNull, setString, setObject may fail if a specified type cannot be transferred in a binary mode #151
 
-
     backpatch fix for changing datestyle before copy
 
+Author:TomonariKatsumata
 
     binary transfer fixes new feature -1 for forceBinaryTransfer
-	from TomonariKatsumata
 	
-    connectTimeout property support backpatch from Sergey Chernov
+Author:Sergey Chernov
+
+    connectTimeout property support backpatch
     
-    fix prepared statement ERROR due to EMPTY_QUERY defined as static. Reported by: Naoya Anzai
+Author:Naoya Anzai
 
-
+    fix prepared statement ERROR due to EMPTY_QUERY defined as static.
 
 
 <a name="version_9.3-1101"></a>

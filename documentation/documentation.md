@@ -6,7 +6,7 @@ nav: ../
 ---
 
 * [9.4 Development](head/index.html) Download - [postgresql-jdbc-head-doc.tar.gz](postgresql-jdbc-head-doc.tar.gz)
-* [9.3](92/index.html) Download - [postgresql-jdbc-93-doc.tar.gz](postgresql-jdbc-93-doc.tar.gz)
+* [9.3](93/index.html) Download - [postgresql-jdbc-93-doc.tar.gz](postgresql-jdbc-93-doc.tar.gz)
 * [9.2](92/index.html) Download - [postgresql-jdbc-92-doc.tar.gz](postgresql-jdbc-92-doc.tar.gz)
 * [9.1](91/index.html) Download - [postgresql-jdbc-91-doc.tar.gz](postgresql-jdbc-91-doc.tar.gz)
 * [9.0](90/index.html) Download - [postgresql-jdbc-84-doc.tar.gz](postgresql-jdbc-84-doc.tar.gz)
