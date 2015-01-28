@@ -52,15 +52,24 @@ Author: [Alexis Meneses](https://github.com/alexismeneses)
 	
 * ![fix](../media/img/fix.jpg)	Support for setBinaryStream with unknown length [PR #220](https://github.com/pgjdbc/pgjdbc/pull/220)		
 * ![add](../media/img/add.jpg) Improved support for BLOBS [PR #219](https://github.com/pgjdbc/pgjdbc/pull/219)
-* 	Added the support for very large objects (4TB) when backend is at least 9.3 using lo_xxx64 functions (see release 9.3 notes).
-* 	Added support for various JDBC4 methods related to Blobs:  
-    setBlob with input stream in PreparedStatement  
-    getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
+* 	  Added the support for very large objects (4TB) when backend is at least 9.3 using lo_xxx64 functions (see release 9.3 notes).
+* 	  Added support for various JDBC4 methods related to Blobs:  
+      setBlob with input stream in PreparedStatement  
+      getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
 * ![fix](../media/img/fix.jpg)	Fix for setStringType in DataSource [PR #221](https://github.com/pgjdbc/pgjdbc/pull/221)
+* ![fix](../media/img/fix.jpg)	Set search path in startup packet [PR #216](https://github.com/pgjdbc/pgjdbc/pull/216)
+* ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction statet [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
+* ![fix](../media/img/fix.jpg)	Replace StringBuffer with StringBuilder for performance [PR #243](https://github.com/pgjdbc/pgjdbc/pull/243)
+* ![fix](../media/img/fix.jpg)	Make Pgjdbc an OSGi bundle [PR #241](https://github.com/pgjdbc/pgjdbc/pull/241)
+
+
+
+
 		
 Author: [Sehrope Sarkuni](https://github.com/sehrope)
 
 * ![fix](../media/img/fix.jpg) Fix Timer thread classloader leak [PR #197](https://github.com/pgjdbc/pgjdbc/pull/197)
+* ![fix](../media/img/fix.jpg) Escape search_path in Connection.setSchema [PR #207](https://github.com/pgjdbc/pgjdbc/pull/207)
 	
 Author: [Mikko Tiihonen](https://github/com/gmokki)
 
@@ -73,25 +82,33 @@ Author: [Minglei Tu](https://github.com/tminglei)
 Author: [Martin Simka](https://github.com/simkam)
 
 * ![fix](../media/img/fix.jpg) GSS: fall back to old authentication when Subject doesn't contain instance of GssCredentials [PR#228](https://github.com/pgjdbc/pgjdbc/pull/228)
+* ![fix](../media/img/fix.jpg) gssapi: Re-use existing Subject and GssCredentials [PR#201](https://github.com/pgjdbc/pgjdbc/pull/201)
 
 Author: [bryonv](https://github.com/byronvf)
 
-* ![fix](../media/img/fix.jpg) Honor stringtype=unspecified when also saving null values
-*Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
-*For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
+* ![fix](../media/img/fix.jpg) Honor stringtype=unspecified when also saving null values  
+*   Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
+*   For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
+
+Author: [Craig Ringer](https://github.com/ringerc)
+
+* ![add](../media/img/add.jpg) Add native SSPI authentication support on Windows using JNA via Waffle [PR #212](https://github.com/pgjdbc/pgjdbc/pull/212)
+* ![fix](../media/img/fix.jpg)	Add limited support for returning generated columns in batches [PR #204](https://github.com/pgjdbc/pgjdbc/pull/204). Fixes issues [#194](https://github.com/pgjdbc/pgjdbc/issues/194) and [#195](https://github.com/pgjdbc/pgjdbc/issues/195) 
+
 
 <a name="contributors_9.4-1200"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
 
-This is a list of all people who participated as committers:
-[Alexis Meneses](https://github.com/alexismeneses)
-[Sehrope Sarkuni](https://github.com/sehrope)
-[Minglei Tu](https://github.com/tminglei)
-[Martin Simka](https://github.com/simkam)
-[Mikko Tiihonen](https://github/com/gmokki)
-[bryonv](https://github.com/byronvf)
+This is a list of all people who participated as committers:  
+[Alexis Meneses](https://github.com/alexismeneses)  
+[Sehrope Sarkuni](https://github.com/sehrope)  
+[Minglei Tu](https://github.com/tminglei)  
+[Martin Simka](https://github.com/simkam)  
+[Mikko Tiihonen](https://github/com/gmokki)  
+[bryonv](https://github.com/byronvf)  
+[Craig Ringer](https://github.com/ringerc)  
 
 ***	
 <a name="version_9.3-1103"></a>
