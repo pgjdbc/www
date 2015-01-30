@@ -104,10 +104,12 @@ connection.
 	When `compatible` is set to 7.4 or below, the default for the `stringtype`
 	parameter is changed to `unspecified`.
 
-* `sendBufferSize = int`
+* `sendBufferSize = int` 
+
 	Sets SO_SNDBUF on the connection stream
 	
 * `recvBufferSize = int`
+
 	Sets SO_RCVBUF on the connection stream
 	
 * `protocolVersion = String`
@@ -164,7 +166,16 @@ connection.
 	It captures a stacktrace at each `Connection` opening and if the `finalize()`
 	method is reached without having been closed the stacktrace is printed
 	to the log.
- 
+	
+* `binaryTransferEnable = String`
+
+	A comma separated list of types to enable binary transfer. Either OID numbers or names.
+	
+* `binaryTransferDisable = String`
+
+	A comma separated list of types to disable binary transfer. Either OID numbers or names.
+	Overrides values in the driver default set and values set with binaryTransferEnable.
+
 * `prepareThreshold = int`
 
 	Determine the number of `PreparedStatement` executions required before
@@ -178,6 +189,12 @@ connection.
 
 	Specify how long to wait for establishment of a database connection. The
 	timeout is specified in seconds. 
+
+*	connectTimeout = int
+	
+	The timeout value used for socket connect operations. If connecting to the server
+	takes longer than this value, the connection is broken. 
+	The timeout is specified in seconds and a value of zero means that it 	is disabled.
 
 * `socketTimeout = int`
 
@@ -221,3 +238,108 @@ connection.
 * `jaasApplicationName = String`
 
 	Specifies the name of the JAAS system or application login configuration. 
+	
+*	`gsslib = String`
+	
+	Force either SSPI (Windows transparent single-sign-on) or GSSAPI (Kerberos, via JSSE)
+	to be used when the server requests Kerberos or SSPI authentication. 
+	Permissible values are auto (default, see below), sspi (force SSPI) or gssapi (force GSSAPI-JSSE).
+
+	If this parameter is auto, SSPI is attempted if the server requests SSPI authentication, 
+	the JDBC client is running on Windows, and the Waffle libraries required 
+	for SSPI are on the CLASSPATH. Otherwise Kerberos/GSSAPI via JSSE is used. 
+	Note that this behaviour does not exactly match that of libpq, which uses 
+	Windows' SSPI libraries for Kerberos (GSSAPI) requests by default when on Windows.
+
+	gssapi mode forces JSSE's GSSAPI to be used even if SSPI is available, matching the pre-9.4 behaviour.
+
+	On non-Windows platforms or where SSPI is unavailable, forcing sspi mode will fail with a PSQLException.
+
+	Since: 9.4
+
+*	`sspiServiceClass = String`
+	
+	Specifies the name of the Windows SSPI service class that forms the service 
+	class part of the SPN. The default, POSTGRES, is almost always correct.
+
+	See: SSPI authentication (Pg docs) Service Principal Names (MSDN), DsMakeSpn (MSDN) Configuring SSPI (Pg wiki).
+
+	This parameter is ignored on non-Windows platforms.
+
+*	`useSpnego = boolean`
+	
+	Use SPNEGO in SSPI authentication requests
+
+*	`ApplicationName = String`
+	
+	Specifies the name of the application that is using the connection. 
+	This allows a database administrator to see what applications are 
+	connected to the server and what resources they are using through views like pg_stat_activity.
+
+*	`sendBufferSize = int`  
+	
+	Sets SO_SNDBUF on the connection stream
+
+*	`receiveBufferSize = int`  
+	
+	Sets SO_RCVBUF on the connection stream
+
+*	`readOnly = boolean`
+	
+	Put the connection in read-only mode
+
+*	`disableColumnSanitiser = boolean`
+	
+	Enable optimization that disables column name sanitiser.
+
+*	`assumeMinServerVersion = String`
+	
+	Assume that the server is at least the given version, 
+	thus enabling to some optimization at connection time instead of trying to be version blind.
+
+*	`currentSchema = String`
+	
+	Specify the schema to be set in the search-path. 
+	This schema will be used to resolve unqualified object names used in statements over this connection.
+
+*	`targetServerType`
+	
+	Allows opening connections to only servers with required state, 
+	the allowed values are any, master, slave and preferSlave. 
+	The master/slave distinction is currently done by observing if the server allows writes. 
+	The value preferSlave tries to connect to slaves if any are available, 
+	otherwise allows falls back to connecting also to master.
+
+*	`hostRecheckSeconds = int`
+
+	Controls how long in seconds the knowledge about a host state 
+	is cached in JVM wide global cache. The default value is 10 seconds.
+
+*	`loadBalanceHosts = boolean`
+	
+	In default mode (disabled) hosts are connected in the given order. 
+	If enabled hosts are chosen randomly from the set of suitable candidates.
+
+	<a name="connection-failover"></a>
+	## Connection Fail-over
+
+	To support simple connection fail-over it is possible to define multiple endpoints
+	(host and port pairs) in the connection url separated by commas.
+	The driver will try to once connect to each of them in order until the connection succeeds. 
+	If none succeed, a normal connection exception is thrown.
+
+	The syntax for the connection url is:
+
+	jdbc:postgresql://host1:port1,host2:port2/database
+
+	The simple connection fail-over is useful when running against a high availability 
+	postgres installation that has identical data on each node. 
+	For example streaming replication postgres or postgres-xc cluster.
+
+	For example an application can create two connection pools. 
+	One data source is for writes, another for reads. The write pool limits connections only to master node:
+
+	jdbc:postgresql://node1,node2,node3/accounting?targetServerType=master
+	. And read pool balances connections between slaves nodes, but allows connections also to master if no slaves are available:
+
+	jdbc:postgresql://node1,node2,node3/accounting?targetServerType=preferSlave&loadBalanceHosts=true

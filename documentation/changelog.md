@@ -61,7 +61,7 @@ Author: [Alexis Meneses](https://github.com/alexismeneses)
 * ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction statet [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
 * ![fix](../media/img/fix.jpg)	Replace StringBuffer with StringBuilder for performance [PR #243](https://github.com/pgjdbc/pgjdbc/pull/243)
 * ![fix](../media/img/fix.jpg)	Make Pgjdbc an OSGi bundle [PR #241](https://github.com/pgjdbc/pgjdbc/pull/241)
-
+* ![fix](../media/img/fix.jpg)	Fixing the Travis-CI integration
 
 
 
@@ -70,6 +70,8 @@ Author: [Sehrope Sarkuni](https://github.com/sehrope)
 
 * ![fix](../media/img/fix.jpg) Fix Timer thread classloader leak [PR #197](https://github.com/pgjdbc/pgjdbc/pull/197)
 * ![fix](../media/img/fix.jpg) Escape search_path in Connection.setSchema [PR #207](https://github.com/pgjdbc/pgjdbc/pull/207)
+* ![add](../media/img/add.jpg) Add SSL factory SingleCertValidatingFactory [PR #88](https://github.com/pgjdbc/pgjdbc/pull/88)
+* ![add](../media/img/add.jpg) Speed up connection creation on 9.0+ [PR #144](https://github.com/pgjdbc/pgjdbc/pull/144)
 	
 Author: [Mikko Tiihonen](https://github/com/gmokki)
 
@@ -99,16 +101,18 @@ Author: [Craig Ringer](https://github.com/ringerc)
 <a name="contributors_9.4-1200"></a>
 ### Contributors to this release
 
-We thank the following people for their contributions to this release.
-
-This is a list of all people who participated as committers:  
+We thank the following people for their contributions to this release.  
+ 
 [Alexis Meneses](https://github.com/alexismeneses)  
 [Sehrope Sarkuni](https://github.com/sehrope)  
 [Minglei Tu](https://github.com/tminglei)  
 [Martin Simka](https://github.com/simkam)  
 [Mikko Tiihonen](https://github/com/gmokki)  
 [bryonv](https://github.com/byronvf)  
-[Craig Ringer](https://github.com/ringerc)  
+Craig Ringer <craig@2ndquadrant.com>  
+Dave Cramer	<dave.cramer@credativ.ca>
+
+[Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
 
 ***	
 <a name="version_9.3-1103"></a>
