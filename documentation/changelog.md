@@ -58,13 +58,10 @@ Author: [Alexis Meneses](https://github.com/alexismeneses)
       getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
 * ![fix](../media/img/fix.jpg)	Fix for setStringType in DataSource [PR #221](https://github.com/pgjdbc/pgjdbc/pull/221)
 * ![fix](../media/img/fix.jpg)	Set search path in startup packet [PR #216](https://github.com/pgjdbc/pgjdbc/pull/216)
-* ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction statet [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
+* ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction state [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
 * ![fix](../media/img/fix.jpg)	Replace StringBuffer with StringBuilder for performance [PR #243](https://github.com/pgjdbc/pgjdbc/pull/243)
 * ![fix](../media/img/fix.jpg)	Make Pgjdbc an OSGi bundle [PR #241](https://github.com/pgjdbc/pgjdbc/pull/241)
 * ![fix](../media/img/fix.jpg)	Fixing the Travis-CI integration
-
-
-
 		
 Author: [Sehrope Sarkuni](https://github.com/sehrope)
 
