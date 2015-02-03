@@ -90,8 +90,8 @@ versions of the JVM with the JDBC specification implemented.
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td></td>
-	<td><a href="download/postgresql-9.4-1200.jdbc4.jar">9.3-1102 JDBC 4</a></td>
-	<td><a href="download/postgresql-9.4-1200.jdbc41.jar">9.3-1102 JDBC 41</a></td>
+	<td><a href="download/postgresql-9.4-1200.jdbc4.jar">9.4-1200 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.4-1200.jdbc41.jar">9.4-1200 JDBC 41</a></td>
 	<td><a href="download/postgresql-jdbc-9.4-1200.src.tar.gz">9.4-1200 JDBC Source</a></td>
 </tr>
 <tr>
