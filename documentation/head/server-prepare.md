@@ -63,7 +63,7 @@ public class ServerSidePreparedStatement
 		// on the third execution start using server side statements
 		pgstmt.setPrepareThreshold(3);
 
-		for (int i=1; i&lt;=5; i++)
+		for (int i=1; i<=5; i++)
 		{
 			pstmt.setInt(1,i);
 			boolean usingServerPrepare = pgstmt.isUseServerPrepare();
