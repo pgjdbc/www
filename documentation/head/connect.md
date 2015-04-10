@@ -239,6 +239,12 @@ connection.
 
 	Specifies the name of the JAAS system or application login configuration. 
 	
+*	`ApplicationName = String`
+	
+	Specifies the name of the application that is using the connection. 
+	This allows a database administrator to see what applications are 
+	connected to the server and what resources they are using through views like pg_stat_activity.
+
 *	`gsslib = String`
 	
 	Force either SSPI (Windows transparent single-sign-on) or GSSAPI (Kerberos, via JSSE)
@@ -269,12 +275,6 @@ connection.
 *	`useSpnego = boolean`
 	
 	Use SPNEGO in SSPI authentication requests
-
-*	`ApplicationName = String`
-	
-	Specifies the name of the application that is using the connection. 
-	This allows a database administrator to see what applications are 
-	connected to the server and what resources they are using through views like pg_stat_activity.
 
 *	`sendBufferSize = int`  
 	
