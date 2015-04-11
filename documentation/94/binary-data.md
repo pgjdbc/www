@@ -127,7 +127,7 @@ To insert an image, you would use:
 `// Copy the data from the file to the large object`  
 `byte buf[] = new byte[2048];`  
 `int s, tl = 0;`  
-`while ((s = fis.read(buf, 0, 2048)) &gt; 0)`  
+`while ((s = fis.read(buf, 0, 2048)) > 0)`
 `{`  
 &nbsp;&nbsp;&nbsp;`obj.write(buf, 0, s);`  
 &nbsp;&nbsp;&nbsp;`tl += s;`  
