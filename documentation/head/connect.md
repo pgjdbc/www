@@ -184,6 +184,17 @@ connection.
 	execution of the same `PreparedStatement` object. More information on
 	server side prepared statements is available in the section called
 	[“Server Prepared Statements”](server-prepare.html).
+	
+* `defaultRowFetchSize = int`
+	
+	Determine the number of rows fetched in `ResultSet`
+	by one fetch with trip to the database. Limiting the number of rows are fetch with 
+	each trip to the database allow avoids unnecessary memory consumption 
+	and as a consequence `OutOfMemoryException`.
+	
+	The default is zero, meaning that in `ResultSet` will be fetch all rows at once. 
+	Negative number is not available.
+	
  
 * `loginTimeout = int`
 
