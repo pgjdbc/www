@@ -166,6 +166,18 @@ connection.
 	It captures a stacktrace at each `Connection` opening and if the `finalize()`
 	method is reached without having been closed the stacktrace is printed
 	to the log.
+
+* `autoCloseUnclosedStatements = boolean`
+	
+	Clients may leak `Statement` objects by failing to call its `close()` method. 
+	If `autoCloseUnclosedStatements` is set to "true" then finalizer will be used 
+	as a stopgap solution to `close()` the resource.
+	
+	**Note:** *Creating finalizable objects is very expensive in lots of JVM.
+	It dramatically impacts `Statement` instantiation 
+	and increases time spent in garbage collection, so avoid using `autoCloseUnclosedStatements`="true"
+	for highly loaded applications unless you are sure your JVM can crater 
+	finalizer traffic.*
 	
 * `binaryTransferEnable = String`
 
