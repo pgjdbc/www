@@ -13,8 +13,11 @@ With JDBC, a database is represented by a URL (Uniform Resource Locator). With
 PostgreSQL™, this takes one of the following forms:
 
 * jdbc:postgresql:*`database`*
+* jdbc:postgresql:/
 * jdbc:postgresql://*`host/database`*
+* jdbc:postgresql://*`host/`*
 * jdbc:postgresql://*`host:port/database`*
+* jdbc:postgresql://*`host:port/`*
 
 The parameters have the following meanings:
 
@@ -33,7 +36,8 @@ The parameters have the following meanings:
 
 * *`database`*
 
-	The database name.
+	The database name. The default is to connect to a database with the same name
+	as the user name.
 
 To connect, you need to get a `Connection` instance from JDBC. To do this, you use
 the `DriverManager.getConnection()` method:
