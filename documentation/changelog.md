@@ -6,7 +6,14 @@ nav: ../
 ---
 
 # History of Changes
-* [Introduction and explanation of symbols](#introduction")
+* [Introduction and explanation of symbols](#introduction)
+* [Version 9.4-1200 (2015-01-02)](#version_9.4-1200)
+	* [Contributors to this release](#contributors_9.4-1200)
+* [Version 9.3-1103 (2015-01-02)](#version_9.3-1103)
+* [Version 9.3-1102 (2014-07-10)](#version_9.3-1102)
+* [Version 9.3-1101 (2014-02-19)](#version_9.3-1101)
+* [Version 9.3-1100 (2013-11-01)](#version_9.3-1100)
+* [Version 9.2-1004 (2013-10-31)](#version_9.2-1004)
 * [Version 9.2-1003 (2013-07-08)](#version_9.2-1003)
     * [Contributors to this release](#contributors_9.2-1003)
 * [Version 9.2-1002 (2012-11-14)](#version_9.2-1002)
@@ -28,7 +35,7 @@ nav: ../
 * [Archived Versions 8.0-8.4](pgjdbc_changelog-8.0-8.4.tar.gz)
 * [All Committers](#all-committers)
 
-[![](../media/img/rss.png)](changes.rss)
+[![](../media/img/rss.png)](../changes.rss)
 
 <a name="introduction"></a>
 ## Introduction and explanation of symbols
@@ -39,7 +46,897 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1200"></a>
+## Version 9.4-1200 (2015-01-02)
+Author: [Alexis Meneses](https://github.com/alexismeneses)
+	
+* ![fix](../media/img/fix.jpg)	Support for setBinaryStream with unknown length [PR #220](https://github.com/pgjdbc/pgjdbc/pull/220)		
+* ![add](../media/img/add.jpg) Improved support for BLOBS [PR #219](https://github.com/pgjdbc/pgjdbc/pull/219)
+* 	  Added the support for very large objects (4TB) when backend is at least 9.3 using lo_xxx64 functions (see release 9.3 notes).
+* 	  Added support for various JDBC4 methods related to Blobs:  
+      setBlob with input stream in PreparedStatement  
+      getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
+* ![fix](../media/img/fix.jpg)	Fix for setStringType in DataSource [PR #221](https://github.com/pgjdbc/pgjdbc/pull/221)
+* ![fix](../media/img/fix.jpg)	Set search path in startup packet [PR #216](https://github.com/pgjdbc/pgjdbc/pull/216)
+* ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction state [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
+* ![fix](../media/img/fix.jpg)	Replace StringBuffer with StringBuilder for performance [PR #243](https://github.com/pgjdbc/pgjdbc/pull/243)
+* ![fix](../media/img/fix.jpg)	Make Pgjdbc an OSGi bundle [PR #241](https://github.com/pgjdbc/pgjdbc/pull/241)
+* ![fix](../media/img/fix.jpg)	Fixing the Travis-CI integration
+		
+Author: [Sehrope Sarkuni](https://github.com/sehrope)
 
+* ![fix](../media/img/fix.jpg) Fix Timer thread classloader leak [PR #197](https://github.com/pgjdbc/pgjdbc/pull/197)
+* ![fix](../media/img/fix.jpg) Escape search_path in Connection.setSchema [PR #207](https://github.com/pgjdbc/pgjdbc/pull/207)
+* ![add](../media/img/add.jpg) Add SSL factory SingleCertValidatingFactory [PR #88](https://github.com/pgjdbc/pgjdbc/pull/88)
+* ![add](../media/img/add.jpg) Speed up connection creation on 9.0+ [PR #144](https://github.com/pgjdbc/pgjdbc/pull/144)
+	
+Author: [Mikko Tiihonen](https://github/com/gmokki)
+
+* ![add](../media/img/add.jpg) Enhance connection fail-over with master/slave restriction and loadbalancing [PR #209](https://github.com/pgjdbc/pgjdbc/pull/209) Based on work by chenhj@cn.fujitsu.com
+	
+Author: [Minglei Tu](https://github.com/tminglei)
+	
+* ![add](../media/img/add.jpg) add ?-contained operator support [PR#227](https://github.com/pgjdbc/pgjdbc/pull/227)
+	
+Author: [Martin Simka](https://github.com/simkam)
+
+* ![fix](../media/img/fix.jpg) GSS: fall back to old authentication when Subject doesn't contain instance of GssCredentials [PR#228](https://github.com/pgjdbc/pgjdbc/pull/228)
+* ![fix](../media/img/fix.jpg) gssapi: Re-use existing Subject and GssCredentials [PR#201](https://github.com/pgjdbc/pgjdbc/pull/201)
+
+Author: [bryonv](https://github.com/byronvf)
+
+* ![fix](../media/img/fix.jpg) Honor stringtype=unspecified when also saving null values  
+*   Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
+*   For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
+
+Author: [Craig Ringer](https://github.com/ringerc)
+
+* ![add](../media/img/add.jpg) Add native SSPI authentication support on Windows using JNA via Waffle [PR #212](https://github.com/pgjdbc/pgjdbc/pull/212)
+* ![fix](../media/img/fix.jpg)	Add limited support for returning generated columns in batches [PR #204](https://github.com/pgjdbc/pgjdbc/pull/204). Fixes issues [#194](https://github.com/pgjdbc/pgjdbc/issues/194) and [#195](https://github.com/pgjdbc/pgjdbc/issues/195) 
+
+
+<a name="contributors_9.4-1200"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.  
+ 
+[Alexis Meneses](https://github.com/alexismeneses)  
+[Sehrope Sarkuni](https://github.com/sehrope)  
+[Minglei Tu](https://github.com/tminglei)  
+[Martin Simka](https://github.com/simkam)  
+[Mikko Tiihonen](https://github/com/gmokki)  
+[bryonv](https://github.com/byronvf)  
+Craig Ringer <craig@2ndquadrant.com>  
+Dave Cramer	<dave.cramer@credativ.ca>
+
+[Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
+
+***	
+<a name="version_9.3-1103"></a>
+## Version 9.3-1103 (2015-01-02)
+Author: Ancoron <ancoron.luciferis@gmail.com>
+
+    Backport PGXAConnection.equals() fix from master
+
+Author: Ancoron <ancoron.luciferis@gmail.com>
+
+    Fix connection URL generation for 'stringtype' parameter in BaseDataSource
+	
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Fix equals-method of the wrapper returned by PGXAConnection.getConnection()
+    Patch by Florent Guillaume
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Fixes on get/set/current-schema (9.3 branch)
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Add a TestSuite for JDBC 4.1
+    
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Unescape/unquote result of getSchema
+    
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Setting the search_path from currentSchema property is done in startup packet (v3 protocol only)
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Add tests for schema name containing special characters
+
+Author: Alexis Meneses <alexismeneses@users.noreply.github.com>
+
+    Escape schema name when setting search_path
+
+Author: Damiano Albani <damiano.albani@gmail.com>
+
+    Add support for "currentSchema" connection property.
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Fixed timezone test as per Tom Lane's suggestion. …
+    Now using Europe/Helsinki as the exemplar.
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Clob will now use the connection encoding
+    pull #121 from brekka/clob_encoding
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    backpatched Statement.isClosed() implementation of PGPoolingDataSource with some performance improvements. #180
+
+Author: nicolas-f <github@nettrader.fr>
+
+	Implement hashcode in PGObject 9.3
+    Handle null value
+    
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Mon Aug 18 12:30:48 2014 +0000
+
+    NPE fix in org.postgresql.Driver.getPropertyInfo #176 \
+    from Sergey Ignatov
+
+<a name="version_9.3-1102"></a>
+## Version 9.3-1102 (2014-07-10)
+
+Author:epgrubmair bug #161
+
+    fix copyOut close hanging bug #161 from epgrubmair
+
+Author:romank0
+
+    backpatch exception during close of fully read stream from romank0
+
+Author:Christophe Canovas
+
+    Added caching for ResultSetMetaData  complete commit
+
+Author:Elizabeth Chatman
+
+    NullPointerException in AbstractJdbc2DatabaseMetaData.getUDTs
+
+
+    setNull, setString, setObject may fail if a specified type cannot be transferred in a binary mode #151
+
+    backpatch fix for changing datestyle before copy
+
+Author:TomonariKatsumata
+
+    binary transfer fixes new feature -1 for forceBinaryTransfer
+	
+Author:Sergey Chernov
+
+    connectTimeout property support backpatch
+    
+Author:Naoya Anzai
+
+    fix prepared statement ERROR due to EMPTY_QUERY defined as static.
+
+
+<a name="version_9.3-1101"></a>
+## Version 9.3-1101 (2014-02-14)
+
+Author:Jeremy Whiting <jwhiting@redhat.com>
+
+    Added feature to disable column name sanitiser with a new property. 
+	disableColumnSanitiser= boolean
+	remove toLower calls for performance
+
+Author:Craig Ringer <craig@2ndquadrant.com>
+
+    Add a MainClass that tells the user they can't just run the JDBC driver    
+    After one too many reports of
+        "Failed to load Main-Class manifest attribute from postgresql-xxx.jar"
+    I'm submitting a dummy main-class that tells the user what they should
+    do instead.
+    
+    The message looks like:
+    
+    ------------
+    PostgreSQL x.y JDBC4.1 (build bbbb)
+    Found in: jar:file:/path/to/postgresql-x.y-bbbb.jdbc41.jar!/org/postgresql/Driver.class
+    
+    The PgJDBC driver is not an executable Java program.
+    
+    You must install it according to the JDBC driver installation instructions for your application / container / appserver, then use it by specifying a JDBC URL of the form
+        jdbc:postgresql://
+    or using an application specific method.
+    
+    See the PgJDBC documentation: http://jdbc.postgresql.org/documentation/head/index.html
+    
+    This command has had no effect.
+    ------------
+
+
+    fixed bug PreparedStatement.getMetaData failed if result set was closed
+    reported by Emmanuel Guiton
+
+Author: cchantep <chantepie@altern.org>
+Date:   Thu Dec 12 15:54:55 2013 +0100
+
+    Base table more usefull than "" as basic table name
+
+
+    fixed driver fails to find foreign tables fix from plalg@hotmail.com
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Fix various setQueryTimeout bugs.
+    
+    1. If you call setQueryTimeout(5), wait 10 seconds, and call execute(), the
+    cancel timer has already expired, and the statement will be allowed to run
+    forever. Likewise, if you call setQueryTimeout(5), wait 4 seconds, and call
+    execute(), the statement will be canceled after only 1 second.
+    
+    2. If you call setQueryTimeout on a PreparedStatement, and execute the same
+    statement several times, the timeout only takes affect on the first
+    statement.
+    
+    3. If you call setQueryTimeout on one Statement, but don't execute it, the
+    timer will still fire, possible on an unrelated victim Statement.
+    
+    The root cause of all of these bugs was that the timer was started at the
+    setQueryTimeout() call, not on the execute() call.
+    
+    Also, remove the finally-block from the cancellation task's run-method,
+    because that might erroneously cancel the timer for the next query, if a
+    new query is started using the same statement fast enough.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Use StringBuffer to construct a string.
+    
+    This piece of code isn't performance-critical at all, but silences a
+    Coverity complaint.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Avoid integer overflow.
+    
+    The function returns long, but does the calculation first in int. If someone
+    sets the timeout to 600 hours in the URL, it will overflow, even though the
+    return value of the function is long and hence could return a larger value.
+    
+    To silence a Coverity complaint.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Plug some Statement leaks in metadata queries.
+    
+    These are fairly harmless, nobody calls these metadata methods frequently
+    enough for the leaks to matter, and a regular Statement doesn't hold onto
+    any server resources anyway. But let's appease Coverity.
+
+Author: Heikki Linnakangas <heikki.linnakangas@iki.fi>
+
+    Make sure file is closed on exception.
+    
+    The system will eventually close the file anyway, and this read is highly
+    unlikely to throw an IOException in practice.
+    
+    Also, use RandomAccessFile.readFully(byte[]) to slurp the file into byte
+    array, rather than FileInputStream.read(byte[]). The latter would need to
+    be called in a loop to protect from short reads.
+    
+    Both issues were complained of by Coverity.
+
+
+Author: Stephen Nelson <stephen@eccostudio.com>
+
+    Generate a non-Maven JAR filename using build-time version and JDBC API level.
+
+Author: Stephen Nelson <stephen@eccostudio.com>
+
+    Build script changes to allow packaging and deployment to Maven central using maven-ant-tasks
+    
+    Updated build.properties to contain the sonatype urls. Updated build.xml so that gpg signing works for each accompanying artifact type. Updated pom.xml to allow templated group and artifact ids.
+
+Author: Craig Ringer <craig@2ndquadrant.com>
+
+    NonValidatingFactory should be included in both JDBC3 and JDBC4
+
+Author: Michael McCaskill <michael@team.shoeboxed.com>
+
+    Use proper System property
+    
+    Using 'path.separator' results in malformed paths such as:
+    /default/dir:./postgresql/root.crt
+    This corrects the problem.
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    reset interrupted bit and throw unchecked exception if we get interrupted while trying to connect
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    add functions to allow LargeObjectMaager to commit on close from Marc Cousin
+
+Author: tminglei <tmlneu@gmail.com>
+
+    add uuid array support (rename ArrayElementBuilder to ArrayAssistant)
+
+Author: Nick White <nwhite@palantir.com>
+
+    allow the first query to be binary
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+
+    Merge pull request #107 from cchantep/rs-basic-tblname
+    
+    Basic table name for resultset metadata
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+    fixed bug PreparedStatement.getMetaData failed if result set was closed
+    reported by Emmanuel Guiton #bugfix#
+
+
+
+<a name="version_9.3-1100"></a>
+## Version 9.3-1100 (2013-11-01)
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Thu Oct 17 08:29:07 2013 -0400
+
+    reset interrupted bit and throw unchecked exception if we get interrupted while trying to connect
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue Oct 15 06:51:45 2013 -0400
+
+    add functions to allow LargeObjectMaager to commit on close from Marc Cousin
+
+Author: halset <halset@ecc.no>
+Date:   Mon Sep 9 12:12:26 2013 +0200
+
+    fix for setBlob with large blob
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue Sep 10 09:00:37 2013 -0400
+
+    fixed DatabaseMetaDataTest as per Sylvain Cuaz
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Mon Jul 29 09:43:20 2013 -0400
+
+    fixed sort order for DatabaseMetaData
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Sun Jul 21 13:18:26 2013 +0000
+
+    backpatched canceltimer bug reported by Andri-Redko
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Wed May 22 04:03:58 2013 -0700
+
+    Merge pull request #60 from davecramer/REL9_2_STABLE
+    
+    backpatch BaseDataSource
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue May 21 21:03:21 2013 -0400
+
+    check for null before appending to url
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 21 20:23:00 2013 -0400
+
+    initialize binaryTranferEnable to null
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 21 20:08:27 2013 -0400
+
+    fixed tcpkeepalive as per Rui Zhu
+    pass stringtype on to url through properties from Mike O'Toole
+
+Author: Dave Cramer <davecramer@gmail.com>
+
+Date:   Wed Feb 20 06:58:59 2013 -0500
+
+    avoid NullPointerException from Derrik Hudson on User Defined Types
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Tue Mar 26 05:33:45 2013 -0700
+
+    Lookup correct array delimiter in Connection.createArrayOf.
+    
+    The old code had hardcoded a comma, but that's not true for all
+    datatypes.
+    
+    Identification and fix by sumo in pull request #49, testcase by me.
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Thu Nov 1 11:24:34 2012 -0400
+
+    fix toString to handle binary integer and float types
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Wed Oct 31 10:23:23 2012 -0400
+
+    Fix performance regression introduced by using InetSocketAddress.getHostName()
+    Patch provided by Scott Harrington, improved upon by Kris Jurka
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Thu Oct 18 07:44:06 2012 -0400
+
+    removed testSetObjectFromJavaArray out of jdbc2 tests
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Wed Oct 17 14:22:03 2012 -0400
+
+    added BR translation class file
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Thu Sep 27 09:38:25 2012 -0400
+
+    fixed missing isValid function
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Sep 21 14:58:00 2012 -0400
+
+    fixed attacl for servers below 8.3
+
+Author: Craig Ringer <ringerc@ringerc.id.au>
+Date:   Thu Sep 20 17:51:39 2012 +0800
+
+    Add some info to the README with contributor info
+    
+    Discuss:
+    - Bug reporting
+    - Submitting patches
+    - Test matrix
+    - GitHub
+
+Author: Craig Ringer <ringerc@ringerc.id.au>
+Date:   Thu Sep 20 13:47:26 2012 +0800
+
+    Update URLs in README to refer to the Oracle page locations
+    
+    Oracle has been doing a very poor job of maintaining old SUN URLs,
+    and it's likely that these will break at some point, so best update
+    them to reflect Oracle's control of Java now.
+    
+    Added a link to the JDBC tutorial in the process.
+
+Author: Craig Ringer <ringerc@ringerc.id.au>
+Date:   Thu Sep 20 14:02:18 2012 +0800
+
+    Allow testing to continue when local host name doesn't resolve
+    
+    It seems to be a common and default configuration on some Linux systems
+    for the local hostname not to resolve to the loopback IP address. This
+    causes testTimeoutOccurs(org.postgresql.test.jdbc2.LoginTimeoutTest)
+    to fail. I'm seeing this on Fedora 17 among others.
+    
+    While it's best to fix such systems, not causing an easily avoided
+    and spurious failure in PgJDBC's test suite is probably worthwhile.
+    Spit out a warning and continue.
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Aug 24 14:24:31 2012 -0400
+
+    Fixed build to not delete pgjdbc.html, which breaks the website build
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Thu Sep 13 07:48:52 2012 -0400
+
+    updated translations
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Thu Sep 13 07:43:40 2012 -0400
+
+    Added explicit test case for array handling from Craig Ringer
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Thu Sep 13 07:46:55 2012 -0400
+
+    added docs for send/recv buffer size
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Wed Sep 12 05:11:02 2012 -0400
+
+    added test case for send/recv buffers sizes
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Sep 11 20:55:41 2012 -0400
+
+    patch from Bernd Helme for send recev buffer sizes
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Sep 11 20:12:13 2012 -0400
+
+    new translation from Euler Taveira
+
+Author: Craig Ringer <ringerc@ringerc.id.au>
+Date:   Thu Sep 20 16:07:43 2012 +0800
+
+    Fix breakage of JDBC3 builds with JDK5 by bddc05f939
+    
+    Fixes:
+      commit bddc05f939ac9227b682e85d1ba0a9b902da814c
+      simple connection failover from Mikko Tiihonen
+    
+    See:
+      https://github.com/pgjdbc/pgjdbc/issues/6
+    
+    These fixes only affect builds of the JDBC3 driver. The JDBC4 driver
+    appears fine.
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Thu Sep 13 07:43:40 2012 -0400
+
+    added explicit test case for array handling from Craig Ringer
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Mon Jun 4 08:56:38 2012 -0400
+
+    simple connection failover from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Sun Jun 3 07:49:37 2012 -0400
+
+    implemented setBinaryStream by Johann Oskarsson
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Jun 1 17:57:31 2012 -0400
+
+    fixed docs from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Jun 1 17:18:05 2012 -0400
+
+    fixed urls in docs  from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Jun 1 17:16:49 2012 -0400
+
+    fixed docs for loading in java 6.0 from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 15 20:35:51 2012 -0400
+
+    rest of Add hstore patch
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 15 06:47:09 2012 -0400
+
+    Add support for hstore from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 15 06:24:34 2012 -0400
+
+    change Hashtable with Map from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue May 15 06:23:24 2012 -0400
+
+    change vector to list from Mikko Tiihonen
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Wed May 2 14:12:17 2012 -0400
+
+    setProtocolVersion argument mis-spelled from Mikko Tiihonen
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Wed May 2 14:09:28 2012 -0400
+
+    fix to build for java 1.8 from Mikko Tiihonen
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Fri Apr 27 09:54:47 2012 -0400
+
+    check for array bounds before accessing the array
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Mon Mar 12 17:57:55 2012 -0700
+
+    Fix setQueryTimeout test.
+    
+    When setQueryTimeout was fixed to use the correct units, I
+    neglected to adjust the test at the same time.
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Mon Mar 12 17:43:58 2012 -0700
+
+    Use a Set instead of a BitSet for tracking which types support
+    binary transfer.
+    
+    A BitSet is a compact representation if we're only considering
+    builtin types that will have low oids, but if any user defined
+    types are enabled, all bets are off.  Once the oid counter exceeds
+    INT_MAX, database connections were failing outright even if no
+    high oid types used binary transfer because we represent these
+    oids with negative values that a BitSet cannot handle.
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Mon Mar 12 17:33:40 2012 -0700
+
+    Fix ResultSetMetaData retrieval when the oid counter exceeds INT_MAX.
+    
+    Since Java doesn't have unsigned ints we retrieve the values as long
+    and then truncate to int, so it may have a negative value.
+    
+    As reported by Owen Tran.
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Mon Mar 12 17:33:27 2012 -0700
+
+    Fix ResultSetMetaData retrieval when the oid counter exceeds INT_MAX.
+    
+    Since Java doesn't have unsigned ints we retrieve the values as long
+    and then truncate to int, so it may have a negative value.
+    
+    As reported by Owen Tran.
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Mon Feb 13 16:43:57 2012 -0500
+
+    resolve ACL getTablePriveledges for later servers
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Fri Feb 10 01:13:48 2012 -0800
+
+    Fix bugs in setQueryTimeout.
+    
+    Setting a timeout of zero seconds should disable the timeout.
+    The timeout should be in seconds, but was implemented as milliseconds.
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Fri Feb 10 00:34:59 2012 -0800
+
+    Move logic out of concrete JDBC version classes.
+    
+    The concrete JDBC implementation classes should do as little work
+    as possible.  They exist solely to connect the right set of concrete
+    implemention classes, leaving all the real work to the Abstract
+    versions.  Some logic had started to creep out into these concrete
+    classes which is bad because it duplicates code in paths that aren't
+    likely to be tested by a developer who is working primarily with a
+    single JDK version.
+
+Author: Kris Jurka <jurka@ejurka.com>
+Date:   Thu Feb 9 23:59:41 2012 -0800
+
+    Cache a copy of ResultSetMetaData in the ResultSet.
+    
+    This solves a major performance problem for ResultSetMetaData users
+    which did not cache the ResultSetMetaData object.  One of the users
+    is the driver's own implementation of updatable ResultSets, so this
+    can't be worked around solely in end user code.
+    
+    In the 9.0 and earlier releases, the Field objects were used to hold
+    database lookup results and these were longer lived than the
+    ResultSetMetaData object.  Now that ResultSetMetaData is holding
+    these database lookups we must hold onto the object to avoid
+    repeating the database queries.
+    
+    Reported as bug #6293, fix by Steven Schlansker.
+
+Author: Kris Jurka <books@ejurka.com>
+Date:   Mon Feb 6 13:09:48 2012 -0800
+
+    Convert .cvsignore files to .gitignore files.
+
+Author: Kris Jurka <books@ejurka.com>
+Date:   Mon Feb 6 13:01:36 2012 -0800
+
+    Remove PostgreSQL CVS keyword expansion tags.
+
+commit a57743f980a9de37877aa42a29e9c57514d5550e
+Author: Kris Jurka <books@ejurka.com>
+Date:   Mon Feb 6 13:01:28 2012 -0800
+
+    Remove PostgreSQL CVS keyword expansion tags.
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Jan 19 20:00:51 2012 +0000
+
+    added isValid implementation from Luis Flores
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Jan 19 12:06:44 2012 +0000
+
+    SSPI authentication support from Christian Ullrich
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Mon Jan 16 21:00:51 2012 +0000
+
+    removed ssl tests for buildfarm
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Jan 5 01:12:44 2012 +0000
+
+    removed quotes around language specifier server no longer supports this
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Jan 3 15:27:55 2012 +0000
+
+    remove MakeSSL.java this is now generated
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Mon Nov 28 11:24:19 2011 +0000
+
+    removed Override to compile with java 1.4 added extra docs for ssl from Mikko Tiihonen
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Nov 17 11:45:21 2011 +0000
+
+    docs for ssl from Andras Bodor
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Nov 17 11:27:51 2011 +0000
+
+    SSL implementation from Andras Bodor more closely follow libpq
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Oct 4 08:33:43 2011 +0000
+
+    stack overflow fix from Mike Fowler
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Fri Sep 30 10:08:17 2011 +0000
+
+    small fixes to binary transfer code and unit tests from Mikko Tiihonen
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Sep 27 11:15:23 2011 +0000
+
+    more jdk 1.4 compatability issues fixed from Mike Fowler
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Mon Sep 26 15:16:05 2011 +0000
+
+    patch from Mike Fowler to fix broken builds
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Mon Sep 26 12:52:31 2011 +0000
+
+    Mikko Tiihonen patches for binary types
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Thu Sep 22 12:53:26 2011 +0000
+
+    binary protocol implementation from Mikko Tiihonen
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Sep 20 15:58:49 2011 +0000
+
+    forgot driver.java.in for cancel query implementation
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Sep 20 14:57:13 2011 +0000
+
+    implemented query timeout
+
+Author: Dave Cramer <davec@fastcrypt.com>
+Date:   Tue Sep 20 14:43:44 2011 +0000
+
+    changed name of table from testmetadata to metadatatest, test was failing due to confusion with test_statement tables
+
+Author: Kris Jurka <books@ejurka.com>
+Date:   Sun Sep 11 01:39:32 2011 +0000
+
+    Open HEAD for 9.2 development.
+
+<a name="version_9.2-1004"></a>
+## Version 9.2-1004 (2013-10-31)
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Oct 29 14:32:44 2013 +0000
+
+    move default port back to 5432
+
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Oct 29 12:41:09 2013 +0000
+
+    resolved conflict
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Oct 29 05:38:39 2013 -0700
+
+    Merge pull request #96 from lordnelson/maven-to-9.2-branch
+    
+    Build script changes to allow packaging and deployment to Maven central ...
+
+Author: Stephen Nelson <stephen@eccostudio.com>
+Date:   Sat Apr 13 00:20:36 2013 +0100
+
+    Build script changes to allow packaging and deployment to Maven central using maven-ant-tasks.
+    
+    Updated build.properties to contain the sonatype urls. Updated build.xml so that gpg signing works for each accompanying artifact type. Updated pom.xml to allow templated group and artifact ids.
+    
+    Use 1.4 version of gpg plugin for signing Maven upload.
+
+Author: Craig Ringer <craig@2ndquadrant.com>
+Date:   Fri Oct 25 01:27:23 2013 -0700
+
+    Merge pull request #93 from ringerc/REL9_2_STABLE
+    
+    Fix #92, missing NonValidatingFactory in JDBC3 driver
+
+Author: Craig Ringer <craig@2ndquadrant.com>
+Date:   Fri Oct 25 16:18:10 2013 +0800
+
+    Fix #92, missing NonValidatingFactory in JDBC3 driver
+    
+    See https://github.com/pgjdbc/pgjdbc/issues/92
+    
+    You need this patch if attempts to use a URL like
+    
+        jdbc:postgresql://ipaddress:port/dbname?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory
+    
+    fails with:
+    
+        java.lang.ClassNotFoundException: org.postgresql.ssl.NonValidatingFactory
+    
+    in the stack trace.
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Thu Oct 17 08:29:07 2013 -0400
+
+    reset interrupted bit and throw unchecked exception if we get interrupted while trying to connect
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue Oct 15 06:51:45 2013 -0400
+
+    add functions to allow LargeObjectMaager to commit on close from Marc Cousin
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Sep 10 07:25:06 2013 -0700
+
+    Merge pull request #87 from davecramer/REL9_2_STABLE
+    
+    Fixed setBlob with large blob from Tore Halset
+
+Author: halset <halset@ecc.no>
+Date:   Mon Sep 9 12:12:26 2013 +0200
+
+    fix for setBlob with large blob
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Tue Sep 10 06:20:52 2013 -0700
+
+    Merge pull request #84 from davecramer/REL9_2_STABLE
+    
+    Fixed sort order for DatabaseMetaData from Sylvain Cuaz
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Tue Sep 10 09:00:37 2013 -0400
+
+    fixed DatabaseMetaDataTest as per Sylvain Cuaz
+
+Author: Dave Cramer <davecramer@gmail.com>
+Date:   Mon Jul 29 09:43:20 2013 -0400
+
+    fixed sort order for DatabaseMetaData
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Sun Jul 21 13:18:26 2013 +0000
+
+    backpatched canceltimer bug reported by Andri-Redko
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Sun Jun 23 06:22:09 2013 -0700
+
+    Merge pull request #66 from davecramer/REL9_2_STABLE
+    
+    fixed compile mistake
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Sun Jun 23 09:17:27 2013 -0400
+
+    fixed compile mistake
+
+Author: Dave Cramer <dave.cramer@credativ.ca>
+Date:   Mon May 27 15:23:14 2013 -0700
+
+    Merge pull request #62 from davecramer/REL9_2_STABLE
+    
+    incremented version to fix pushing a 1.7 build for maven
 <a name="version_9.2-1003"></a>
 ## Version 9.2-1003 (2013-07-08)
 

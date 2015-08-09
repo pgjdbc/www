@@ -43,9 +43,9 @@ nav: ../
 							The following tools are required to build and test the driver:
 						</p>
 						<ul>
-							<li><a href="http://java.sun.com/j2se" target="_blank">Java 2 Standard Edition Development Kit</a> At least JDK 1.2.</li>
+							<li><a href="http://java.sun.com/j2se" target="_blank">Java 6 Standard Edition Development Kit</a> At least JDK 1.6.</li>
 							<li><a href="http://ant.apache.org" target="_blank">Apache Ant</a> At least 1.5.</li>	
-							<li><a href="http://www.junit.org" target="_blank">JUnit</a> At least 3.7.</li>
+							<li><a href="http://www.junit.org" target="_blank">JUnit</a> At least 4.11.</li>
 							<li><a href="http://git-scm.com" target="_blank">GIT</a></li>
 						</ul>
 					</div>
@@ -57,7 +57,7 @@ nav: ../
 						<p>
 							After retrieving the source from the <a href="../development/git.html">git repository</a>.
 							Move into the top level <span style="font-family: Courier New,Courier,monospace;">pgjdbc</span> directory and simply
-							type <span style="font-family: Courier New,Courier,monospace;">ant</span>.  This will build the appropriate driver for
+							type <span style="font-family: Courier New,Courier,monospace;">ant -lib lib</span>.  This will build the appropriate driver for
 							your current Java version and place it into
 							<span style="font-family: Courier New,Courier,monospace;">jars/postgresql.jar</span>.
 						</p>
@@ -88,7 +88,7 @@ CREATE DATABASE
 postgres@host:~$ createlang plpgsql test
 						</pre>
 						<p>
-							Now we're ready to run the tests, we simply type <span style="font-family: Courier New,Courier,monospace;">ant test</span>,
+							Now we're ready to run the tests, we simply type <span style="font-family: Courier New,Courier,monospace;">ant -lib lib test</span>,
 							and it should be off and running.  To use non default values to run
 							the regression tests, you can create a <span style="font-family: Courier New,Courier,monospace;">build.local.properties</span>
 							in the top level directory. This properties file allows you to set
