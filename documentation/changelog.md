@@ -35,8 +35,6 @@ nav: ../
 * [Archived Versions 8.0-8.4](pgjdbc_changelog-8.0-8.4.tar.gz)
 * [All Committers](#all-committers)
 
-[![](../media/img/rss.png)](../changes.rss)
-
 <a name="introduction"></a>
 ## Introduction and explanation of symbols
 
