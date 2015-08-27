@@ -6,7 +6,11 @@ nav: ../
 ---
 
 # History of Changes
-* [Introduction and explanation of symbols](#introduction)
+* [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1202 (2015-08-27)](#version_9.4-1202)
+	* [Contributors to this release](#contributors_9.4-1202)
+* [Version 9.4-1201 (2015-02-25)](#version_9.4-1201)
+	* [Contributors to this release](#contributors_9.4-1201)
 * [Version 9.4-1200 (2015-01-02)](#version_9.4-1200)
 	* [Contributors to this release](#contributors_9.4-1200)
 * [Version 9.3-1103 (2015-01-02)](#version_9.3-1103)
@@ -46,6 +50,187 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1201"></a>
+## Version 9.4-1201 (2015-02-25)
+
+Author: [Alexis Meneses](https://github.com/alexismeneses)
+
+* ResultSet positioning methods in some particular cases PR #296 (282536b)
+
+Author: [Craig Ringer](https://github.com/ringerc)
+
+* Disable binary xfer on batches returning generated keys PR #273 (763ae84)
+* Add a new test case demonstrating a bug in returning support PR #273 (4d2b046)
+* Always Describe a query in a batch that returns generated keys PR #273 (a6bd36f)
+
+Author: [Dave Cramer](<davec@postgresintl.com>)
+ 
+* chore: fix build.xml to allow releasing to maven PR #262 (34f9361)
+* fix: BlobInputStream ignores constructor parameters #263 PR #273 (c1c6edc)
+* don't reset forceBinary transfer if we setPreparedThreshold (937a11c)
+* Revert "perf: Remove expensive finalize methods from Statement and Connection" PR #293 (a0d3997)
+* updated copyright PR #312 (263375c)
+* Revert "Issue 250 -- Adding setURL/getURL to BaseDataSource.java" PR #312 (a1ac380)
+* fixed mailing list href PR #326 (c3e86a6)
+* increment driver version PR #346 (b8ee75d)
+
+Author: [David R. Bild](https://github.com/drbild):
+
+* feat: add equality support to PSQLState PR #277 (7698cd9)
+
+Author: [David Schlosnagle](https://github.com/schlosna)
+
+* Improve version checking PR #355 (f7a84db)
+
+Author: [Eugene Koontz](https://github.com/ekoontz)
+
+* Add support within "private Object buildArray (PgArrayList input, int index, int count)" for array elements whose type is jsonb PR #349 (d313138)
+
+Author: [Jeremy Whiting](<jwhiting@redhat.com>)
+
+* Added setter method for logging level. The method exactly matches property name in documentation. PR #282 (d9595d1)
+* Added getter method. PR #282 (65759f0)
+* Adding XML catalog to help unit tests not remote entity resolution. PR #284 (cb87067)
+* Added support to locally resolve dtd or entity files. PR #284 (017970d)
+* Disable verbose logging of the catalog resolver. PR #284 (fcc34f5)
+
+Author: [Kris Jurka](<jurka@ejurka.com>)
+
+* Improve error message for failure to update multicolumn primary key RSs. PR #284 (05ff811)
+* Remove all JDBC3 code as JDK 1.4/1.5 are no longer supported. PR #284 (f9a956b)
+* Add preliminary support for JDBC4.2. PR #284 (bd05fd2)
+
+Author: [Lonny Jacobson](https://github.com/lonnyj)
+
+* Added setURL/getURL methods. (fcc8f75)
+* Added a unit test for setURL PR #309 (5fa405b)
+
+Author: [Markus KARG](https://github.com/quipsy-karg)
+
+* perf: use shared PGBoolean instances PR #321 (159fed6)
+* docs: parameter "database" is optional PR #332 (9a9d03f)
+* refactor: binary transfer for setObject(int, Object, int) PR #351 (3ff2129)
+
+Author: [Michael Paquier](https://github.com/michaelpq):
+
+*  Update entries in lib/.gitignore PR #262 (8cd15a9)
+
+Author: [Phillip Ross](https://github.com/phillipross)
+
+* Fix for issue https://github.com/pgjdbc/pgjdbc/issues/342 - Modifications to PGline to store coefficients and constant value for linear equation representations used by postgresql for native line datatype. PR #343 (0565416)
+* Fix for issue https://github.com/pgjdbc/pgjdbc/issues/342 - Removed extra copyright comments. PR #343 (5f21a18)
+* Fix for issue https://github.com/pgjdbc/pgjdbc/issues/342 - Handle vertical lines. PR #343 (3918b24)
+* Fix for issue https://github.com/pgjdbc/pgjdbc/issues/342 - Added test method for testing PGline PR #343 (1a50585)
+* Fix for issue https://github.com/pgjdbc/pgjdbc/issues/342 - Modifications to PGline test method to only attempt database access if the postgresql version supports it (v9.4+). PR #343 (15eedb5)
+
+Author: [Rikard Pavelic](<rikard@ngs.hr>)
+
+* feat: Improved composite/array type support and type naming changes. PR #333 (cddcd18)
+
+Author: [Robert J. Macomber](https://github.com/rjmac)
+
+* Deadlock after IO exception during copy cancel PR #363 (d535c13)
+
+Author: [Sehrope Sarkuni](https://github.com/sehrope)
+
+* style: clean up newline whitespace PR #273 (1b77b4c)
+* style: clean up whitespace in .travis.yml PR #274 (3ee5bbf)
+* fix: correct incorrect PG database version in .travis.yml matrix PR #274 (74b88c6)
+* style: reorder jdk versions in .travis.yml PR #274 (21289e7)
+* feat: add PostgreSQL 9.4 to .travis.yml matrix PR #274 (9e94f35)
+* feat: add escapeLiteral(...) and escapeIdentifier(...) to PGConnection PR #275 (096241f)
+
+Author: [Stephen Nelson](https://github.com/lordnelson)
+
+* Replace for loops with Java 5-style for loops. Replace String.indexOf with String.contains. Replace StringBuffer with StringBuilder. Remove boxing/unboxing of primitives. PR #245 (206a542)
+
+Author: [Vladimir Gordiychuk](https://github.com/Gordiychuk)
+
+* feat: Customize default fetchSize for statements PR #287 (093a4bc)
+* feat: Customize default fetchSize for statements PR #287 (519bfe1)
+* perf: Read test only property "org.postgresql.forceBinary" spend many time when creating statements PR #291 (e185a48)
+
+Author: [Vladimir Sitnikov](https://github.com/vlsi)
+
+* perf: Remove expensive finalize method from Statement Finalize method on Statement is moved to a separate class that is lazily created if user sets "autoCloseUnclosedConnections"="true". This dramatically improves performance of statement instantiation and reduces garbage collection overhead on several wildly used JMVs. PR #290 (eb83210)
+* docs: fix misleading statement on "can't use jdk5 features" in README.md PR #298 (5b91aed)
+* feat: implement micro-benchmark module for performance testing PR #297 (48b79a3)
+* feat: add benchmark for Parser.unmarkDoubleQuestion PR #297 (e5a7e4e)
+* feat: improve sql parsing performance PR #301 (fdd9249)
+* perf: Remove AbstractJdbc2Statement.finalize() PR #299 (b3a2f80)
+* test: add test for prepare-fetch-execute performance PR #303 (d23306c)
+* perf: improve performance of preparing statements PR #303 (7c0655b)
+* test: add test for utf8-encoder performance PR #307 (6345ab1)
+* perf: improve performance of UTF-8 encoding PR #307 (f2c175f)
+* perf: skip instantiation of testReturn and functionReturnType for non-callable statements PR #323 (8eacd06)
+* perf: parse SQL to a single string, not a array of fragments PR #319 (4797114)
+* perf: cache parsed statement across .prepareStatement calls PR #319 (5642abc)
+* refactor: cleanup constructors of JDBC4 and JDBC42 connections/statements PR #318 (a4789c0)
+* refactor: use Dequeue<...> instead of raw ArrayList in v3.QueryExecutorImpl PR #314 (787d775)
+* perf: SimpleParameterList.flags int[] -> byte[] PR #325 (f5bceda)
+* perf: cut new byte[1] from QueryExecutorImpl.receiveCommandStatus PR #326 (0ae1968)
+* perf: avoid useBinary(field) check for each sendBind PR #324 (45269b8)
+* refactor: cleanup Parser and NativeQuery after #311 PR #346 (a1029df)
+* refactor: cleanup Parser and CallableQueryKey after #319 PR #346 (5ec7dea)
+* perf: skip caching of very large queries to prevent statement cache pollution PR #346 (126b60c)
+* use current_schema() for Connection#getSchema PR #356 (ffda429)
+* chore: simple script to compose release notes PR #357 (341ff8e)
+* chore: teach release_notes.sh to identify PR ids out of merge commits PR #358 (f3214b1)
+
+<a name="contributors_9.4-1202"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.  
+ 
+[Alexis Meneses](https://github.com/alexismeneses)  
+[Craig Ringer](https://github.com/ringerc)  
+[Jeremy Whiting](<jwhiting@redhat.com>)  
+[Sehrope Sarkuni](https://github.com/sehrope)   
+[Mikko Tiihonen](https://github/com/gmokki)  
+[Dave Cramer](<davec@postgresintl.com>)  
+[Stephen Nelson](https://github.com/lordnelson)  
+[Vladimir Gordiychuk](https://github.com/Gordiychuk)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+[David Schlosnagle](https://github.com/schlosna)  
+[Eugene Koontz](https://github.com/ekoontz)  
+[Markus KARG](https://github.com/quipsy-karg)  
+[Phillip Ross](https://github.com/phillipross)  
+
+[Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
+	  
+<a name="version_9.4-1201"></a>
+## Version 9.4-1201 (2015-02-25)
+Author: [Alexis Meneses](https://github.com/alexismeneses)
+
+* ![fix](../media/img/fix.jpg)Do not pull a concrete implementation of slf4j in maven pom. Fixes #251 [PR    #252](https://github.com/pgjdbc/pgjdbc/pull/252) (6c2848c)
+* ![fix](../media/img/fix.jpg)Declare all maven dependencies as optional in the pom [PR #252](https://github.com/pgjdbc/pgjdbc/pull/252) (1d02876)
+* ![fix](../media/img/fix.jpg)Automatically load maven-ant-tasks to remove the need of "-lib lib" when building the project using ant PR #253 (7e80fca)
+* ![fix](../media/img/fix.jpg)ant clean target delete maven dependencies added into "lib" directory [PR #253](https://github.com/pgjdbc/pgjdbc/pull/253) (cb7964e)
+* ![chore](../media/img/chore.jpg) travis uses build process simplification [PR #253](https://github.com/pgjdbc/pgjdbc/pull/253) (e09032c)
+* ![fix](../media/img/fix.jpg) regression of `ssl` parameter processing when used in additional Properties [PR #260](https://github.com/pgjdbc/pgjdbc/pull/260) (33d55af)
+
+Author: Dave Cramer <davec@postgresintl.com>
+
+* ![fix](../media/img/fix.jpg) Make junit optional in the pom [PR #254](https://github.com/pgjdbc/pgjdbc/pull/254) (9530047)
+* ![fix](../media/img/fix.jpg) Added commit message readme [PR #255](https://github.com/pgjdbc/pgjdbc/pull/255) (c6312eb)
+* ![fix](../media/img/fix.jpg) setUrl method of BaseDataSource. fixes issue #258 [PR #358](https://github.com/pgjdbc/pgjdbc/pull/358) (52a8d91)
+
+Mikko Tiihonen (1):
+
+* ![fix](../media/img/fix.jpg) setUrl method of BaseDataSource. Add test to make sure it does not break again PR #257 (477c7c8)
+
+<a name="contributors_9.4-1201"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.  
+ 
+[Alexis Meneses](https://github.com/alexismeneses)  
+[Sehrope Sarkuni](https://github.com/sehrope)  
+[Mikko Tiihonen](https://github/com/gmokki)  
+[Dave Cramer](<davec@postgresintl.com>)
+
+[Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
+
 <a name="version_9.4-1200"></a>
 ## Version 9.4-1200 (2015-01-02)
 Author: [Alexis Meneses](https://github.com/alexismeneses)
@@ -54,8 +239,8 @@ Author: [Alexis Meneses](https://github.com/alexismeneses)
 * ![add](../media/img/add.jpg) Improved support for BLOBS [PR #219](https://github.com/pgjdbc/pgjdbc/pull/219)
 * 	  Added the support for very large objects (4TB) when backend is at least 9.3 using lo_xxx64 functions (see release 9.3 notes).
 * 	  Added support for various JDBC4 methods related to Blobs:  
-      setBlob with input stream in PreparedStatement  
-      getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
+* setBlob with input stream in PreparedStatement  
+* getBinaryStream with position and offset in Blob (also helps a lot handling very large objects)
 * ![fix](../media/img/fix.jpg)	Fix for setStringType in DataSource [PR #221](https://github.com/pgjdbc/pgjdbc/pull/221)
 * ![fix](../media/img/fix.jpg)	Set search path in startup packet [PR #216](https://github.com/pgjdbc/pgjdbc/pull/216)
 * ![fix](../media/img/fix.jpg)	Connection.isValid() should have no impact on transaction state [PR #218](https://github.com/pgjdbc/pgjdbc/pull/218) fixes issue [#214](https://github.com/pgjdbc/pgjdbc/issues/214) 
@@ -86,8 +271,8 @@ Author: [Martin Simka](https://github.com/simkam)
 Author: [bryonv](https://github.com/byronvf)
 
 * ![fix](../media/img/fix.jpg) Honor stringtype=unspecified when also saving null values  
-*   Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
-*   For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
+*  Currently, saving a string with setString applies oid.UNSPECIFIED, but saving null with setNull(index, java.sql.Types.VARCHAR) saves with oid.VARCHAR.
+* For consistency, if the user requested that we treat string types as unspecified, we should do so in all cases.
 
 Author: [Craig Ringer](https://github.com/ringerc)
 
@@ -107,7 +292,7 @@ We thank the following people for their contributions to this release.
 [Mikko Tiihonen](https://github/com/gmokki)  
 [bryonv](https://github.com/byronvf)  
 Craig Ringer <craig@2ndquadrant.com>  
-Dave Cramer	<dave.cramer@credativ.ca>
+Dave Cramer	<davec@postgresintl.com>
 
 [Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
 
@@ -155,17 +340,17 @@ Author: Damiano Albani <damiano.albani@gmail.com>
 
     Add support for "currentSchema" connection property.
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 
     Fixed timezone test as per Tom Lane's suggestion. …
     Now using Europe/Helsinki as the exemplar.
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 
     Clob will now use the connection encoding
     pull #121 from brekka/clob_encoding
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 
     backpatched Statement.isClosed() implementation of PGPoolingDataSource with some performance improvements. #180
 
@@ -174,7 +359,7 @@ Author: nicolas-f <github@nettrader.fr>
 	Implement hashcode in PGObject 9.3
     Handle null value
     
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Mon Aug 18 12:30:48 2014 +0000
 
     NPE fix in org.postgresql.Driver.getPropertyInfo #176 \
@@ -363,7 +548,7 @@ Author: Nick White <nwhite@palantir.com>
 
     allow the first query to be binary
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 
     Merge pull request #107 from cchantep/rs-basic-tblname
     
@@ -404,19 +589,19 @@ Date:   Mon Jul 29 09:43:20 2013 -0400
 
     fixed sort order for DatabaseMetaData
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Sun Jul 21 13:18:26 2013 +0000
 
     backpatched canceltimer bug reported by Andri-Redko
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Wed May 22 04:03:58 2013 -0700
 
     Merge pull request #60 from davecramer/REL9_2_STABLE
     
     backpatch BaseDataSource
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue May 21 21:03:21 2013 -0400
 
     check for null before appending to url
@@ -459,12 +644,12 @@ Date:   Wed Oct 31 10:23:23 2012 -0400
     Fix performance regression introduced by using InetSocketAddress.getHostName()
     Patch provided by Scott Harrington, improved upon by Kris Jurka
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Thu Oct 18 07:44:06 2012 -0400
 
     removed testSetObjectFromJavaArray out of jdbc2 tests
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Wed Oct 17 14:22:03 2012 -0400
 
     added BR translation class file
@@ -520,32 +705,32 @@ Date:   Fri Aug 24 14:24:31 2012 -0400
 
     Fixed build to not delete pgjdbc.html, which breaks the website build
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Thu Sep 13 07:48:52 2012 -0400
 
     updated translations
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Thu Sep 13 07:43:40 2012 -0400
 
     Added explicit test case for array handling from Craig Ringer
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Thu Sep 13 07:46:55 2012 -0400
 
     added docs for send/recv buffer size
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Wed Sep 12 05:11:02 2012 -0400
 
     added test case for send/recv buffers sizes
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Sep 11 20:55:41 2012 -0400
 
     patch from Bernd Helme for send recev buffer sizes
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Sep 11 20:12:13 2012 -0400
 
     new translation from Euler Taveira
@@ -565,7 +750,7 @@ Date:   Thu Sep 20 16:07:43 2012 +0800
     These fixes only affect builds of the JDBC3 driver. The JDBC4 driver
     appears fine.
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Thu Sep 13 07:43:40 2012 -0400
 
     added explicit test case for array handling from Craig Ringer
@@ -615,12 +800,12 @@ Date:   Tue May 15 06:23:24 2012 -0400
 
     change vector to list from Mikko Tiihonen
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Wed May 2 14:12:17 2012 -0400
 
     setProtocolVersion argument mis-spelled from Mikko Tiihonen
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Wed May 2 14:09:28 2012 -0400
 
     fix to build for java 1.8 from Mikko Tiihonen
@@ -824,18 +1009,18 @@ Date:   Sun Sep 11 01:39:32 2011 +0000
 <a name="version_9.2-1004"></a>
 ## Version 9.2-1004 (2013-10-31)
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Oct 29 14:32:44 2013 +0000
 
     move default port back to 5432
 
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Oct 29 12:41:09 2013 +0000
 
     resolved conflict
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Oct 29 05:38:39 2013 -0700
 
     Merge pull request #96 from lordnelson/maven-to-9.2-branch
@@ -885,7 +1070,7 @@ Date:   Tue Oct 15 06:51:45 2013 -0400
 
     add functions to allow LargeObjectMaager to commit on close from Marc Cousin
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Sep 10 07:25:06 2013 -0700
 
     Merge pull request #87 from davecramer/REL9_2_STABLE
@@ -897,7 +1082,7 @@ Date:   Mon Sep 9 12:12:26 2013 +0200
 
     fix for setBlob with large blob
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Tue Sep 10 06:20:52 2013 -0700
 
     Merge pull request #84 from davecramer/REL9_2_STABLE
@@ -914,24 +1099,24 @@ Date:   Mon Jul 29 09:43:20 2013 -0400
 
     fixed sort order for DatabaseMetaData
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Sun Jul 21 13:18:26 2013 +0000
 
     backpatched canceltimer bug reported by Andri-Redko
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Sun Jun 23 06:22:09 2013 -0700
 
     Merge pull request #66 from davecramer/REL9_2_STABLE
     
     fixed compile mistake
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Sun Jun 23 09:17:27 2013 -0400
 
     fixed compile mistake
 
-Author: Dave Cramer <dave.cramer@credativ.ca>
+Author: Dave Cramer <davec@postgresintl.com>
 Date:   Mon May 27 15:23:14 2013 -0700
 
     Merge pull request #62 from davecramer/REL9_2_STABLE
