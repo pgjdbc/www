@@ -50,8 +50,8 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
-<a name="version_9.4-1201"></a>
-## Version 9.4-1201 (2015-02-25)
+<a name="version_9.4-1202"></a>
+## Version 9.4-1202 (2015-08-27)
 
 Author: [Alexis Meneses](https://github.com/alexismeneses)
 
