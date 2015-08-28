@@ -74,7 +74,7 @@ Author: [Dave Cramer](<davec@postgresintl.com>)
 * fixed mailing list href PR #326 (c3e86a6)
 * increment driver version PR #346 (b8ee75d)
 
-Author: [David R. Bild](https://github.com/drbild):
+Author: [David R. Bild](https://github.com/drbild)
 
 * feat: add equality support to PSQLState PR #277 (7698cd9)
 
@@ -111,7 +111,7 @@ Author: [Markus KARG](https://github.com/quipsy-karg)
 * docs: parameter "database" is optional PR #332 (9a9d03f)
 * refactor: binary transfer for setObject(int, Object, int) PR #351 (3ff2129)
 
-Author: [Michael Paquier](https://github.com/michaelpq):
+Author: [Michael Paquier](https://github.com/michaelpq)
 
 *  Update entries in lib/.gitignore PR #262 (8cd15a9)
 
@@ -195,6 +195,12 @@ We thank the following people for their contributions to this release.
 [Eugene Koontz](https://github.com/ekoontz)  
 [Markus KARG](https://github.com/quipsy-karg)  
 [Phillip Ross](https://github.com/phillipross)  
+[Rikard Pavelic](<rikard@ngs.hr>)
+[Robert J. Macomber](https://github.com/rjmac)
+[Michael Paquier](https://github.com/michaelpq)
+[Lonny Jacobson](https://github.com/lonnyj)
+[Kris Jurka](<jurka@ejurka.com>)
+[David R. Bild](https://github.com/drbild)
 
 [Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
 	  
