@@ -195,12 +195,12 @@ We thank the following people for their contributions to this release.
 [Eugene Koontz](https://github.com/ekoontz)  
 [Markus KARG](https://github.com/quipsy-karg)  
 [Phillip Ross](https://github.com/phillipross)  
-[Rikard Pavelic](<rikard@ngs.hr>)
-[Robert J. Macomber](https://github.com/rjmac)
-[Michael Paquier](https://github.com/michaelpq)
-[Lonny Jacobson](https://github.com/lonnyj)
-[Kris Jurka](<jurka@ejurka.com>)
-[David R. Bild](https://github.com/drbild)
+[Rikard Pavelic](<rikard@ngs.hr>)  
+[Robert J. Macomber](https://github.com/rjmac)  
+[Michael Paquier](https://github.com/michaelpq)  
+[Lonny Jacobson](https://github.com/lonnyj)  
+[Kris Jurka](<jurka@ejurka.com>)  
+[David R. Bild](https://github.com/drbild)  
 
 [Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
 	  
