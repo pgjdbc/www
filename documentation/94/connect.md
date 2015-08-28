@@ -188,6 +188,38 @@ connection.
 	execution of the same `PreparedStatement` object. More information on
 	server side prepared statements is available in the section called
 	[“Server Prepared Statements”](server-prepare.html).
+	
+* `preparedStatementCacheQueries = int
+
+    Determine the number of queries that are cached in each connection.
+    The default is 256, meaning if you use more than 256 different queries
+    in prepareStatement() calls, the least recently used ones
+    will be discarded. The cache allows application to benefit from 
+	[“Server Prepared Statements”](server-prepare.html)
+    prepareThreshold even if the prepared statement is
+    closed after each execution. The value of 0 disables the cache.
+    
+	Each connection has its own statement cache.
+
+* `preparedStatementCacheSizeMiB = int`
+
+    Determine the maximum size (in mebibytes) of the prepared queries cache
+    (see preparedStatementCacheQueries).
+    The default is 5, meaning if you happen to cache more than 5 MiB of queries
+    the least recently used ones will be discarded.
+    The main aim of this setting is to prevent `OutOfMemoryError`.
+    The value of 0 disables the cache.
+    If a query would consume more than a half of `preparedStatementCacheSizeMiB`,
+    then it is discarded immediately.
+
+* `defaultRowFetchSize = int`
+
+    Determine the number of rows fetched in `ResultSet`
+ 	by one fetch with trip to the database. Limiting the number of rows are fetch with 
+ 	each trip to the database allow avoids unnecessary memory consumption 
+ 	and as a consequence `OutOfMemoryException`
+ 	The default is zero, meaning that in `ResultSet`
+ 	will be fetch all rows at once. Negative number is not available.
  
 * `loginTimeout = int`
 
