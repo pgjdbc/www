@@ -189,7 +189,7 @@ connection.
 	server side prepared statements is available in the section called
 	[“Server Prepared Statements”](server-prepare.html).
 	
-* `preparedStatementCacheQueries = int
+* `preparedStatementCacheQueries = int`
 
     Determine the number of queries that are cached in each connection.
     The default is 256, meaning if you use more than 256 different queries
