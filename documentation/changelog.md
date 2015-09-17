@@ -66,8 +66,19 @@ Author: [Lonny Jacobson](https://github.com/lonnyj)
 * add: Added PGTime/PGTimestamp
 
 Author: [Patric Bechtel](https://github.com/patric42)
-      fix: setObject(int parameterIndex, Object x, int targetSqlType) as it will set scale of BigDecimal 'x' to 0 as default, resulting in rounded whole values (!). PR #353 (24312c6)
-      fix: round to correct amount test: add test for BigDecimal rounding behaviour in setObject(index,Object,targetSqlType) and setObject(index,Object,targetSqlType,scale) PR #353 (ff14f62)
+      
+* fix: setObject(int parameterIndex, Object x, int targetSqlType) as it will set scale of BigDecimal 'x' to 0 as default, resulting in rounded whole values (!). PR #353 (24312c6)
+* fix: round to correct amount test: add test for BigDecimal rounding behaviour in setObject(index,Object,targetSqlType) and setObject(index,Object,targetSqlType,scale) PR #353 (ff14f62)
+
+<a name="contributors_9.4-1202"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[Lonny Jacobson](https://github.com/lonnyj)
+[Patric Bechtel](https://github.com/patric42)
+[Alexey Mozhenin](https://github.com/amozhenin)
+
 
 <a name="version_9.4-1202"></a>
 ## Version 9.4-1202 (2015-08-27)
