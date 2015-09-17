@@ -34,16 +34,17 @@ requirements (running old applications or JVMs), this is the driver
 you should be using.  It supports Postgresql 7.2 or newer and
 requires a 1.6 or newer JVM.  It contains support for SSL and the
 javax.sql package. If you are using the 1.6 then you should use the 
-JDBC4 version. If you are using 1.7 or 1.8 then you should use the 
-JDBC41 version. If you are using a java version older than 1.6 then 
+JDBC4 version. If you are using 1.7 then you should use the 
+JDBC41 version. If you are using 1.8 then you should use the 
+JDBC42 versionIf you are using a java version older than 1.6 then 
 you will need to use a JDBC3 version of the driver, which will by 
 necessity not be current
 					
-[JDBC4 Postgresql Driver, Version 9.4-1202](download/postgresql-9.4-1202.jdbc4.jar)
+[JDBC4 Postgresql Driver, Version 9.4-1203](download/postgresql-9.4-1203.jdbc4.jar)
 
-[JDBC41 Postgresql Driver, Version 9.4-1202](download/postgresql-9.4-1202.jdbc41.jar)
+[JDBC41 Postgresql Driver, Version 9.4-1203](download/postgresql-9.4-1203.jdbc41.jar)
 
-[JDBC42 Postgresql Driver, Version 9.4-1202](download/postgresql-9.4-1202.jdbc42.jar)
+[JDBC42 Postgresql Driver, Version 9.4-1203](download/postgresql-9.4-1203.jdbc42.jar)
 
 [JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
 
@@ -69,7 +70,9 @@ versions of the JVM with the JDBC specification implemented.
 	added to the J2SE release.
 * JDK 1.6 - JDBC4.  Support for JDBC4 methods is not complete,
 	but the majority of methods are implemented.
-* JDK 1.7, 1.8 - JDBC41.  Support for JDBC4 methods is not complete,
+* JDK 1.7 - JDBC41.  Support for JDBC4 methods is not complete,
+	but the majority of methods are implemented.
+* JDK 1.8 - JDBC42.  Support for JDBC4 methods is not complete,
 	but the majority of methods are implemented.
 
 ***					
@@ -87,6 +90,16 @@ versions of the JVM with the JDBC specification implemented.
         <th>JDBC 41</th>
         <th>JDBC 42</th>
 	<th>Source</th>
+</tr>
+<tr>
+	<td>9.4 Build 1203</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td><a href="download/postgresql-9.4-1203.jdbc4.jar">9.4-1203 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.4-1203.jdbc41.jar">9.4-1203 JDBC 41</a></td>
+	<td><a href="download/postgresql-9.4-1203.jdbc42.jar">9.4-1203 JDBC 42</a></td>
+	<td><a href="download/postgresql-jdbc-9.4-1203.src.tar.gz">9.4-1203 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>9.4 Build 1202</td>

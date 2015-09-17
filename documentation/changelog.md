@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1203 (2015-09-17)](#version_9.4-1203)
+	* [Contributors to this release](#contributors_9.4-1203)
 * [Version 9.4-1202 (2015-08-27)](#version_9.4-1202)
 	* [Contributors to this release](#contributors_9.4-1202)
 * [Version 9.4-1201 (2015-02-25)](#version_9.4-1201)
@@ -50,6 +52,23 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1203"></a>
+## Version 9.4-1203 (2015-09-17)
+
+Author: [Dave Cramer](<davec@postgresintl.com>)
+
+* fix: Implemented getFunctions
+* fix: changed getProcedureColumns to getFunctionColumns
+* fix: CopyManager fails to copy a file, reading just part of the data #366
+
+Author: [Lonny Jacobson](https://github.com/lonnyj)
+
+* add: Added PGTime/PGTimestamp
+
+Author: [Patric Bechtel](https://github.com/patric42)
+      fix: setObject(int parameterIndex, Object x, int targetSqlType) as it will set scale of BigDecimal 'x' to 0 as default, resulting in rounded whole values (!). PR #353 (24312c6)
+      fix: round to correct amount test: add test for BigDecimal rounding behaviour in setObject(index,Object,targetSqlType) and setObject(index,Object,targetSqlType,scale) PR #353 (ff14f62)
+
 <a name="version_9.4-1202"></a>
 ## Version 9.4-1202 (2015-08-27)
 
