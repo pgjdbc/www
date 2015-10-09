@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1204 (2015-10-09)](#version_9.4-1204)
+	* [Contributors to this release](#contributors_9.4-1204)
 * [Version 9.4-1203 (2015-09-17)](#version_9.4-1203)
 	* [Contributors to this release](#contributors_9.4-1203)
 * [Version 9.4-1202 (2015-08-27)](#version_9.4-1202)
@@ -15,6 +17,7 @@ nav: ../
 	* [Contributors to this release](#contributors_9.4-1201)
 * [Version 9.4-1200 (2015-01-02)](#version_9.4-1200)
 	* [Contributors to this release](#contributors_9.4-1200)
+* [Version 9.3-1103 (2015-19-09)](#version_9.3-1104)
 * [Version 9.3-1103 (2015-01-02)](#version_9.3-1103)
 * [Version 9.3-1102 (2014-07-10)](#version_9.3-1102)
 * [Version 9.3-1101 (2014-02-19)](#version_9.3-1101)
@@ -52,6 +55,40 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1204"></a>
+## Version 9.4-1204 (2015-10-09)
+
+[Alexey Mozhenin](https://github.com/amozhenin)
+
+* fix: Make sure copy manager completesPR #378 (7c420ed)
+* test: update for CopyLargeFileTest test to fit into 10 minutes limit PR #378 (39cd851)
+
+[Dave Cramer](http://postgresintl.com)
+
+ * fix: implemented getFunctions in jdbc4 (03483e1)
+ * fix: error in getFunctionColumns PR #376 (5fafb86)
+ * fix: filter DatabaseMetaData.getColumns by tables PR #386 (0c95126)
+ * fix: abort connections after IOException instead of close PR #392 (3e68a70)
+
+[Vladimir Sitnikov](https://github.com/vlsi)
+
+ * pref: improve executeBatch by avoiding statement-by-statement execution PR #380 (92a9f30)
+ * perf: improve setTimestamp, setTime, setDate performance PR #379 (5a03a6e)
+ * chore: update jmh, drop irrelevant benchmark Parser#unmarkDoubleQuestion PR #384 (0d1237c)
+ * chore: add more benchmarks, add missing FlightRecorderProfiler PR #385 (613a641)
+ * feat: ignore empty sub-queries in composite queries PR #386 (3fb8046)
+ * fix: binary processing of Date/Time/Timestamps PR #387 (5ec0ac3)
+ * test: add tests for parsing of empty queries separated by semicolons PR #388 (d9310ce)
+ * fix: ConcurrentModificationException when calling PreparedStatement.close from a concurrent thread PR #392 (40bcc01)
+
+<a name="contributors_9.4-1203"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[Alexey Mozhenin](https://github.com/amozhenin)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+
 <a name="version_9.4-1203"></a>
 ## Version 9.4-1203 (2015-09-17)
 
@@ -70,14 +107,14 @@ Author: [Patric Bechtel](https://github.com/patric42)
 * fix: setObject(int parameterIndex, Object x, int targetSqlType) as it will set scale of BigDecimal 'x' to 0 as default, resulting in rounded whole values (!). PR #353 (24312c6)
 * fix: round to correct amount test: add test for BigDecimal rounding behaviour in setObject(index,Object,targetSqlType) and setObject(index,Object,targetSqlType,scale) PR #353 (ff14f62)
 
-<a name="contributors_9.4-1202"></a>
+<a name="contributors_9.4-1203"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
 
-[Lonny Jacobson](https://github.com/lonnyj)
-[Patric Bechtel](https://github.com/patric42)
-[Alexey Mozhenin](https://github.com/amozhenin)
+[Lonny Jacobson](https://github.com/lonnyj)  
+[Patric Bechtel](https://github.com/patric42)  
+[Alexey Mozhenin](https://github.com/amozhenin)  
 
 
 <a name="version_9.4-1202"></a>
