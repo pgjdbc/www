@@ -91,6 +91,37 @@ connection.
 	This value is an optional argument to the constructor of the sslfactory
 	class provided above. For more information see the section called [“Custom SSLSocketFactory”](ssl-factory.html). 
 
+* `sslmode = String`
+
+	possible values are "verify-ca" and "verify-full" setting these will 
+	necessitate storing the server certificate on the client machine ["Configuring the client"](ssl-client.html).
+	
+* `sslcert = String`
+
+	Provide the full path for the certificate file. Defaults to /defaultdir/postgresql.crt
+	
+	Note: defaultdir is ${user.home}/.postgresql/ in *nix systems and %appdata%/postgresql/ on windows 
+
+* `sslkey = String`
+	
+	Provide the full path for the key file. Defaults to /defaultdir/postgresql.pk8
+
+* `sslrootcert = String`
+
+	File name of the SSL root certificate. Defaults to defaultdir/root.crt
+
+* `sslhostnameverifier = String`
+	
+	Class name of hostname verifier. Defaults to using `org.postgresql.ssl.jdbc4.LibPQFactory.verify()`
+
+* `sslpaswordcallback = String`
+
+	Class name of the SSL password provider. Defaults to `org.postgresql.ssl.jdbc4.LibPQFactory.ConsoleCallbackHandler`
+	
+* `sslpassword = String`
+
+	If provided will be used by ConsoleCallbackHandler
+	
 * `compatible = String`
 
 	Act like an older version of the driver to retain compatibility with older

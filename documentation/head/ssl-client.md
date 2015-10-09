@@ -21,10 +21,10 @@ the server's certificate.
 
 > ### Note
 
-> Only the JDBC 3 driver supports SSL. The 1.4 JDK was the first version to come
-bundled with SSL support. Previous JDK versions that wanted to use SSL could
-make use of the additional JSSE library, but it does not support the full range
-of features utilized by the PostgreSQL™ JDBC driver.
+> Only the JDBC driver version 3 and greater  supports SSL. The 1.4 JDK was the 
+first version to come bundled with SSL support. Previous JDK versions that wanted 
+to use SSL could make use of the additional JSSE library, but it does not support 
+the full range of features utilized by the PostgreSQL™ JDBC driver.
 
 To make the server certificate available to Java, the first step is to convert
 it to a form Java understands.
@@ -36,13 +36,13 @@ truststore.
 
 `keytool -keystore $JAVA_HOME/lib/security/cacerts -alias postgresql -import -file server.crt.der`
 
-The default password for the cacerts keystore is `changeit`. The alias to postgesql
+The default password for the cacerts keystore is `changeit`. The alias to postgresql
 is not important and you may select any name you desire.
 
 If you do not have access to the system cacerts truststore you can create your
 own truststore.
 
-`keytool -keystore mystore -alias postgresql -import -file server.crt.der.`
+`keytool -keystore mystore -alias postgresql -import -file server.crt.der`
 
 When starting your Java application you must specify this keystore and password
 to use.
@@ -53,7 +53,7 @@ In the event of problems extra debugging information is available by adding
 `-Djavax.net.debug=ssl` to your command line.
 
 To instruct the JDBC driver to try and establish a SSL connection you must add
-the connection URL parameter `ssl=true`.
+the connection URL parameter `ssl=true`. See [SSL Connection parameters](connect.html#ssl)
 
 <a name="nonvalidating"></a>
 ## Using SSL without Certificate Validation
