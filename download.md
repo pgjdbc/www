@@ -46,7 +46,7 @@ necessity not be current
 
 [JDBC42 Postgresql Driver, Version 9.4-1204](download/postgresql-9.4-1204.jdbc42.jar)
 
-[JDBC3 Postgresql Driver, Version 9.3-1104](download/postgresql-9.3-1104.jdbc3.jar)
+[JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
 
 ***				
 <a name="others"></a>
@@ -139,7 +139,7 @@ versions of the JVM with the JDBC specification implemented.
 	<td><a href="download/postgresql-9.3-1103.jdbc4.jar">9.3-1103 JDBC 4</a></td>
 	<td><a href="download/postgresql-9.3-1103.jdbc41.jar">9.3-1103 JDBC 41</a></td>
 	<td>&nbsp;</td>
-	<td><a href="download/postgresql-jdbc-9.3-1103.src.tar.gz">9.3-1104 JDBC Source</a></td>
+	<td><a href="download/postgresql-jdbc-9.3-1103.src.tar.gz">9.3-1103 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>9.2 Build 1004</td>
