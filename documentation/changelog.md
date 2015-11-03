@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1205 (2015-11-03)](#version_9.4-1205)
+	* [Contributors to this release](#contributors_9.4-1205)
 * [Version 9.4-1204 (2015-10-09)](#version_9.4-1204)
 	* [Contributors to this release](#contributors_9.4-1204)
 * [Version 9.4-1203 (2015-09-17)](#version_9.4-1203)
@@ -55,6 +57,42 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1205"></a>
+## Version 9.4-1205 (2015-11-03)
+hapman Flack (2):
+* fix: recover cs, de, fr, it translations [PR#409](https://github.com/pgjdbc/pgjdbc/pull/409) [1793454](https://github.com/pgjdbc/pgjdbc/commit/17934540232d4d538d3b312b8d50026afeb5282e)
+* fix: redo spelling changes in unclobbered .po [PR#409](https://github.com/pgjdbc/pgjdbc/pull/409) [5bfb26d](https://github.com/pgjdbc/pgjdbc/commit/5bfb26d2a0330d36d124c05d566db7c25f0fca8f)
+
+Dave Cramer (10):
+* use UTF-8 instead of US-ASCII for initial encoding [PR#398](https://github.com/pgjdbc/pgjdbc/pull/398) [8dae0ae](https://github.com/pgjdbc/pgjdbc/commit/8dae0ae5df6ffaa484d0d6ff69aaa33f5d1d713b)
+* fix: coerce array type names to lower case [PR#402](https://github.com/pgjdbc/pgjdbc/pull/402) [f1a5cc4](https://github.com/pgjdbc/pgjdbc/commit/f1a5cc4a1dcc1ff52a607b31d2d6da65b6a9d530)
+* fix:getColumns should return columns for anything that looks like a table [PR#405](https://github.com/pgjdbc/pgjdbc/pull/405) [f9f55d6](https://github.com/pgjdbc/pgjdbc/commit/f9f55d6b15d185ae4ad387a578fec7e73389418f)
+* revert: undo changes to getTypeInfo which removed core types [PR#406](https://github.com/pgjdbc/pgjdbc/pull/406) [779ce18](https://github.com/pgjdbc/pgjdbc/commit/779ce1859bead6ff1f80a2c2e9bbc7c4347206d6)
+* fix: tests [PR#406](https://github.com/pgjdbc/pgjdbc/pull/406) [7736b8d](https://github.com/pgjdbc/pgjdbc/commit/7736b8dd4079aa72c39e20d7d0b3f6a6968d2e5e)
+* reformat: tests [PR#406](https://github.com/pgjdbc/pgjdbc/pull/406) [4acf7ae](https://github.com/pgjdbc/pgjdbc/commit/4acf7aef9e476aa829e300a1b580ed30b89532dd)
+* fix:Do not set the loglevel when instantiating a connection it is set when the Driver starts [PR#407](https://github.com/pgjdbc/pgjdbc/pull/407) [84b28eb](https://github.com/pgjdbc/pgjdbc/commit/84b28eb9f450f844d375a427816ef1758ff66b18)
+* fix: japanese translation [8aa478b](https://github.com/pgjdbc/pgjdbc/commit/8aa478b6c2770f125587f20a65cb60cd90ed8ccc)
+* updated translation class files [2fa59d1](https://github.com/pgjdbc/pgjdbc/commit/2fa59d1f6660a8a91d910aabff50c8277b724ca5)
+* build:incremented for 1205 [PR#410](https://github.com/pgjdbc/pgjdbc/pull/410) [fa0d7d5](https://github.com/pgjdbc/pgjdbc/commit/fa0d7d5d1caa3e7fbbfb7572beb9167cab38a6b4)
+
+Michael Paquier (2):
+* Remove non-ASCII character in code [PR#400](https://github.com/pgjdbc/pgjdbc/pull/400) [9f08e46](https://github.com/pgjdbc/pgjdbc/commit/9f08e46a75deb2f63bd73355b935b5f63799aad6)
+* Add missing entry in lib/.gitignore [PR#401](https://github.com/pgjdbc/pgjdbc/pull/401) [358aef1](https://github.com/pgjdbc/pgjdbc/commit/358aef16bdb30668788cebf19662977f75d2b522)
+
+Rikard Pavelic (1):
+* fix: Improve type detection with casing issues. [PR#404](https://github.com/pgjdbc/pgjdbc/pull/404) [0de91a5](https://github.com/pgjdbc/pgjdbc/commit/0de91a570c27f78f4648c75dfd00c1b2d66aceaf)
+
+Vladimir Sitnikov (9):
+* fix: avoid memory leak when redeploying pgjdbc [PR#394](https://github.com/pgjdbc/pgjdbc/pull/394) [d7cab7b](https://github.com/pgjdbc/pgjdbc/commit/d7cab7bd86e4adde0aa0a2fb4a6dfed59cf05cd8)
+* test: add {?= call mysum(?, ?)} kind of test for CallableStatement [PR#410](https://github.com/pgjdbc/pgjdbc/pull/410) [45c8368](https://github.com/pgjdbc/pgjdbc/commit/45c83689d455493df38e711344635353b7e17cfe)
+* perf: add BigDecimal test performance test to ProcessResultSet [PR#411](https://github.com/pgjdbc/pgjdbc/pull/411) [6dc4183](https://github.com/pgjdbc/pgjdbc/commit/6dc41835603089405201606c45661428fb90a90e)
+* perf: optimize ResultSet.getObject [PR#411](https://github.com/pgjdbc/pgjdbc/pull/411) [567e268](https://github.com/pgjdbc/pgjdbc/commit/567e26842095be327ff03b60bb55884be2ecf960)
+* perf: optimize getBigDecimal [PR#411](https://github.com/pgjdbc/pgjdbc/pull/411) [33904ef](https://github.com/pgjdbc/pgjdbc/commit/33904ef00aa545b8a8997e62d0e5da58ea9348de)
+* test: add statement.getQueryTimeoutMs, so millisecond-scale timeouts can be tested [PR#413](https://github.com/pgjdbc/pgjdbc/pull/413) [892d7af](https://github.com/pgjdbc/pgjdbc/commit/892d7af82c4e077613a077ac950e63a8a5d069cc)
+* fix: statement.cancel and statement.setQueryTimeout should be thread-safe [PR#412](https://github.com/pgjdbc/pgjdbc/pull/412) [bc3d848](https://github.com/pgjdbc/pgjdbc/commit/bc3d8488a0a4fa16e712be83d8debaf4b9130dfa)
+* chore: print markdown links in release notes script [PR#416](https://github.com/pgjdbc/pgjdbc/pull/416) [a5b8ea7](https://github.com/pgjdbc/pgjdbc/commit/a5b8ea7460392b6e1fd0bc9f79ca5975b6cf8625)
+* chore: add .gitattributes to ensure automatic end-of-line storage of text files is used [PR#417](https://github.com/pgjdbc/pgjdbc/pull/417) [254b739](https://github.com/pgjdbc/pgjdbc/commit/254b739250c670f5113e94ab30656ff59abbd0a2)
+
 <a name="version_9.4-1204"></a>
 ## Version 9.4-1204 (2015-10-09)
 
