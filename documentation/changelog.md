@@ -59,11 +59,14 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 ***
 <a name="version_9.4-1205"></a>
 ## Version 9.4-1205 (2015-11-03)
-hapman Flack (2):
+
+Chapman Flack (2):
+
 * fix: recover cs, de, fr, it translations [PR#409](https://github.com/pgjdbc/pgjdbc/pull/409) [1793454](https://github.com/pgjdbc/pgjdbc/commit/17934540232d4d538d3b312b8d50026afeb5282e)
 * fix: redo spelling changes in unclobbered .po [PR#409](https://github.com/pgjdbc/pgjdbc/pull/409) [5bfb26d](https://github.com/pgjdbc/pgjdbc/commit/5bfb26d2a0330d36d124c05d566db7c25f0fca8f)
 
 Dave Cramer (10):
+
 * use UTF-8 instead of US-ASCII for initial encoding [PR#398](https://github.com/pgjdbc/pgjdbc/pull/398) [8dae0ae](https://github.com/pgjdbc/pgjdbc/commit/8dae0ae5df6ffaa484d0d6ff69aaa33f5d1d713b)
 * fix: coerce array type names to lower case [PR#402](https://github.com/pgjdbc/pgjdbc/pull/402) [f1a5cc4](https://github.com/pgjdbc/pgjdbc/commit/f1a5cc4a1dcc1ff52a607b31d2d6da65b6a9d530)
 * fix:getColumns should return columns for anything that looks like a table [PR#405](https://github.com/pgjdbc/pgjdbc/pull/405) [f9f55d6](https://github.com/pgjdbc/pgjdbc/commit/f9f55d6b15d185ae4ad387a578fec7e73389418f)
@@ -76,13 +79,16 @@ Dave Cramer (10):
 * build:incremented for 1205 [PR#410](https://github.com/pgjdbc/pgjdbc/pull/410) [fa0d7d5](https://github.com/pgjdbc/pgjdbc/commit/fa0d7d5d1caa3e7fbbfb7572beb9167cab38a6b4)
 
 Michael Paquier (2):
+
 * Remove non-ASCII character in code [PR#400](https://github.com/pgjdbc/pgjdbc/pull/400) [9f08e46](https://github.com/pgjdbc/pgjdbc/commit/9f08e46a75deb2f63bd73355b935b5f63799aad6)
 * Add missing entry in lib/.gitignore [PR#401](https://github.com/pgjdbc/pgjdbc/pull/401) [358aef1](https://github.com/pgjdbc/pgjdbc/commit/358aef16bdb30668788cebf19662977f75d2b522)
 
 Rikard Pavelic (1):
-* fix: Improve type detection with casing issues. [PR#404](https://github.com/pgjdbc/pgjdbc/pull/404) [0de91a5](https://github.com/pgjdbc/pgjdbc/commit/0de91a570c27f78f4648c75dfd00c1b2d66aceaf)
+
+ * fix: Improve type detection with casing issues. [PR#404](https://github.com/pgjdbc/pgjdbc/pull/404) [0de91a5](https://github.com/pgjdbc/pgjdbc/commit/0de91a570c27f78f4648c75dfd00c1b2d66aceaf)
 
 Vladimir Sitnikov (9):
+
 * fix: avoid memory leak when redeploying pgjdbc [PR#394](https://github.com/pgjdbc/pgjdbc/pull/394) [d7cab7b](https://github.com/pgjdbc/pgjdbc/commit/d7cab7bd86e4adde0aa0a2fb4a6dfed59cf05cd8)
 * test: add {?= call mysum(?, ?)} kind of test for CallableStatement [PR#410](https://github.com/pgjdbc/pgjdbc/pull/410) [45c8368](https://github.com/pgjdbc/pgjdbc/commit/45c83689d455493df38e711344635353b7e17cfe)
 * perf: add BigDecimal test performance test to ProcessResultSet [PR#411](https://github.com/pgjdbc/pgjdbc/pull/411) [6dc4183](https://github.com/pgjdbc/pgjdbc/commit/6dc41835603089405201606c45661428fb90a90e)
@@ -92,6 +98,16 @@ Vladimir Sitnikov (9):
 * fix: statement.cancel and statement.setQueryTimeout should be thread-safe [PR#412](https://github.com/pgjdbc/pgjdbc/pull/412) [bc3d848](https://github.com/pgjdbc/pgjdbc/commit/bc3d8488a0a4fa16e712be83d8debaf4b9130dfa)
 * chore: print markdown links in release notes script [PR#416](https://github.com/pgjdbc/pgjdbc/pull/416) [a5b8ea7](https://github.com/pgjdbc/pgjdbc/commit/a5b8ea7460392b6e1fd0bc9f79ca5975b6cf8625)
 * chore: add .gitattributes to ensure automatic end-of-line storage of text files is used [PR#417](https://github.com/pgjdbc/pgjdbc/pull/417) [254b739](https://github.com/pgjdbc/pgjdbc/commit/254b739250c670f5113e94ab30656ff59abbd0a2)
+
+<a name="contributors_9.4-1204"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[Chapman Flack](https://github.com/jcflack)  
+[Michael Paquier](https://github.com/michaelpq)  
+[Rikard Pavelic](https://github.com/zapov)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
 
 <a name="version_9.4-1204"></a>
 ## Version 9.4-1204 (2015-10-09)
@@ -119,7 +135,7 @@ Vladimir Sitnikov (9):
  * test: add tests for parsing of empty queries separated by semicolons PR #388 (d9310ce)
  * fix: ConcurrentModificationException when calling PreparedStatement.close from a concurrent thread PR #392 (40bcc01)
 
-<a name="contributors_9.4-1203"></a>
+<a name="contributors_9.4-1204"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
