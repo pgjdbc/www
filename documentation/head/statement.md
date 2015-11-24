@@ -23,3 +23,8 @@ interface:
 	if you are thinking of using threads, as it covers some important points.
 * When you are done using the `Statement` or `PreparedStatement` you should close
 	it.
+* In JDBC, the question mark (`?`) is the placeholder for the positional parameters of a `PreparedStatement`.
+    There are, however, a number of PostgreSQL operators that contain a question mark.
+    To keep such question marks in a SQL statement from being interpreted as positional parameters,
+    use two question marks (`??`) as escape sequence.
+    You can also use this escape sequence in a `Statement`, but that is not required.
