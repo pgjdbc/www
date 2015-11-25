@@ -88,15 +88,16 @@ Vladimir Sitnikov (3):
 John K. Harvey(1)
 
 * fix: update translations to handle Russian characters [PR#430](https://github.com/pgjdbc/pgjdbc/pull/430) this hasn't been committed yet but the message class files were updated
+
 <a name="contributors_9.4-1206"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
 
-[John K Harvey] (https://github.com/crunchyjohn)
-[Andrea Catalucci](https://github.com/AndreaCatalucci)
-[Laurenz Albe](https://github.com/laurenz)
-[Vladimir Sitnikov](https://github.com/vlsi)
+[John K Harvey] (https://github.com/crunchyjohn)  
+[Andrea Catalucci](https://github.com/AndreaCatalucci)  
+[Laurenz Albe](https://github.com/laurenz)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
 
 <a name="version_9.4-1205"></a>
 ## Version 9.4-1205 (2015-11-03)
