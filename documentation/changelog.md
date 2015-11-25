@@ -59,13 +59,14 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
-<a name="version_9.4-1205"></a>
-## Version 9.4-1205 (2015-11-03)
+<a name="version_9.4-1206"></a>
+## Version 9.4-1206 (2015-11-25)
 
 Andrea Catalucci (1):
 * Fixed typo in Driver.java.in [PR#428](https://github.com/pgjdbc/pgjdbc/pull/428) [2589020](https://github.com/pgjdbc/pgjdbc/commit/2589020ad85edace6f43474c2e8fc86ea23bb5e6)
 
 Dave Cramer (3):
+
 * make sure logs actually get written [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [2ad367e](https://github.com/pgjdbc/pgjdbc/commit/2ad367e0c46c69079b36140f95ec7b794b5aa8a5)  
 * fix: Binary handling of empty arrays. The type of the empty array was not properly read as a result getting the type of the array caused an NPE fixes Issue #421 reported by Juha Komulainen [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [38d8488](https://github.com/pgjdbc/pgjdbc/commit/38d8488559b4bbc5dcb7f87f542cd23d457b761d)  
 * fix:building on java 1.6 [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [9133012](https://github.com/pgjdbc/pgjdbc/commit/9133012e1e679c587b81ee43927ec1b688ba8bb8)  
@@ -73,14 +74,29 @@ Dave Cramer (3):
 * add an explicit message for the test case [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [270b1a3](https://github.com/pgjdbc/pgjdbc/commit/270b1a386a75227c8e947f989ddd73765f0dfa30)  
 
 Laurenz Albe (3):
+
 * Replace question marks only in PreparedStatements [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [3d30a4c](https://github.com/pgjdbc/pgjdbc/commit/3d30a4c76b44ed43a5e5f9460dae16d9efdfc527)
 * Allow both single and double question marks in simple statements [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [39d510c](https://github.com/pgjdbc/pgjdbc/commit/39d510c096cf435ff0f47bb510ae893a0c2b96d2)
 * Prettify code and add another regression test [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [2f8a67f](https://github.com/pgjdbc/pgjdbc/commit/2f8a67f7b9ee00cd57fd1d89612995dd339f4192)
 
 Vladimir Sitnikov (3):
+
 * chore: fix dos end-of-lines [PR#418](https://github.com/pgjdbc/pgjdbc/pull/418) [63d1dd3](https://github.com/pgjdbc/pgjdbc/commit/63d1dd3ae62ee914a5416002e4795a9bedcc984e)
 * test: add tests for getBigDecimal of int4 field in both text and binary modes [PR#426](https://github.com/pgjdbc/pgjdbc/pull/426) [faac288](https://github.com/pgjdbc/pgjdbc/commit/faac28818c222f5f873074d18935c10810c7e470)
 * fix: fix invalid values when receiving int2, int4, int8 via getBigDecimal() [PR#424](https://github.com/pgjdbc/pgjdbc/pull/424) [e6f1beb](https://github.com/pgjdbc/pgjdbc/commit/e6f1beb19c1581b003ac85ab29454ac58b157d96)
+
+John K. Harvey(1)
+
+* fix: update translations to handle Russian characters [PR#430](https://github.com/pgjdbc/pgjdbc/pull/430) this hasn't been committed yet but the message class files were updated
+<a name="contributors_9.4-1206"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[John K Harvey] (https://github.com/crunchyjohn)
+[Andrea Catalucci](https://github.com/AndreaCatalucci)
+[Laurenz Albe](https://github.com/laurenz)
+[Vladimir Sitnikov](https://github.com/vlsi)
 
 <a name="version_9.4-1205"></a>
 ## Version 9.4-1205 (2015-11-03)
@@ -124,7 +140,7 @@ Vladimir Sitnikov (9):
 * chore: print markdown links in release notes script [PR#416](https://github.com/pgjdbc/pgjdbc/pull/416) [a5b8ea7](https://github.com/pgjdbc/pgjdbc/commit/a5b8ea7460392b6e1fd0bc9f79ca5975b6cf8625)
 * chore: add .gitattributes to ensure automatic end-of-line storage of text files is used [PR#417](https://github.com/pgjdbc/pgjdbc/pull/417) [254b739](https://github.com/pgjdbc/pgjdbc/commit/254b739250c670f5113e94ab30656ff59abbd0a2)
 
-<a name="contributors_9.4-1204"></a>
+<a name="contributors_9.4-1205"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
