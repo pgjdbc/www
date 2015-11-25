@@ -28,3 +28,4 @@ interface:
     To keep such question marks in a SQL statement from being interpreted as positional parameters,
     use two question marks (`??`) as escape sequence.
     You can also use this escape sequence in a `Statement`, but that is not required.
+    Specifically only in a `Statement` a single (`?`) can be used as an operator.

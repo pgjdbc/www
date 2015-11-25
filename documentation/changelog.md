@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1206 (2015-11-25)](#version_9.4-1206)
+	* [Contributors to this release](#contributors_9.4-1206)
 * [Version 9.4-1205 (2015-11-03)](#version_9.4-1205)
 	* [Contributors to this release](#contributors_9.4-1205)
 * [Version 9.4-1204 (2015-10-09)](#version_9.4-1204)
@@ -57,6 +59,29 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1205"></a>
+## Version 9.4-1205 (2015-11-03)
+
+Andrea Catalucci (1):
+* Fixed typo in Driver.java.in [PR#428](https://github.com/pgjdbc/pgjdbc/pull/428) [2589020](https://github.com/pgjdbc/pgjdbc/commit/2589020ad85edace6f43474c2e8fc86ea23bb5e6)
+
+Dave Cramer (3):
+* make sure logs actually get written [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [2ad367e](https://github.com/pgjdbc/pgjdbc/commit/2ad367e0c46c69079b36140f95ec7b794b5aa8a5)  
+* fix: Binary handling of empty arrays. The type of the empty array was not properly read as a result getting the type of the array caused an NPE fixes Issue #421 reported by Juha Komulainen [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [38d8488](https://github.com/pgjdbc/pgjdbc/commit/38d8488559b4bbc5dcb7f87f542cd23d457b761d)  
+* fix:building on java 1.6 [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [9133012](https://github.com/pgjdbc/pgjdbc/commit/9133012e1e679c587b81ee43927ec1b688ba8bb8)  
+* fix test case to actually check the value don't mask the exception in the event that it is thrown [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [e975c07](https://github.com/pgjdbc/pgjdbc/commit/e975c07ceecea4d2aee457e56a6964bc4203fdba)  
+* add an explicit message for the test case [PR#422](https://github.com/pgjdbc/pgjdbc/pull/422) [270b1a3](https://github.com/pgjdbc/pgjdbc/commit/270b1a386a75227c8e947f989ddd73765f0dfa30)  
+
+Laurenz Albe (3):
+* Replace question marks only in PreparedStatements [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [3d30a4c](https://github.com/pgjdbc/pgjdbc/commit/3d30a4c76b44ed43a5e5f9460dae16d9efdfc527)
+* Allow both single and double question marks in simple statements [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [39d510c](https://github.com/pgjdbc/pgjdbc/commit/39d510c096cf435ff0f47bb510ae893a0c2b96d2)
+* Prettify code and add another regression test [PR#427](https://github.com/pgjdbc/pgjdbc/pull/427) [2f8a67f](https://github.com/pgjdbc/pgjdbc/commit/2f8a67f7b9ee00cd57fd1d89612995dd339f4192)
+
+Vladimir Sitnikov (3):
+* chore: fix dos end-of-lines [PR#418](https://github.com/pgjdbc/pgjdbc/pull/418) [63d1dd3](https://github.com/pgjdbc/pgjdbc/commit/63d1dd3ae62ee914a5416002e4795a9bedcc984e)
+* test: add tests for getBigDecimal of int4 field in both text and binary modes [PR#426](https://github.com/pgjdbc/pgjdbc/pull/426) [faac288](https://github.com/pgjdbc/pgjdbc/commit/faac28818c222f5f873074d18935c10810c7e470)
+* fix: fix invalid values when receiving int2, int4, int8 via getBigDecimal() [PR#424](https://github.com/pgjdbc/pgjdbc/pull/424) [e6f1beb](https://github.com/pgjdbc/pgjdbc/commit/e6f1beb19c1581b003ac85ab29454ac58b157d96)
+
 <a name="version_9.4-1205"></a>
 ## Version 9.4-1205 (2015-11-03)
 
