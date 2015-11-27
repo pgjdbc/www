@@ -99,7 +99,7 @@ versions of the JVM with the JDBC specification implemented.
 	<td><a href="download/postgresql-9.4-1206-jdbc4.jar">9.4-1206 JDBC 4</a></td>
 	<td><a href="download/postgresql-9.4-1206-jdbc41.jar">9.4-1206 JDBC 41</a></td>
 	<td><a href="download/postgresql-9.4-1206-jdbc42.jar">9.4-1206 JDBC 42</a></td>
-	<td><a href="download/postgresql-jdbc-9.4-1205.src.tar.gz">9.4-1205 JDBC Source</a></td>
+	<td><a href="download/postgresql-jdbc-9.4-1206.src.tar.gz">9.4-1206 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>9.4 Build 1205</td>
