@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introductio)
+* [Version 9.4-1207 (2015-12-23)](#version_9.4-1207)
+	* [Contributors to this release](#contributors_9.4-1207)
 * [Version 9.4-1206 (2015-11-25)](#version_9.4-1206)
 	* [Contributors to this release](#contributors_9.4-1206)
 * [Version 9.4-1205 (2015-11-03)](#version_9.4-1205)
@@ -59,10 +61,60 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1207"></a>
+## Version 9.4-1207 (2015-12-23)
+
+Jeremy Whiting (3):
+
+* Changed property loader to avoid using a default when property not already set. Allows the caller to detect when unset. Thus allowing connection Cto use programmatic log level value. Added test cases to check PGProperty method working properly. [PR#438](https://github.com/pgjdbc/pgjdbc/pull/438) [ecf4a2c](https://github.com/pgjdbc/pgjdbc/commit/ecf4a2ca9b2dcf8f233e89d33ec983c5f51bf97d)
+* Update testcase to set properties where TestUtil methods look them up. [PR#438](https://github.com/pgjdbc/pgjdbc/pull/438) [b86e07a](https://github.com/pgjdbc/pgjdbc/commit/b86e07a5b5df7e5057d8a1c33ad5ad706e20f9da)
+* Restore boot time ssl property after test cases complete. Revert change to assertion test. Safely remove existing ssl property. [PR#438](https://github.com/pgjdbc/pgjdbc/pull/438) [274f382](https://github.com/pgjdbc/pgjdbc/commit/274f38254203c26b0ad890cfd93548ce5a2cd3a9)
+
+Philippe Marschall (2):
+
+* Fix null check in getTablePrivileges [PR#453](https://github.com/pgjdbc/pgjdbc/pull/453) [244ce59](https://github.com/pgjdbc/pgjdbc/commit/244ce59f13d7b6e06a059c832a1348a74ee5e2fe)
+* Useless condition in parseQuery [PR#454](https://github.com/pgjdbc/pgjdbc/pull/454) [dd229d5](https://github.com/pgjdbc/pgjdbc/commit/dd229d5f163f0284a53b01f36d6bed74a7406e7c)
+
+Stephen Nelson (1):
+
+* chore: migrate the build to Maven [PR#322](https://github.com/pgjdbc/pgjdbc/pull/322) [f470f05](https://github.com/pgjdbc/pgjdbc/commit/f470f055fe3dadc6bc94429969119de896269e94)
+
+Vladimir Sitnikov (12):
+
+* doc: add coding guidelines to readme [PR#442](https://github.com/pgjdbc/pgjdbc/pull/442) [af62c6d](https://github.com/pgjdbc/pgjdbc/commit/af62c6d211097b7e39c04f6293c6d0f60f817adf)
+* chore: remove docbkx/pgjdbc.xml from reposiory [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [92b65f0](https://github.com/pgjdbc/pgjdbc/commit/92b65f04de1240b24bd4f71e34903422656660c5)
+* chore: move files to "pgjdbc" maven module to prepare for pre-processor fix [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [f95b44e](https://github.com/pgjdbc/pgjdbc/commit/f95b44ece4450ac22e98e9c3ef4b1d3ba531698f)
+* chore: use java comment preprocessor to build jre6/jre7/jre8 jars from the same sources [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [42c2e3b](https://github.com/pgjdbc/pgjdbc/commit/42c2e3b7953b2e68281c4ec269bd9749e135065b)
+* doc: fix javadocs warnings when building via java 8 [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [3b10873](https://github.com/pgjdbc/pgjdbc/commit/3b10873496c7e7cbd88a748a296c0f04dbce489a)
+* test: improve CopyLargeFileTest performance by dropping non required index and foreign key [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [410a662](https://github.com/pgjdbc/pgjdbc/commit/410a662ac7cd197e33909e64172534f92325432a)
+* test: speedup DriverTest.testConnectFailover by adding a connect timeout of 5 seconds [PR#435](https://github.com/pgjdbc/pgjdbc/pull/435) [ed1a916](https://github.com/pgjdbc/pgjdbc/commit/ed1a91644fb070d0ea3347b97f79102ccfb7d66d)
+* chore: skip gpg signature when deploying snapshot artifacts via Travis [PR#449](https://github.com/pgjdbc/pgjdbc/pull/449) [d196cf4](https://github.com/pgjdbc/pgjdbc/commit/d196cf4e08c9339dfbccbf3434a69f9f74fbe7a2)
+* chore: use custom settings.xml when deploying snapshots via Travis [PR#449](https://github.com/pgjdbc/pgjdbc/pull/449) [cf40cf2](https://github.com/pgjdbc/pgjdbc/commit/cf40cf271cebefb3f71a955dd8b736c67187bdb0)
+* test: add test for insert batch that changes server-prepared statement names [PR#449](https://github.com/pgjdbc/pgjdbc/pull/449) [e5ac899](https://github.com/pgjdbc/pgjdbc/commit/e5ac89945ec4905c82bc5d1fd033103edbe6f1d6)
+* fix: prepared statement "S_2" does not exist in batch executions [PR#449](https://github.com/pgjdbc/pgjdbc/pull/449) [fa310e0](https://github.com/pgjdbc/pgjdbc/commit/fa310e076954f9686be879319af622aa30131b0f)
+* doc: add note on how to skip tests when building from source [PR#460](https://github.com/pgjdbc/pgjdbc/pull/460) [823e124](https://github.com/pgjdbc/pgjdbc/commit/823e1248e93572c15253c05f05227d5fdbed5402)
+
+Yao Chunlin (1):
+
+* Fix bug when call XAResource.start with TMJOIN flag, the old localAutoCommitMode lost. [PR#434](https://github.com/pgjdbc/pgjdbc/pull/434) [df09e2b](https://github.com/pgjdbc/pgjdbc/commit/df09e2bee35e49238d883cc6881deb5d8dea6401)
+
+<a name="contributors_9.4-1206"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[Jeremy Whiting](<jwhiting@redhat.com>)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+[Stephen Nelson](https://github.com/lordnelson)  
+[Philippe Marschall](https://github.com/marschall)
+[Yao Chunlin](https://github.com/chunlinyao)  
+
+
 <a name="version_9.4-1206"></a>
 ## Version 9.4-1206 (2015-11-25)
 
 Andrea Catalucci (1):
+
 * Fixed typo in Driver.java.in [PR#428](https://github.com/pgjdbc/pgjdbc/pull/428) [2589020](https://github.com/pgjdbc/pgjdbc/commit/2589020ad85edace6f43474c2e8fc86ea23bb5e6)
 
 Dave Cramer (3):
