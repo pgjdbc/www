@@ -397,6 +397,19 @@ connection.
 	In default mode (disabled) hosts are connected in the given order. 
 	If enabled hosts are chosen randomly from the set of suitable candidates.
 
+*   `socketFactory = String`
+
+	The provided value is a class name to use as the `SocketFactory` when establishing a socket connection. 
+	This may be used to create unix sockets instead of normal sockets. The class name specified by `socketFactory` 
+	must extend `javax.net.SocketFactory` and be available to the driver's classloader.
+	This class must have a zero argument constructor or a single argument constructor taking a String argument. 
+	This argument may optionally be supplied by `socketFactoryArg`.
+
+*   `socketFactoryArg = String`
+
+	This value is an optional argument to the constructor of the socket factory
+	class provided above. 
+
 	<a name="connection-failover"></a>
 	## Connection Fail-over
 
