@@ -33,4 +33,4 @@ return value of `Driver.getConnection()`. For example:
 `Connection db = Driver.getConnection(url, username, password);`  
 `// ...`  
 `// later on`  
-`Fastpath fp = ((org.postgresql.PGConnection)db).getFastpathAPI();`
+`Fastpath fp = db.unwrap(org.postgresql.PGConnection.class).getFastpathAPI();`

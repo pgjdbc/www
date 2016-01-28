@@ -66,7 +66,7 @@ class Listener extends Thread
 	Listener(Connection conn) throws SQLException
 	{
 		this.conn = conn;
-		this.pgconn = (org.postgresql.PGConnection)conn;
+		this.pgconn = conn.unwrap(org.postgresql.PGConnection.class);
 		Statement stmt = conn.createStatement();
 		stmt.execute("LISTEN mymessage");
 		stmt.close();

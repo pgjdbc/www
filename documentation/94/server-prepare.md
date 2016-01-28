@@ -58,7 +58,7 @@ public class ServerSidePreparedStatement
 		PreparedStatement pstmt = conn.prepareStatement("SELECT ?");
 
 		// cast to the pg extension interface
-		org.postgresql.PGStatement pgstmt = (org.postgresql.PGStatement)pstmt;
+		org.postgresql.PGStatement pgstmt = pstmt.unwrap(org.postgresql.PGStatement.class);
 
 		// on the third execution start using server side statements
 		pgstmt.setPrepareThreshold(3);
@@ -106,16 +106,16 @@ the value will be the default for all of it's children.
 
 `// see that the connection has picked up the correct threshold from the url`  
 `Connection conn = DriverManager.getConnection(url,"test","");`  
-`pgconn = (org.postgresql.PGConnection)conn;`  
+`pgconn = conn.unwrap(org.postgresql.PGConnection.class);`  
 `System.out.println(pgconn.getPrepareThreshold()); // Should be 3`
 
 `// see that the statement has picked up the correct threshold from the connection`  
 `PreparedStatement pstmt = conn.prepareStatement("SELECT ?");`  
-`pgstmt = (org.postgresql.PGStatement)pstmt;`  
+`pgstmt = pstmt.unwrap(org.postgresql.PGStatement.class);`  
 `System.out.println(pgstmt.getPrepareThreshold()); // Should be 3`
 
 `// change the connection's threshold and ensure that new statements pick it up`  
 `pgconn.setPrepareThreshold(5);`  
 `PreparedStatement pstmt = conn.prepareStatement("SELECT ?");`  
-`pgstmt = (org.postgresql.PGStatement)pstmt;`  
+`pgstmt = pstmt.unwrap(org.postgresql.PGStatement.class);`  
 `System.out.println(pgstmt.getPrepareThreshold()); // Should be 5`
