@@ -5,8 +5,8 @@ header: Chapter 5. Issuing a Query and Processing the Result
 resource: media
 previoustitle: Performing Updates
 previous: update.html
-nexttitle: Chapter 6. Calling Stored Functions
-next: callproc.html
+nexttitle: Using Java 8 Date and Time classes
+next: 8-date-time.html
 ---
 
 To create, modify or drop a database object like a table or view you use the

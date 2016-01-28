@@ -16,6 +16,7 @@ next: statement.html
 * [Using the `ResultSet` Interface](resultset.html)
 * [Performing Updates](update.html)
 * [Creating and Modifying Database Objects](ddl.html)
+* [Using Java 8 Date and Time classes](8-date-time.html)
 
 Any time you want to issue SQL statements to the database, you require a `Statement`
 or `PreparedStatement` instance. Once you have a `Statement` or `PreparedStatement`,
