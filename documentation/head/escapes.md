@@ -23,7 +23,7 @@ a special escape syntax is used to specify the generic commands the developer
 wants to be run. The JDBC driver translates these escape sequences into native
 syntax for its specific database. For more information consult the section 4.1.5
 from the [JDBC Technology Guide](http://java.sun.com/j2se/1.4.2/docs/guide/jdbc/getstart/statement.html#999472)
-(bundled with the Sun™ JRE documentation) and the section 13.4 from the
+(bundled with the Oracle™ JRE documentation) and the section 13.4 from the
 [JDBC 3.0 specification](http://java.sun.com/products/jdbc/download.html#corespec30).
 
 The parsing of the sql statements for these escapes can be disabled using
