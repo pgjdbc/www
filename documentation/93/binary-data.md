@@ -112,7 +112,7 @@ To insert an image, you would use:
 `conn.setAutoCommit(false);``<br />
 
 `// Get the Large Object Manager to perform operations with`  
-`LargeObjectManager lobj = ((org.postgresql.PGConnection)conn).getLargeObjectAPI();`<br />
+`LargeObjectManager lobj = conn.unwrap(org.postgresql.PGConnection.class).getLargeObjectAPI();`<br />
 
 `// Create a new large object`  
 `long oid = lobj.createLO(LargeObjectManager.READ | LargeObjectManager.WRITE);`<br />
@@ -153,7 +153,7 @@ Retrieving the image from the Large Object:
 `conn.setAutoCommit(false);`<br />
 
 `// Get the Large Object Manager to perform operations with`  
-`LargeObjectManager lobj = ((org.postgresql.PGConnection)conn).getLargeObjectAPI();`<br />
+`LargeObjectManager lobj = conn.unwrap(org.postgresql.PGConnection.class).getLargeObjectAPI();`<br />
 
 `PreparedStatement ps = conn.prepareStatement("SELECT imgoid FROM imageslo WHERE imgname = ?");`  
 `ps.setString(1, "myimage.gif");`  
