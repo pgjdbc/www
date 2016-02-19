@@ -40,11 +40,11 @@ JDBC42 versionIf you are using a java version older than 1.6 then
 you will need to use a JDBC3 version of the driver, which will by 
 necessity not be current
 					
-[JDBC4 Postgresql Driver, Version 9.4-1207](download/postgresql-9.4.1207.jre6.jar)
+[JDBC4 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jre6.jar)
 
-[JDBC41 Postgresql Driver, Version 9.4-1207](download/postgresql-9.4.1207.jre7.jar)
+[JDBC41 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jre7.jar)
 
-[JDBC42 Postgresql Driver, Version 9.4-1207](download/postgresql-9.4.1207.jar)
+[JDBC42 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jar)
 
 [JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
 
