@@ -110,7 +110,6 @@ Rikard Pavelic (1):
 
 Vladimir Sitnikov (24):
 
-* [maven-release-plugin] prepare for next development iteration [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [9718cc7](https://github.com/pgjdbc/pgjdbc/commit/9718cc751f3ce93f878687c26fb95cd729c197c6)
 * doc: update current versions in readme.md [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [4f5d57c](https://github.com/pgjdbc/pgjdbc/commit/4f5d57c2f2c94a98439f20929b377d46a947ab56)
 * refactor: move implementation of Prepared and Callable statements to PgPreparedStatement and PgCallableStatement [PR#459](https://github.com/pgjdbc/pgjdbc/pull/459) [8fca8b4](https://github.com/pgjdbc/pgjdbc/commit/8fca8b433b36002df472c5c064e3d886ee4394eb)
 * style: add import order check [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [77a188c](https://github.com/pgjdbc/pgjdbc/commit/77a188c785b5ad2d50bdad5d30decf68787322c1)
