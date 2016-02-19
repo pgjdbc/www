@@ -6,7 +6,9 @@ nav: ../
 ---
 
 # History of Changes
-* [Introduction and explanation of symbols](#introductio)
+* [Introduction and explanation of symbols](#introduction)
+* [Version 9.4-1208 (2016-2-19)](#version_9.4-1208)
+	* [Contributors to this release](#contributors_9.4-1208)
 * [Version 9.4-1207 (2015-12-23)](#version_9.4-1207)
 	* [Contributors to this release](#contributors_9.4-1207)
 * [Version 9.4-1206 (2015-11-25)](#version_9.4-1206)
@@ -61,6 +63,99 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+<a name="version_9.4-1208"></a>
+## Version 9.4-1208 (2016-02-16)
+
+John Harvey (1):
+
+* chore: rework update-translations.sh into pom file as a profile [e2fa9ec](https://github.com/pgjdbc/pgjdbc/commit/e2fa9ecfd289acde98cba768e008088838cd9c6e)
+
+Dave Cramer (3):
+
+* fix:regression from previous behaviour where setObject(index,object,VARHCAR) should call getString if it can't cast it to a string [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [9d6389c](https://github.com/pgjdbc/pgjdbc/commit/9d6389c57906c9d491087f8db9fa011d8308f8c2)
+* fix:correct comment [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [bfd73c7](https://github.com/pgjdbc/pgjdbc/commit/bfd73c72d3f59af3674e078e0e7c4b227207985d)
+* Update README.md [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [5a956a3](https://github.com/pgjdbc/pgjdbc/commit/5a956a3720546086b3bb7dd156d1d2e3cdd1ee5a)
+
+George Kankava (3):
+
+* fix: squid:S1206 -equals(Object obj) and hashCode() should be overridden in pairs [PR#515](https://github.com/pgjdbc/pgjdbc/pull/515) [a07d6d3](https://github.com/pgjdbc/pgjdbc/commit/a07d6d395e6c7b8f3c55b2c535e5719ec431af02)
+* fix: squid:S2325 - private methods that don't access instance data should be static [PR#514](https://github.com/pgjdbc/pgjdbc/pull/514) [7aac95c](https://github.com/pgjdbc/pgjdbc/commit/7aac95c17587ddcccaac9169c0e8634703ce91e6)
+* fix: squid:S1488 - Local Variables should not be declared and then immediately returned or thrown [PR#513](https://github.com/pgjdbc/pgjdbc/pull/513) [299c9f5](https://github.com/pgjdbc/pgjdbc/commit/299c9f592580dc00d115a7f9744d7214b5d92f74)
+
+Gilles Cornu (1):
+
+* docs: update travis-ci badge [PR#475](https://github.com/pgjdbc/pgjdbc/pull/475) [f9405db](https://github.com/pgjdbc/pgjdbc/commit/f9405dbe8b4dd78bb7c107bc9051283f4841a2e1)
+
+Jeremy Whiting (1):
+
+* fix: load the ssl configuration property when defined through Properties. [a6a61be](https://github.com/pgjdbc/pgjdbc/commit/a6a61be858fd3fff53003b78f061d60cd04710d1)
+
+Markus KARG (1):
+
+* docs: fix broken link to testing README [PR#481](https://github.com/pgjdbc/pgjdbc/pull/481) [0a11144](https://github.com/pgjdbc/pgjdbc/commit/0a11144bc6a7b0e3177b3a79d84ad68f2fad788d)
+
+Philippe Marschall (7):
+
+* style: use java generics instead of raw types [PR#463](https://github.com/pgjdbc/pgjdbc/pull/463) [c10acf0](https://github.com/pgjdbc/pgjdbc/commit/c10acf00e4d54de99bef21c947cbad1e686175f6)
+* refactor: do not synchronize on ConcurrentHashMap [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [ea4cadd](https://github.com/pgjdbc/pgjdbc/commit/ea4caddf0cea82e59d70e7eb938dd08db55667bb)
+* perf: add guards around debug log statements [PR#469](https://github.com/pgjdbc/pgjdbc/pull/469) [d77aa41](https://github.com/pgjdbc/pgjdbc/commit/d77aa4103bc4388840d17123afc9266412780a76)
+* fix: Do not swallow security exceptions [PR#471](https://github.com/pgjdbc/pgjdbc/pull/471) [beab720](https://github.com/pgjdbc/pgjdbc/commit/beab720eb08430ec67d42adc927519701c879944)
+* feat: implement resultSet.getObject(col, Class) with JSR-310 support [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [9aa3142](https://github.com/pgjdbc/pgjdbc/commit/9aa3142af745a0a43a44cd9ed3a33470c0661371)
+* feat: implement JSR-310 support in setObject [e52f7e3](https://github.com/pgjdbc/pgjdbc/commit/e52f7e3d08b45b79906474a81c49cff7e7eaa6df)
+* fix: support local date times not in time zone [61384ec](https://github.com/pgjdbc/pgjdbc/commit/61384ec4f9f1128b3e2f92c2dd0a89ba6111f014)
+
+Rikard Pavelic (1):
+
+* perf: cache result of parsing server_version [PR#464](https://github.com/pgjdbc/pgjdbc/pull/464) [9c43d27](https://github.com/pgjdbc/pgjdbc/commit/9c43d27486c9980782147a9f11798793a53047be)
+
+Vladimir Sitnikov (24):
+
+* [maven-release-plugin] prepare for next development iteration [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [9718cc7](https://github.com/pgjdbc/pgjdbc/commit/9718cc751f3ce93f878687c26fb95cd729c197c6)
+* doc: update current versions in readme.md [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [4f5d57c](https://github.com/pgjdbc/pgjdbc/commit/4f5d57c2f2c94a98439f20929b377d46a947ab56)
+* refactor: move implementation of Prepared and Callable statements to PgPreparedStatement and PgCallableStatement [PR#459](https://github.com/pgjdbc/pgjdbc/pull/459) [8fca8b4](https://github.com/pgjdbc/pgjdbc/commit/8fca8b433b36002df472c5c064e3d886ee4394eb)
+* style: add import order check [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [77a188c](https://github.com/pgjdbc/pgjdbc/commit/77a188c785b5ad2d50bdad5d30decf68787322c1)
+* style: align import order with style convention [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [00c7eb3](https://github.com/pgjdbc/pgjdbc/commit/00c7eb32a162d9d21ab6ac23e1a9bc5f0c270d2d)
+* doc: add gitter chat link to readme [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [53190c9](https://github.com/pgjdbc/pgjdbc/commit/53190c9f5e30626b094c3371d11685cea5c759d3)
+* style: enable more checkstyle verifications [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [b0225f6](https://github.com/pgjdbc/pgjdbc/commit/b0225f69532bcb5c136a12791635d8db742ee34c)
+* style: reformat code to fix checkstyle violations [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [8f1c9d7](https://github.com/pgjdbc/pgjdbc/commit/8f1c9d7bd48de29e3d6dabd0489520ec49d83b25)
+* style: reformat with Eclipse [PR#467](https://github.com/pgjdbc/pgjdbc/pull/467) [2d5e7fa](https://github.com/pgjdbc/pgjdbc/commit/2d5e7fa57045a47887de4ea300a743a160ae4f86)
+* Update IDEA config [PR#482](https://github.com/pgjdbc/pgjdbc/pull/482) [7083008](https://github.com/pgjdbc/pgjdbc/commit/70830082918a020299822653ff05608e541a85ad)
+* docs: fix typos in code comments [PR#472](https://github.com/pgjdbc/pgjdbc/pull/472) [5d43712](https://github.com/pgjdbc/pgjdbc/commit/5d437128ce5252d043a912554d692a825c2b1cda)
+* style: update translations [484eafd](https://github.com/pgjdbc/pgjdbc/commit/484eafd84ac83b231f72f4d7888cac30c339bac5)
+* doc: update russian translations [92011d7](https://github.com/pgjdbc/pgjdbc/commit/92011d7022b49aff0843956a9a10b401e5efede5)
+* test: add insert .. on conflict tests for PostgreSQL 9.5 [d622a9f](https://github.com/pgjdbc/pgjdbc/commit/d622a9fe928bdc2606e5399770d429c72ccfff49)
+* fix: improve handling of DATE columns around DST dates in binary transfer [642b48a](https://github.com/pgjdbc/pgjdbc/commit/642b48a787098a6c5a068710bdbbf9f1b11f3aac)
+* test: improve insertBatch test [aea9383](https://github.com/pgjdbc/pgjdbc/commit/aea93832af5371e25ce5e4ed04ba72f350c35a47)
+* test: track code coverage [PR#494](https://github.com/pgjdbc/pgjdbc/pull/494) [0f979c3](https://github.com/pgjdbc/pgjdbc/commit/0f979c3bbe1a36e6614e3d448ea43de7be27448b)
+* test: PostgreSQL 8.4 and 9.5 databases, XA configuration [PR#499](https://github.com/pgjdbc/pgjdbc/pull/499) [8c9898a](https://github.com/pgjdbc/pgjdbc/commit/8c9898af9d6ab21f2a727cc2f673519d2c4352c7)
+* fix: make sure executeBatch returns error response for rows that would not get into database [PR#502](https://github.com/pgjdbc/pgjdbc/pull/502) [d6e3b17](https://github.com/pgjdbc/pgjdbc/commit/d6e3b17e41ded02bd111a7644c0b47b936862e6e)
+* test: add benchmarks for insert via copy and insert via array of structs [880244e](https://github.com/pgjdbc/pgjdbc/commit/880244e264181447f279babe2dd696d9b18cd023)
+* fix: PgArray returning null for binary arrays [PR#504](https://github.com/pgjdbc/pgjdbc/pull/504) [b225535](https://github.com/pgjdbc/pgjdbc/commit/b225535640b78c5e99c27f1991ab567c17fb6333)
+* doc: backend protocol, wanted features [PR#478](https://github.com/pgjdbc/pgjdbc/pull/478) [ee6118e](https://github.com/pgjdbc/pgjdbc/commit/ee6118ee7ae18cd05fbbe340ee8cfa80ca120154)
+* fix: OSGi require-capability manifest entry [PR#497](https://github.com/pgjdbc/pgjdbc/pull/497) [a3e2045](https://github.com/pgjdbc/pgjdbc/commit/a3e204580220ca0b243f9562b2cbf44e0e60d51c)
+* fix: make sure {fn now()} jdbc translation is not performed in dollar-quoted strings [PR#511](https://github.com/pgjdbc/pgjdbc/pull/511) [9109451](https://github.com/pgjdbc/pgjdbc/commit/9109451c65d43328b8e4344642331d7750d79cf6)
+
+mtran (1):
+
+* feat: ability to customize socket factory (e.g. for unix domain sockets) [PR#457](https://github.com/pgjdbc/pgjdbc/pull/457) [dc1844c](https://github.com/pgjdbc/pgjdbc/commit/dc1844c21efbb4a840347d5aaa991384e8883b69)
+
+<a name="contributors_9.4-1208"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[John Harvey](https://github.com/crunchyjohn)  
+[Dave Cramer](davec@postgresintl.com)  
+[George Kankava](https://github.com/georgekankava)  
+[Gilles Cornu](https://github.com/gildegoma)  
+[Markus KARG](https://github.com/mkarg)  
+[Rikard Pavelic]((https://github.com/zapov)  
+[Jeremy Whiting](<jwhiting@redhat.com>)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+[Stephen Nelson](https://github.com/lordnelson)  
+[Philippe Marschall](https://github.com/marschall)  
+[mtran](mtran@dhatim.com)  
+
 <a name="version_9.4-1207"></a>
 ## Version 9.4-1207 (2015-12-23)
 
@@ -98,7 +193,7 @@ Yao Chunlin (1):
 
 * Fix bug when call XAResource.start with TMJOIN flag, the old localAutoCommitMode lost. [PR#434](https://github.com/pgjdbc/pgjdbc/pull/434) [df09e2b](https://github.com/pgjdbc/pgjdbc/commit/df09e2bee35e49238d883cc6881deb5d8dea6401)
 
-<a name="contributors_9.4-1206"></a>
+<a name="contributors_9.4-1207"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
