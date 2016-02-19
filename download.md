@@ -92,6 +92,17 @@ versions of the JVM with the JDBC specification implemented.
 	<th>Source</th>
 </tr>
 <tr>
+	<td>9.4 Build 1208</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td><a href="download/postgresql-9.4.1208.jre6.jar">9.4.1208 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.4.1208.jre7.jar">9.4.1208 JDBC 41</a></td>
+	<td><a href="download/postgresql-9.4.1208.jar">9.4.1208 JDBC 42</a></td>
+	<td><a href="download/postgresql-jdbc-9.4.1208-sources.jar">9.4.1208 JDBC Source</a></td>
+</tr>
+
+<tr>
 	<td>9.4 Build 1207</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
