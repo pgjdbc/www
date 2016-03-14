@@ -166,7 +166,7 @@ versions of the JVM with the JDBC specification implemented.
 	<td>9.3 Build 1104</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td>&nbsp;/td>
+	<td>&nbsp;</td>
 	<td><a href="download/postgresql-9.3-1104.jdbc4.jar">9.3-1104 JDBC 4</a></td>
 	<td><a href="download/postgresql-9.3-1104.jdbc41.jar">9.3-1104 JDBC 41</a></td>
 	<td>&nbsp;</td>
