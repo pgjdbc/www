@@ -22,9 +22,11 @@ illustrates the usage.
 This example will issue a simple `DELETE` statement and print out the number of
 rows deleted.
 
-`int foovalue = 500;`  
-`PreparedStatement st = conn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");`  
-`st.setInt(1, foovalue);`  
-`int rowsDeleted = st.executeUpdate();`
-`System.out.println(rowsDeleted + " rows deleted");`
-`st.close();`
+```java
+int foovalue = 500;
+PreparedStatement st = conn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
+st.setInt(1, foovalue);
+int rowsDeleted = st.executeUpdate();
+System.out.println(rowsDeleted + " rows deleted");
+st.close();
+```
