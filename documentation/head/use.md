@@ -24,7 +24,9 @@ This section describes how to load and initialize the JDBC driver in your progra
 
 Any source that uses JDBC needs to import the `java.sql` package, using:
 
+```java
 import java.sql.*;
+```
 
 ### Note
 
