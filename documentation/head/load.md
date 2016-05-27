@@ -15,7 +15,9 @@ methods available, and it depends on your code which is the best one to use.
 In the first method, your code implicitly loads the driver using the `Class.forName()`
 method. For PostgreSQL™, you would use:
 
+```java
 Class.forName("org.postgresql.Driver");
+```
 
 This will load the driver, and while loading, the driver will automatically
 register itself with JDBC.
