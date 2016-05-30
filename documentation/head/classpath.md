@@ -20,7 +20,7 @@ a database, and that application is installed as `/usr/local/lib/myapp.jar`. The
 PostgreSQL™ JDBC driver installed as `/usr/local/pgsql/share/java/postgresql.jar`.
 To run the application, we would use:
 
-```shell
+```bash
 export CLASSPATH=/usr/local/lib/myapp.jar:/usr/local/pgsql/share/java/postgresql.jar:.
 java MyApp
 ```
