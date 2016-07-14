@@ -148,7 +148,7 @@ We thank the following people for their contributions to this release.
 [George Kankava](https://github.com/georgekankava)  
 [Gilles Cornu](https://github.com/gildegoma)  
 [Markus KARG](https://github.com/mkarg)  
-[Rikard Pavelic]((https://github.com/zapov)  
+[Rikard Pavelic](https://github.com/zapov)
 [Jeremy Whiting](<jwhiting@redhat.com>)  
 [Vladimir Sitnikov](https://github.com/vlsi)  
 [Stephen Nelson](https://github.com/lordnelson)  
