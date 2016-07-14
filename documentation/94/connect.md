@@ -91,6 +91,12 @@ connection.
 	This value is an optional argument to the constructor of the sslfactory
 	class provided above. For more information see the section called [“Custom SSLSocketFactory”](ssl-factory.html). 
 
+* `socketFactory = String`
+	Specify a socket factory for socket creation.
+
+* `socketFactoryArg = String`
+	Argument forwarded to constructor of SocketFactory class
+
 * `compatible = String`
 
 	Act like an older version of the driver to retain compatibility with older
@@ -220,17 +226,29 @@ connection.
  	and as a consequence `OutOfMemoryException`
  	The default is zero, meaning that in `ResultSet`
  	will be fetch all rows at once. Negative number is not available.
- 
+
+* `reWriteBatchedInserts = bool`
+	Enable optimization to rewrite and collapse compatible INSERT statements that are batched.
+	If enabled, pgjdbc rewrites batch of `insert into ... values(?, ?)` into `insert into ... values(?, ?), (?, ?), ...`
+	That reduces per-statement overhead. The drawback is if one of the statements fail, the whole batch fails.
+	The default value is `false`. The option is avaliable since 9.4.1208
+
 * `loginTimeout = int`
 
 	Specify how long to wait for establishment of a database connection. The
 	timeout is specified in seconds. 
 
-*	connectTimeout = int
+* `connectTimeout = int`
 	
 	The timeout value used for socket connect operations. If connecting to the server
 	takes longer than this value, the connection is broken. 
-	The timeout is specified in seconds and a value of zero means that it 	is disabled.
+	The timeout is specified in seconds and a value of zero means that it is disabled.
+	The default value is 0 (unlimited) up to 9.4.1208, and 10 seconds since 9.4.1209
+
+* `cancelSignalTimeout = int` (since 9.4.1209)
+	Cancel command is sent out of band over its own connection, so cancel message can itself get stuck.
+	This property controls "connect timeout" and "socket timeout" used for cancel commands.
+	The timeout is specified in seconds. Default value is 10 seconds.
 
 * `socketTimeout = int`
 
