@@ -36,15 +36,15 @@ requires a 1.6 or newer JVM.  It contains support for SSL and the
 javax.sql package. If you are using the 1.6 then you should use the 
 JDBC4 version. If you are using 1.7 then you should use the 
 JDBC41 version. If you are using 1.8 then you should use the 
-JDBC42 versionIf you are using a java version older than 1.6 then 
+JDBC42 version. If you are using a java version older than 1.6 then 
 you will need to use a JDBC3 version of the driver, which will by 
 necessity not be current
 					
-[JDBC4 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jre6.jar)
+[JDBC4 Postgresql Driver, Version 9.4.1209](download/postgresql-9.4.1209.jre6.jar)
 
-[JDBC41 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jre7.jar)
+[JDBC41 Postgresql Driver, Version 9.4.1209](download/postgresql-9.4.1209.jre7.jar)
 
-[JDBC42 Postgresql Driver, Version 9.4-1208](download/postgresql-9.4.1208.jar)
+[JDBC42 Postgresql Driver, Version 9.4.1209](download/postgresql-9.4.1209.jar)
 
 [JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
 
@@ -92,7 +92,18 @@ versions of the JVM with the JDBC specification implemented.
 	<th>Source</th>
 </tr>
 <tr>
-	<td>9.4 Build 1208</td>
+	<td>9.4.1209</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td><a href="download/postgresql-9.4.1209.jre6.jar">9.4.1209 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.4.1209.jre7.jar">9.4.1209 JDBC 41</a></td>
+	<td><a href="download/postgresql-9.4.1209.jar">9.4.1209 JDBC 42</a></td>
+	<td><a href="download/postgresql-jdbc-9.4.1209.src.tar.gz">9.4.1209 JDBC Source</a></td>
+</tr>
+
+<tr>
+	<td>9.4.1208</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td></td>
@@ -103,7 +114,7 @@ versions of the JVM with the JDBC specification implemented.
 </tr>
 
 <tr>
-	<td>9.4 Build 1207</td>
+	<td>9.4.1207</td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td></td>
