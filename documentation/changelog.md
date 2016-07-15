@@ -7,10 +7,12 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
-* [Version 9.4-1208 (2016-2-19)](#version_9.4-1208)
-	* [Contributors to this release](#contributors_9.4-1208)
-* [Version 9.4-1207 (2015-12-23)](#version_9.4-1207)
-	* [Contributors to this release](#contributors_9.4-1207)
+* [Version 9.4.1209 (2016-07-15)](#version_9.4.1209)
+	* [Contributors to this release](#contributors_9.4.1209)
+* [Version 9.4.1208 (2016-02-19)](#version_9.4.1208)
+	* [Contributors to this release](#contributors_9.4.1208)
+* [Version 9.4.1207 (2015-12-23)](#version_9.4.1207)
+	* [Contributors to this release](#contributors_9.4.1207)
 * [Version 9.4-1206 (2015-11-25)](#version_9.4-1206)
 	* [Contributors to this release](#contributors_9.4-1206)
 * [Version 9.4-1205 (2015-11-03)](#version_9.4-1205)
@@ -63,8 +65,131 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
-<a name="version_9.4-1208"></a>
-## Version 9.4-1208 (2016-02-16)
+
+<a name="version_9.4.1209"></a>
+## Version 9.4.1209 (2016-07-15)
+
+Notable changes:
+* Many improvements to `insert into .. values(?,?)` => `insert .. values(?,?), (?,?)...` rewriter. Give it a try by using `reWriteBatchedInserts=true` connection property. 2-3x improvements for insert batch can be expected
+* Full test suite passes against PostgreSQL 9.6, and OpenJDK 9
+* Performance optimization for timestamps (~`TimeZone.getDefault` optimization)
+* Allow build-from-source on GNU/Linux without maven repositories, and add Fedora Copr test to the regression suite
+
+AlexElin (2):
+* style: code cleanup and Java 5' features [8e8dbab](https://github.com/pgjdbc/pgjdbc/commit/8e8dbab04a72813e71b28c74a74513d795979e6a)
+* style: cleanup and Java 5' features for tests (#602) [28c0c22](https://github.com/pgjdbc/pgjdbc/commit/28c0c2217d739678056a4cb193c4ec886cc9fada)
+
+Christian Ullrich (4):
+* docs: fix test password in readme closes #553 [PR#553](https://github.com/pgjdbc/pgjdbc/pull/553) [07f8610](https://github.com/pgjdbc/pgjdbc/commit/07f8610fe2e44dff4b57ffd630fd1d10300128d2)
+* test: make tests independent from server LC_MESSAGES (#554) [b756a15](https://github.com/pgjdbc/pgjdbc/commit/b756a1507f06686540b56b3a29186841ea741bad)
+* fix: update waffle version [PR#555](https://github.com/pgjdbc/pgjdbc/pull/555) [db1a6e4](https://github.com/pgjdbc/pgjdbc/commit/db1a6e44ceb17b20c3995f3366145a932711753c)
+* test: add basic tests for SSPI authentication [PR#557](https://github.com/pgjdbc/pgjdbc/pull/557) [16c27b9](https://github.com/pgjdbc/pgjdbc/commit/16c27b9e31546f4ebdc23deeb0178ffce9cc2537)
+
+Christopher Deckers (2):
+* fix: improve insert values(...) batch rewrite [PR#580](https://github.com/pgjdbc/pgjdbc/pull/580) [510e6e0](https://github.com/pgjdbc/pgjdbc/commit/510e6e0fec5e3a44ffda854f5cf808ce9f72ee2e)
+* perf: cache timezone in statement#setDate, resultSet#getDate, etc [PR#588](https://github.com/pgjdbc/pgjdbc/pull/588) [d2b86a0](https://github.com/pgjdbc/pgjdbc/commit/d2b86a0a223d1b573bb017172dd4c009c7274a47)
+
+Dave Cramer (5):
+* use binary trick for tolower, optimize switch, added tests [2200a4d](https://github.com/pgjdbc/pgjdbc/commit/2200a4d5877aa805c89910ef62b47c076c8a2825)
+* fix:bugs with parse [72945b0](https://github.com/pgjdbc/pgjdbc/commit/72945b04279613828cc32d97cc86317a73feb1fd)
+* fix: added test for move and fixed checkstyle errors [fc59851](https://github.com/pgjdbc/pgjdbc/commit/fc598512f7e2b89f6a026ef69d4c0225a44db060)
+* fixed index ASC/DESC for 9.6 (#569) [c9e5fc8](https://github.com/pgjdbc/pgjdbc/commit/c9e5fc8bf53ead845f7b56c9cbe3c1058b636ca5)
+* test: DataSource.getConnection().unwrap(PGConnection.class) [PR#573](https://github.com/pgjdbc/pgjdbc/pull/573) [f6b176e](https://github.com/pgjdbc/pgjdbc/commit/f6b176ed6e7c2bbec5be294e3d419d624652747d)
+
+Florin Asăvoaie (1):
+* Refactored an unnecessary conversion of List<String[]> to String[][] when calling the sendStartupPacket. (#544) [2032836](https://github.com/pgjdbc/pgjdbc/commit/2032836b5c60e95bf8b40bf173d1fae02d3f7176)
+
+George Kankava (1):
+* fix: PgDatabaseMetaData: close statement in finally [PR#516](https://github.com/pgjdbc/pgjdbc/pull/516) [b4c45ca](https://github.com/pgjdbc/pgjdbc/commit/b4c45ca20c338810da9db328d61df298acd1d00b)
+
+Jeremy Whiting (3):
+* perf: Add optimization to re-write batched insert stataments. [ac8abf3](https://github.com/pgjdbc/pgjdbc/commit/ac8abf3f2acbef3f52eb7874b6815d1adc974299)
+* fix: Change optimization to delay parameter and statement re-write to immediately before execution. [e591577](https://github.com/pgjdbc/pgjdbc/commit/e59157742c77769cc19e14aeb5aebd9c042e2050)
+* feat: Added to SQL parser to allow inspection of Statement attributes and Command. [4ddb693](https://github.com/pgjdbc/pgjdbc/commit/4ddb693ff073c128116b0d79f5aeb45c5ae7307c)
+
+Laurenz Albe (1):
+* fix: interpretation of empty but set "ssl" connection property [PR#528](https://github.com/pgjdbc/pgjdbc/pull/528) [91f05b4](https://github.com/pgjdbc/pgjdbc/commit/91f05b402bb1e19d507f365be890cee8a54dc00f)
+
+Minglei Tu (1):
+* feat: support java.sql.Types.TIME_WITH_TIMEZONE and java.sql.Types.TIMESTAMP_WITH_TIMEZONE in setNull method [PR#570](https://github.com/pgjdbc/pgjdbc/pull/570) [1b73bf6](https://github.com/pgjdbc/pgjdbc/commit/1b73bf6efa8879943987f79d1084c419200ccca9)
+
+Pavel Raiskup (3):
+* Allow build-from-source on GNU/Linux without maven repositories (#546) [87489a9](https://github.com/pgjdbc/pgjdbc/commit/87489a9974fefbcf0aad9c2869e4dc0e6199b38a)
+* chore: test Fedora packaging CI via Travis job [PR#578](https://github.com/pgjdbc/pgjdbc/pull/578) [1eb4085](https://github.com/pgjdbc/pgjdbc/commit/1eb4085c2425e4d6b6fc74c3e2a6b527eb9ff927)
+* packaging: heal Fedora build (#601) [af50d0b](https://github.com/pgjdbc/pgjdbc/commit/af50d0bfc7157ef6da160f7064fe1f0ca838b109)
+
+Petro Semeniuk (1):
+* fix: use per-connection cache for field metadata (table name, column name, etc) [PR#551](https://github.com/pgjdbc/pgjdbc/pull/551) [dc3bdda](https://github.com/pgjdbc/pgjdbc/commit/dc3bddab3f2b14fd81284f109fa5056dbe5ab40b)
+
+Philippe Marschall (4):
+* style: Use more generics [PR#519](https://github.com/pgjdbc/pgjdbc/pull/519) [88e39a0](https://github.com/pgjdbc/pgjdbc/commit/88e39a0087f6bc7447877972278307f4befff16d)
+* style: remove unused code [PR#520](https://github.com/pgjdbc/pgjdbc/pull/520) [f21f168](https://github.com/pgjdbc/pgjdbc/commit/f21f1689241920defe9c7beafde12d0b0f318ca0)
+* refactor: Remove pgTypeName null check [PR#525](https://github.com/pgjdbc/pgjdbc/pull/525) [462928b](https://github.com/pgjdbc/pgjdbc/commit/462928b4c53c29cdc8ceaec541c6fd688f2eac3a)
+* refactor: remove ClassCastException catch [PR#527](https://github.com/pgjdbc/pgjdbc/pull/527) [8bee06b](https://github.com/pgjdbc/pgjdbc/commit/8bee06be4b9679d880f97dbe68cf9a301dd6c420)
+
+Tanya Gordeeva (1):
+* fix: add a socket timeout on cancel requests [PR#603](https://github.com/pgjdbc/pgjdbc/pull/603) [ab2a6d8](https://github.com/pgjdbc/pgjdbc/commit/ab2a6d89081fc2c1fdb2a8600f413db33669022c)
+
+Vladimir Sitnikov (25):
+* doc: 9.4.1208 is released, update versions in readme.md [df2a4c3](https://github.com/pgjdbc/pgjdbc/commit/df2a4c3a860fde6b1d694f34c5c856f526f92175)
+* test: add tests for null::float8[] [e6b5bb3](https://github.com/pgjdbc/pgjdbc/commit/e6b5bb3575696aa7a4bd83f03c05f5297a3a555d)
+* test: createArrayOf(..., null) test [a274321](https://github.com/pgjdbc/pgjdbc/commit/a274321c6ad705ad2517026191634bba9490804f)
+* test: avoid "The connection attempt failed" in ConnectTimeoutTest.testTimeout [PR#531](https://github.com/pgjdbc/pgjdbc/pull/531) [fbabfa4](https://github.com/pgjdbc/pgjdbc/commit/fbabfa4e69aeaf7a9e69a0801740b22b141bcb47)
+* fix: NPE in DatabaseMetaData.getTypeInfo when types are dropped concurrently [PR#530](https://github.com/pgjdbc/pgjdbc/pull/530) [f3b0fd0](https://github.com/pgjdbc/pgjdbc/commit/f3b0fd007ca2fc186626c4ee5157015932c4a359)
+* fix: binary timestamptz -> getString should add +XX zone offset to text representation [PR#130](https://github.com/pgjdbc/pgjdbc/pull/130) [1e1f3c4](https://github.com/pgjdbc/pgjdbc/commit/1e1f3c4ab1fbbc5b071b50991da6c34afe92e6f0)
+* refactor: "build without waffle/osgi" PR [766f806](https://github.com/pgjdbc/pgjdbc/commit/766f8069697f0ec2e4c932fdf86bc3bc8bd19312)
+* test: add PostgreSQL 9.6 to CI tests (#560) [3ff47da](https://github.com/pgjdbc/pgjdbc/commit/3ff47daf68bf45694d5671eef1d9d32fb87f00d3)
+* chore: make sure ubenchmark is tested with checkstyle [PR#564](https://github.com/pgjdbc/pgjdbc/pull/564) [f6ed8e6](https://github.com/pgjdbc/pgjdbc/commit/f6ed8e6768914f06a3108cbc9a969bb9d46b8f7b)
+* chore: add explicit MCENTRAL=Y to Travis jobs that deploy to Maven Central [18ca8f2](https://github.com/pgjdbc/pgjdbc/commit/18ca8f227a6c1310162e328d18c3ae6041cabee8)
+* test: prune some Travis jobs to make CI faster [c5c1d7c](https://github.com/pgjdbc/pgjdbc/commit/c5c1d7cc6f4e078bb6442198254b650dab363023)
+* chore: propagate java source/target to maven-compiler-plugin [d8117d1](https://github.com/pgjdbc/pgjdbc/commit/d8117d19b953b86f959d87c4f0ea5ede696fb692)
+* chore: add codecov.yml [fb2977f](https://github.com/pgjdbc/pgjdbc/commit/fb2977fbcd8160c0b83c05227aac9a7306489e4b)
+* refactor: use enum instead of int for PgStatement.statementState to simplify debugging [32d4e08](https://github.com/pgjdbc/pgjdbc/commit/32d4e08f41e4c9fd5fbbeaefde3c364fe3f7f66d)
+* test: use TestUtil.getPort() in V3ParameterListTests instead of hard-coded 5432 [9a4b296](https://github.com/pgjdbc/pgjdbc/commit/9a4b296c02427a8b21a23e8b6bb37bb8a552121f)
+* chore: make codecov to always wait 7 builds [9f9aa95](https://github.com/pgjdbc/pgjdbc/commit/9f9aa9575a54f79c30214981a49eb8e02767c3dc)
+* test: add jdk9 Travis job [PR#565](https://github.com/pgjdbc/pgjdbc/pull/565) [bbb0d35](https://github.com/pgjdbc/pgjdbc/commit/bbb0d3521378d8c4515c844cd9bb3d656f95a739)
+* fix: incorrect binary data format in bind parameter X when using batch execution (#582) [7388dc9](https://github.com/pgjdbc/pgjdbc/commit/7388dc97343073990ffc558e7b376ad8966c7ac9)
+* perf: execute "SET application_name" if name has changed only [PR#537](https://github.com/pgjdbc/pgjdbc/pull/537) [893c1a4](https://github.com/pgjdbc/pgjdbc/commit/893c1a41bedf56017473194113d335d280992851)
+* fix: fix some sonarqube warnings [7311b4e](https://github.com/pgjdbc/pgjdbc/commit/7311b4ef160231780323573911c1543d0515340b)
+* fix: revert array naming to pre 1202 behavior (e.g. _int4) [PR#595](https://github.com/pgjdbc/pgjdbc/pull/595) [1d8ebfc](https://github.com/pgjdbc/pgjdbc/commit/1d8ebfc48466f9105985bda88514ab04602bcae8)
+* refactor: rename dmlcommand -> sqlcommand [79db127](https://github.com/pgjdbc/pgjdbc/commit/79db1273cce04174999f46981aea26905ae5a189)
+* perf: implement fast-path to TimeZone.getDefault if the cache field is accessible through reflection [6b3f2e0](https://github.com/pgjdbc/pgjdbc/commit/6b3f2e07ac81a440c58b3f8231b4754f60fb5b67)
+* feat: make connectTimeout=10 (seconds) by default [b4d5976](https://github.com/pgjdbc/pgjdbc/commit/b4d5976a14bfacb3969e95c12dd39f293206e627)
+
+aryabukhin (1):
+* feat: add support for url-encoded JDBC URL property values [PR#532](https://github.com/pgjdbc/pgjdbc/pull/532) [4c15f31](https://github.com/pgjdbc/pgjdbc/commit/4c15f31bd9c23240ba04532c420ba3e1cb96fc21)
+
+Marc Petzold (1):
+* feat: support HSTORE in PgPreparedStatement#setObject(int, java.lang.Object, int, int) [785d0c7](https://github.com/pgjdbc/pgjdbc/commit/785d0c75b77ed2cb59d319eb18f9d784155a068c)
+
+goeland86 (1):
+* fix: avoid NPE in new PgArray(, null).toString() [PR#526](https://github.com/pgjdbc/pgjdbc/pull/526) [74b4972](https://github.com/pgjdbc/pgjdbc/commit/74b497248d0fdc3e6db32b2628256f88738c2f74)
+
+<a name="contributors_9.4.1209"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[AlexElin](https://github.com/AlexElin)  
+[Christian Ullrich](https://github.com/chrullrich)  
+[Christopher Deckers](https://github.com/Chrriis)  
+[Dave Cramer](davec@postgresintl.com)  
+[Florin Asăvoaie](https://github.com/FlorinAsavoaie)  
+[George Kankava](https://github.com/georgekankava)  
+[Jeremy Whiting](https://github.com/whitingjr)  
+[Laurenz Albe](https://github.com/laurenz)  
+[Minglei Tu](https://github.com/tminglei)  
+[Pavel Raiskup](https://github.com/praiskup)  
+[Petro Semeniuk](https://github.com/PetroSemeniuk)  
+[Philippe Marschall](https://github.com/marschall)  
+[Tanya Gordeeva](https://github.com/tmgordeeva)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+[aryabukhin](https://github.com/aryabukhin)  
+[Marc Petzold](https://github.com/dosimeta)  
+[goeland86](https://github.com/goeland86)  
+
+<a name="version_9.4.1208"></a>
+## Version 9.4.1208 (2016-02-16)
 
 John Harvey (1):
 
@@ -138,7 +263,7 @@ mtran (1):
 
 * feat: ability to customize socket factory (e.g. for unix domain sockets) [PR#457](https://github.com/pgjdbc/pgjdbc/pull/457) [dc1844c](https://github.com/pgjdbc/pgjdbc/commit/dc1844c21efbb4a840347d5aaa991384e8883b69)
 
-<a name="contributors_9.4-1208"></a>
+<a name="contributors_9.4.1208"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
@@ -148,15 +273,15 @@ We thank the following people for their contributions to this release.
 [George Kankava](https://github.com/georgekankava)  
 [Gilles Cornu](https://github.com/gildegoma)  
 [Markus KARG](https://github.com/mkarg)  
-[Rikard Pavelic]((https://github.com/zapov)  
+[Rikard Pavelic](https://github.com/zapov)
 [Jeremy Whiting](<jwhiting@redhat.com>)  
 [Vladimir Sitnikov](https://github.com/vlsi)  
 [Stephen Nelson](https://github.com/lordnelson)  
 [Philippe Marschall](https://github.com/marschall)  
 [mtran](mtran@dhatim.com)  
 
-<a name="version_9.4-1207"></a>
-## Version 9.4-1207 (2015-12-23)
+<a name="version_9.4.1207"></a>
+## Version 9.4.1207 (2015-12-23)
 
 Jeremy Whiting (3):
 
@@ -192,7 +317,7 @@ Yao Chunlin (1):
 
 * Fix bug when call XAResource.start with TMJOIN flag, the old localAutoCommitMode lost. [PR#434](https://github.com/pgjdbc/pgjdbc/pull/434) [df09e2b](https://github.com/pgjdbc/pgjdbc/commit/df09e2bee35e49238d883cc6881deb5d8dea6401)
 
-<a name="contributors_9.4-1207"></a>
+<a name="contributors_9.4.1207"></a>
 ### Contributors to this release
 
 We thank the following people for their contributions to this release.
