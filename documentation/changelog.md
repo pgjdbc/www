@@ -70,7 +70,7 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 ## Version 9.4.1209 (2016-07-15)
 
 Notable changes:
-* Many improvements to `insert into .. values(?,?) -&gt; insert .. values(?,?), (?,?)...` rewriter. Give it a try by using `reWriteBatchedInserts=true` connection property. 2-3x improvements for insert batch can be expected
+* Many improvements to `insert into .. values(?,?)  -> insert .. values(?,?), (?,?)...` rewriter. Give it a try by using `reWriteBatchedInserts=true` connection property. 2-3x improvements for insert batch can be expected
 * Full test suite passes against PostgreSQL 9.6, and OpenJDK 9
 * Performance optimization for timestamps (~`TimeZone.getDefault` optimization)
 * Allow build-from-source on GNU/Linux without maven repositories, and add Fedora Copr test to the regression suite
