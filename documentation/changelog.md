@@ -144,9 +144,8 @@ Tanya Gordeeva (1):
 
 * fix: add a socket timeout on cancel requests [PR#603](https://github.com/pgjdbc/pgjdbc/pull/603) [ab2a6d8](https://github.com/pgjdbc/pgjdbc/commit/ab2a6d89081fc2c1fdb2a8600f413db33669022c)
 
-Vladimir Sitnikov (25):
+Vladimir Sitnikov (23):
 
-* doc: 9.4.1208 is released, update versions in readme.md [df2a4c3](https://github.com/pgjdbc/pgjdbc/commit/df2a4c3a860fde6b1d694f34c5c856f526f92175)
 * test: add tests for null::float8[] [e6b5bb3](https://github.com/pgjdbc/pgjdbc/commit/e6b5bb3575696aa7a4bd83f03c05f5297a3a555d)
 * test: createArrayOf(..., null) test [a274321](https://github.com/pgjdbc/pgjdbc/commit/a274321c6ad705ad2517026191634bba9490804f)
 * test: avoid "The connection attempt failed" in ConnectTimeoutTest.testTimeout [PR#531](https://github.com/pgjdbc/pgjdbc/pull/531) [fbabfa4](https://github.com/pgjdbc/pgjdbc/commit/fbabfa4e69aeaf7a9e69a0801740b22b141bcb47)
