@@ -36,7 +36,7 @@ The PostgreSQL™ JDBC driver implements native support for the
     </tr>
     <tr>
       <td>TIMESTAMP WITH TIMEZONE</td>
-      <td>OffsetTime</td>
+      <td>OffsetDateTime</td>
     </tr>
   </tbody>
 </table>
@@ -44,7 +44,7 @@ The PostgreSQL™ JDBC driver implements native support for the
 This is closely aligned with tables B-4 and B-5 of the JDBC 4.2 specification.
 Note that `ZonedDateTime`, `Instant` and
 `OffsetTime / TIME [ WITHOUT TIMEZONE ]` are not supported. Also note
-that all `OffsetTime` will instances will have be in UTC (have offset 0).
+that all `OffsetDateTime` will instances will have be in UTC (have offset 0).
 This is because the backend stores them as UTC.
 
 <a name="reading-example"></a>
