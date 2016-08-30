@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.4.1210 (2016-08-30)](#version_9.4.1210)
+	* [Contributors to this release](#contributors_9.4.1210)
 * [Version 9.4.1209 (2016-07-15)](#version_9.4.1209)
 	* [Contributors to this release](#contributors_9.4.1209)
 * [Version 9.4.1208 (2016-02-19)](#version_9.4.1208)
@@ -65,6 +67,64 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+
+
+<a name="version_9.4.1210"></a>
+## Version 9.4.1210 (2016-08-30)
+
+Notable changes:
+
+* Better support for RETURN_GENERATED_KEYS, statements with RETURNING clause
+* Avoid user-visible prepared-statement errors if client uses DEALLOCATE/DISCARD statements (invalidate cache when those statements detected)
+* Avoid user-visible prepared-statement errors if client changes search_path (invalidate cache when set search_path detected)
+* Support comments when replacing {fn ...} JDBC syntax
+
+AlexElin (3):
+
+* style: change method names to start with a lower case letter (#615) [22c72b4](https://github.com/pgjdbc/pgjdbc/commit/22c72b4d5908a1bfc0860ff06e2f33050f632d94)
+* refactor: fix some hintbugs warnings (#616) [dd71f6f](https://github.com/pgjdbc/pgjdbc/commit/dd71f6f3a1ea31e4b7fb4bf92188a6e87f78c633)
+* refactor: use varargs in Gt.tr (#629) [07c7902](https://github.com/pgjdbc/pgjdbc/commit/07c790234496b4b36fe9dbdffdb33b75f0989036)
+
+Chrriis (1):
+
+* perf: cache result set column mapping for prepared statements [PR#614](https://github.com/pgjdbc/pgjdbc/pull/614) [88fbbc5](https://github.com/pgjdbc/pgjdbc/commit/88fbbc59132090ad7602377014f7d55fde3aa487)
+
+Marios Trivyzas (1):
+
+* perf: add point type info to Client (#612) [ba14509](https://github.com/pgjdbc/pgjdbc/commit/ba14509182e8e4399ad24658ea00daa16c24dcfa)
+
+Mathias Fußenegger (2):
+
+* doc: fix test README link in README (#609) [c09be96](https://github.com/pgjdbc/pgjdbc/commit/c09be96c94557cd16be88e35117b89ca905d610f)
+* perf: add json type info to Client (#610) [4ad2df3](https://github.com/pgjdbc/pgjdbc/commit/4ad2df328d1202cb9516b8a8e382e4fef4db6441)
+
+Pavel Raiskup (1):
+
+* packaging: sync spec file with Fedora package [PR#608](https://github.com/pgjdbc/pgjdbc/pull/608) [dd48911](https://github.com/pgjdbc/pgjdbc/commit/dd48911b24b6547703c3dba3441a59099150f2aa)
+
+Vladimir Sitnikov (20):
+
+* test: skip json testing on pre-9.2 databases (those do not implement json type) [0a17d82](https://github.com/pgjdbc/pgjdbc/commit/0a17d8231de50c1fb2b6f99e4d110e651f4fd4b4)
+* chore: make sure JDK9+PG 9.4 Travis job indeed uses PG 9.4 [01b65c3](https://github.com/pgjdbc/pgjdbc/commit/01b65c3642cd02332eada69e45fc2dd818738f38)
+* test: add PostgreSQL HEAD to pgjdbc regression test matrix (#613) [PR#561](https://github.com/pgjdbc/pgjdbc/pull/561) [65a32ff](https://github.com/pgjdbc/pgjdbc/commit/65a32ff4d5d25d4f30246d5643c1a1893ffcbe30)
+* test: add benchmark for resultSet.getByName [ff4bfda](https://github.com/pgjdbc/pgjdbc/commit/ff4bfda1fca0c28d779912cf72c12de062f37345)
+* chore: use Travis' PostgreSQL 9.5 [d1feb58](https://github.com/pgjdbc/pgjdbc/commit/d1feb5865db002de7adcac789ed768d304214807)
+* docs: add javadoc badge to the project readme [5d7a9bb](https://github.com/pgjdbc/pgjdbc/commit/5d7a9bb347ca447c8f1745c0b631f4b358acd33d)
+* refactor: remove autoCommit argument from QueryExecutor#createSimpleQuery/createParameterizedQuery [756363e](https://github.com/pgjdbc/pgjdbc/commit/756363efb5e09fc97d819e7367862b0d0c93e56b)
+* fix: support cases when user-provided queries have 'returning' [PR#488](https://github.com/pgjdbc/pgjdbc/pull/488) [c3d8571](https://github.com/pgjdbc/pgjdbc/commit/c3d8571e53cc5b702dae2f832b02c872ad44c3b7)
+* feat: support execute statements via simple 'Q' command [PR#558](https://github.com/pgjdbc/pgjdbc/pull/558) [232569c](https://github.com/pgjdbc/pgjdbc/commit/232569c6bd9eb625fc70ebe642d35c8256726a16)
+* feat: show proper error message when connecting to non-UTF-8 database [PR#594](https://github.com/pgjdbc/pgjdbc/pull/594) [ec5fb4f](https://github.com/pgjdbc/pgjdbc/commit/ec5fb4f5a66b6598aea1c7ab8df3126ee77d15e2)
+* test: add tests for Parser.parseDelete/Select/Move/WithKeyword [3b7c7c4](https://github.com/pgjdbc/pgjdbc/commit/3b7c7c48ceba3bd13c31f74c89f95ab506b94b6d)
+* chore: update to 1.1.0 version of parent pom to upgrade bndlib 2.3.0 -> 2.4.0 [4019ed6](https://github.com/pgjdbc/pgjdbc/commit/4019ed63f27a17c9f381e784fb3e72b2ad64d6fe)
+* chore: use latest java version for one of Java 8 Travis jobs [0452e79](https://github.com/pgjdbc/pgjdbc/commit/0452e79c42ca6fb493b21956b43a37ae93fbcda0)
+* refactor: introduce ResultHandlerBase to factor out common error processing logic [edcdccd](https://github.com/pgjdbc/pgjdbc/commit/edcdccd658cbf3f2bfd677901f7bebac13a6259b)
+* feat: reset server-prepared statements on deallocate/discard, ability to autorollback on sqlexception from executing a query [PR#451](https://github.com/pgjdbc/pgjdbc/pull/451) [adc08d5](https://github.com/pgjdbc/pgjdbc/commit/adc08d57d2a9726309ea80d574b1db835396c1c8)
+* fix: add a test case when "deallocate all" detector is turned off [aa53fba](https://github.com/pgjdbc/pgjdbc/commit/aa53fbae604ade36b84ad22393b800e11e030829)
+* fix: invalidate prepared statement cache when "set search_path=..." query is detected [PR#496](https://github.com/pgjdbc/pgjdbc/pull/496) [17c8afb](https://github.com/pgjdbc/pgjdbc/commit/17c8afb11c319255aeffc93617545181d20400a3)
+* fix: properly account cache size when duplicate entries returned to the cache [191ccf2](https://github.com/pgjdbc/pgjdbc/commit/191ccf2ceca2e4159027de0ff5eaed4a4b4f1fe1)
+* feat: support 10+ version parsing Note:   10.2 means 10 major, 2 minor, that is 10_00_02   9.2 means 9.2 major, that is 9_02_00 [PR#631](https://github.com/pgjdbc/pgjdbc/pull/631) [a639431](https://github.com/pgjdbc/pgjdbc/commit/a639431d41dd92d0467d4ca618a35a2b5dc1e2d8)
+* fix: honor comments when replacing {fn curdate()} kind of calls [PR#632](https://github.com/pgjdbc/pgjdbc/pull/632) [2d9b313](https://github.com/pgjdbc/pgjdbc/commit/2d9b313160dc5b73df2ae9001795592b37e8e8e0)
+
 
 <a name="version_9.4.1209"></a>
 ## Version 9.4.1209 (2016-07-15)
