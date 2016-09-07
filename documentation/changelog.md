@@ -7,7 +7,7 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
-* [Version 9.4.1210 (2016-08-30)](#version_9.4.1210)
+* [Version 9.4.1210 (2016-09-07)](#version_9.4.1210)
 	* [Contributors to this release](#contributors_9.4.1210)
 * [Version 9.4.1209 (2016-07-15)](#version_9.4.1209)
 	* [Contributors to this release](#contributors_9.4.1209)
@@ -70,7 +70,7 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 
 
 <a name="version_9.4.1210"></a>
-## Version 9.4.1210 (2016-08-30)
+## Version 9.4.1210 (2016-09-07)
 
 Notable changes:
 
@@ -78,6 +78,7 @@ Notable changes:
 * Avoid user-visible prepared-statement errors if client uses DEALLOCATE/DISCARD statements (invalidate cache when those statements detected)
 * Avoid user-visible prepared-statement errors if client changes search_path (invalidate cache when set search_path detected)
 * Support comments when replacing {fn ...} JDBC syntax
+* Support for Types.REF_CURSOR
 
 AlexElin (3):
 
@@ -102,7 +103,15 @@ Pavel Raiskup (1):
 
 * packaging: sync spec file with Fedora package [PR#608](https://github.com/pgjdbc/pgjdbc/pull/608) [dd48911](https://github.com/pgjdbc/pgjdbc/commit/dd48911b24b6547703c3dba3441a59099150f2aa)
 
-Vladimir Sitnikov (20):
+Philippe Marschall (1):
+
+* feat: support Types.REF_CURSOR [PR#635](https://github.com/pgjdbc/pgjdbc/pull/635) [b5c3f59](https://github.com/pgjdbc/pgjdbc/commit/b5c3f592c2c07fecf9f91b6a2b1a93d0362e3e8b)
+
+Vladimir Gordiychuk (1):
+
+* test: fix Travis job so it actually tests against HEAD PostgreSQL (#630) [9030373](https://github.com/pgjdbc/pgjdbc/commit/90303734fcdad73bcdfaebcaec13d5e42060a83a)
+
+Vladimir Sitnikov (23):
 
 * test: skip json testing on pre-9.2 databases (those do not implement json type) [0a17d82](https://github.com/pgjdbc/pgjdbc/commit/0a17d8231de50c1fb2b6f99e4d110e651f4fd4b4)
 * chore: make sure JDK9+PG 9.4 Travis job indeed uses PG 9.4 [01b65c3](https://github.com/pgjdbc/pgjdbc/commit/01b65c3642cd02332eada69e45fc2dd818738f38)
@@ -124,7 +133,9 @@ Vladimir Sitnikov (20):
 * fix: properly account cache size when duplicate entries returned to the cache [191ccf2](https://github.com/pgjdbc/pgjdbc/commit/191ccf2ceca2e4159027de0ff5eaed4a4b4f1fe1)
 * feat: support 10+ version parsing Note:   10.2 means 10 major, 2 minor, that is 10_00_02   9.2 means 9.2 major, that is 9_02_00 [PR#631](https://github.com/pgjdbc/pgjdbc/pull/631) [a639431](https://github.com/pgjdbc/pgjdbc/commit/a639431d41dd92d0467d4ca618a35a2b5dc1e2d8)
 * fix: honor comments when replacing {fn curdate()} kind of calls [PR#632](https://github.com/pgjdbc/pgjdbc/pull/632) [2d9b313](https://github.com/pgjdbc/pgjdbc/commit/2d9b313160dc5b73df2ae9001795592b37e8e8e0)
-
+* chore: skip "deploy to Central" step when building PRs [9bc194a](https://github.com/pgjdbc/pgjdbc/commit/9bc194a3ef234ee96535b9fea8af4bb8e6fbf2b8)
+* test: add performance test for "reused vs non-reused at client side" prepared statements [2d70385](https://github.com/pgjdbc/pgjdbc/commit/2d70385f06d8f58a59a618f1967ac0634a6b925c)
+* chore: improve ./release_notes.sh so it does not require parameters [d8736b4](https://github.com/pgjdbc/pgjdbc/commit/d8736b47bbf8d17de286aae618f3f6219388a03d)
 
 <a name="version_9.4.1209"></a>
 ## Version 9.4.1209 (2016-07-15)
