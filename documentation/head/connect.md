@@ -409,6 +409,11 @@ connection.
 
 	This value is an optional argument to the constructor of the socket factory
 	class provided above. 
+	
+*   'reWriteBatchedInserts=true'
+	
+	This will change batch inserts from insert into foo (col1, col2, col3) values (1,2,3) into 
+	insert into foo (col1, col2, col3) values (1,2,3), (4,5,6) this provides 2-3x performance improvement
 
 	<a name="connection-failover"></a>
 	## Connection Fail-over
