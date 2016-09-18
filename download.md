@@ -40,11 +40,11 @@ JDBC42 versionIf you are using a java version older than 1.6 then
 you will need to use a JDBC3 version of the driver, which will by 
 necessity not be current
 					
-[JDBC4 Postgresql Driver, Version 9.4.1210](download/postgresql-9.4.1210.jre6.jar)
+[JDBC4 Postgresql Driver, Version 9.4.1211](download/postgresql-9.4.1211.jre6.jar)
 
-[JDBC41 Postgresql Driver, Version 9.4.1210](download/postgresql-9.4.1210.jre7.jar)
+[JDBC41 Postgresql Driver, Version 9.4.1211](download/postgresql-9.4.1211.jre7.jar)
 
-[JDBC42 Postgresql Driver, Version 9.4.1210](download/postgresql-9.4.1210.jar)
+[JDBC42 Postgresql Driver, Version 9.4.1211](download/postgresql-9.4.1211.jar)
 
 [JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
 
@@ -91,6 +91,17 @@ versions of the JVM with the JDBC specification implemented.
         <th>JDBC 42</th>
 	<th>Source</th>
 </tr>
+<tr>
+	<td>9.4.1211</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td><a href="download/postgresql-9.4.1211.jre6.jar">9.4.1211 JDBC 4</a></td>
+	<td><a href="download/postgresql-9.4.1211.jre7.jar">9.4.1211 JDBC 41</a></td>
+	<td><a href="download/postgresql-9.4.1211.jar">9.4.1211 JDBC 42</a></td>
+	<td><a href="download/postgresql-jdbc-9.4.1211.src.tar.gz">9.4.1211 JDBC Source</a></td>
+</tr>
+
 <tr>
 	<td>9.4.1210</td>
 	<td>&nbsp;</td>
