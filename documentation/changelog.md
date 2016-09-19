@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.4.1211 (2016-09-18)](#version_9.4.1211)
+	* [Contributors to this release](#contributors_9.4.1211)
 * [Version 9.4.1210 (2016-09-07)](#version_9.4.1210)
 	* [Contributors to this release](#contributors_9.4.1210)
 * [Version 9.4.1209 (2016-07-15)](#version_9.4.1209)
@@ -67,6 +69,32 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+
+<a name="version_9.4.1211"></a>
+## Version 9.4.1211 (2016-16-16)
+
+Notable changes:
+* json type is returned as PGObject like in pre-9.4.1210 (fixed regression of 9.4.1210)
+* 'current transaction is aborted' exception includes the original exception via caused-by chain
+
+Daniel Gustafsson (1):
+
+* doc: fix brand names and links in readme (#636) [56c04d0](https://github.com/pgjdbc/pgjdbc/commit/56c04d0ec95ede31b5f13a70ab76f2b4df09aef5)
+
+Vladimir Sitnikov (4):
+
+* chore: eploy to Travis was silently broken for a couple of days since "test" command was missing [67d7e3c](https://github.com/pgjdbc/pgjdbc/commit/67d7e3c58852b349b1bd12690afaac558263dcf0)
+* fix: json should be returned as PGObject, not as String for backward compatibility reasons (#640) [PR#639](https://github.com/pgjdbc/pgjdbc/pull/639) [beaec3a](https://github.com/pgjdbc/pgjdbc/commit/beaec3a0ec5b556cc1abfd50b3bf9017d5c09ac4)
+* test: add DebugNonSafepoints to FlightRecorderProfiler [PR#622](https://github.com/pgjdbc/pgjdbc/pull/622) [154c463](https://github.com/pgjdbc/pgjdbc/commit/154c4630586ebccd3b4fb53db3ebc6c77b3cdeda)
+* feat: include root cause exception in case transaction fails (#628) [51775c1](https://github.com/pgjdbc/pgjdbc/commit/51775c167a0037a812b4cd4c22126e5ae853c8aa)
+
+<a name="contributors_9.4.1211"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[Daniel Gustafsson](https://github.com/danielgustafsson)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
 
 
 <a name="version_9.4.1210"></a>
@@ -137,11 +165,26 @@ Vladimir Sitnikov (23):
 * test: add performance test for "reused vs non-reused at client side" prepared statements [2d70385](https://github.com/pgjdbc/pgjdbc/commit/2d70385f06d8f58a59a618f1967ac0634a6b925c)
 * chore: improve ./release_notes.sh so it does not require parameters [d8736b4](https://github.com/pgjdbc/pgjdbc/commit/d8736b47bbf8d17de286aae618f3f6219388a03d)
 
+<a name="contributors_9.4.1210"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[AlexElin](https://github.com/AlexElin)  
+[Christopher Deckers](https://github.com/Chrriis)  
+[Marios Trivyzas](https://github.com/matriv)  
+[Mathias Fußenegger](https://github.com/mfussenegger)  
+[Pavel Raiskup](https://github.com/praiskup)  
+[Philippe Marschall](https://github.com/marschall)  
+[Vladimir Gordiychuk](https://github.com/Gordiychuk)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
+
 <a name="version_9.4.1209"></a>
 ## Version 9.4.1209 (2016-07-15)
 
 Notable changes:
 
+* BUG: json datatype is returned as java.lang.String object, not as PGObject (fixed in 9.4.1211)
 * Many improvements to `insert into .. values(?,?)  -> insert .. values(?,?), (?,?)...` rewriter. Give it a try by using `reWriteBatchedInserts=true` connection property. 2-3x improvements for insert batch can be expected
 * Full test suite passes against PostgreSQL 9.6, and OpenJDK 9
 * Performance optimization for timestamps (~TimeZone.getDefault optimization)
