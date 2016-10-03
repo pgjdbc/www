@@ -751,7 +751,7 @@ We thank the following people for their contributions to this release.
 [Craig Ringer](https://github.com/ringerc)  
 [Jeremy Whiting](<jwhiting@redhat.com>)  
 [Sehrope Sarkuni](https://github.com/sehrope)   
-[Mikko Tiihonen](https://github/com/gmokki)  
+[Mikko Tiihonen](https://github.com/gmokki)  
 [Dave Cramer](<davec@postgresintl.com>)  
 [Stephen Nelson](https://github.com/lordnelson)  
 [Vladimir Gordiychuk](https://github.com/Gordiychuk)  
@@ -797,7 +797,7 @@ We thank the following people for their contributions to this release.
  
 [Alexis Meneses](https://github.com/alexismeneses)  
 [Sehrope Sarkuni](https://github.com/sehrope)  
-[Mikko Tiihonen](https://github/com/gmokki)  
+[Mikko Tiihonen](https://github.com/gmokki)  
 [Dave Cramer](<davec@postgresintl.com>)
 
 [Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
@@ -826,7 +826,7 @@ Author: [Sehrope Sarkuni](https://github.com/sehrope)
 * ![add](../media/img/add.jpg) Add SSL factory SingleCertValidatingFactory [PR #88](https://github.com/pgjdbc/pgjdbc/pull/88)
 * ![add](../media/img/add.jpg) Speed up connection creation on 9.0+ [PR #144](https://github.com/pgjdbc/pgjdbc/pull/144)
 	
-Author: [Mikko Tiihonen](https://github/com/gmokki)
+Author: [Mikko Tiihonen](https://github.com/gmokki)
 
 * ![add](../media/img/add.jpg) Enhance connection fail-over with master/slave restriction and loadbalancing [PR #209](https://github.com/pgjdbc/pgjdbc/pull/209) Based on work by chenhj@cn.fujitsu.com
 	
@@ -860,10 +860,10 @@ We thank the following people for their contributions to this release.
 [Sehrope Sarkuni](https://github.com/sehrope)  
 [Minglei Tu](https://github.com/tminglei)  
 [Martin Simka](https://github.com/simkam)  
-[Mikko Tiihonen](https://github/com/gmokki)  
+[Mikko Tiihonen](https://github.com/gmokki)  
 [bryonv](https://github.com/byronvf)  
 Craig Ringer <craig@2ndquadrant.com>  
-Dave Cramer	<davec@postgresintl.com>
+Dave Cramer <davec@postgresintl.com>
 
 [Other committers](https://github.com/pgjdbc/pgjdbc/graphs/contributors?from=2013-10-31&to=2015-01-20&type=c)
 
