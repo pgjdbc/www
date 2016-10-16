@@ -71,7 +71,7 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 ***
 
 <a name="version_9.4.1211"></a>
-## Version 9.4.1211 (2016-16-16)
+## Version 9.4.1211 (2016-09-18)
 
 Notable changes:
 * json type is returned as PGObject like in pre-9.4.1210 (fixed regression of 9.4.1210)
