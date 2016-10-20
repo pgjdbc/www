@@ -20,7 +20,7 @@ constructor or a single argument constructor taking a String argument. This
 argument may optionally be supplied by `sslfactoryarg`.
 
 Information on how to actually implement such a class is beyond the scope of this
-documentation. Places to look for help are the [JSSE Reference Guide](http://java.sun.com/j2se/1.4.2/docs/guide/security/jsse/JSSERefGuide.html)
+documentation. Places to look for help are the [JSSE Reference Guide](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html)
 and the source to the `NonValidatingFactory` provided by the JDBC driver.
 
 The Java SSL API is not very well known to the JDBC driver developers and we
