@@ -7,6 +7,8 @@ nav: ../
 
 # History of Changes
 * [Introduction and explanation of symbols](#introduction)
+* [Version 9.4.1212 (2016-11-01)](#version_9.4.1212)
+	* [Contributors to this release](#contributors_9.4.1212)
 * [Version 9.4.1211 (2016-09-18)](#version_9.4.1211)
 	* [Contributors to this release](#contributors_9.4.1211)
 * [Version 9.4.1210 (2016-09-07)](#version_9.4.1210)
@@ -69,6 +71,52 @@ denote the various action types:![add](../media/img/add.jpg)=add,
 <img alt="remove" src="../media/img/remove.jpg" />=remove,
 <img alt="update" src="../media/img/update.jpg" />=update
 ***
+
+<a name="version_9.4.1212"></a>
+## Version 9.4.1212 (2016-11-02)
+
+Notable changes:
+
+* ? can now be used in non-prepared statements (regression was introduced in 1210)
+
+AlexElin (1):
+
+* chore: add coverage badge (#646) [05c2f8d](https://github.com/pgjdbc/pgjdbc/commit/05c2f8d0d5ad66d9bf659754483ef92acb1b30ff)
+
+Jorge Solorzano (6):
+
+* docs: split readme.md to contributing.md (#652) [7270435](https://github.com/pgjdbc/pgjdbc/commit/7270435aebc204df72c388bcdd47b17d64dbe21f)
+* docs: improve readme.md (#666) [cf6b836](https://github.com/pgjdbc/pgjdbc/commit/cf6b836c2acbddc12f74944534fddeb012df4fdb)
+* docs: change license to BSD-2-Clause (#660) [b4c90c8](https://github.com/pgjdbc/pgjdbc/commit/b4c90c80795031cfa790b9a589a22da606f50734)
+* style: update the header in the project (#662) [8be516d](https://github.com/pgjdbc/pgjdbc/commit/8be516d47ece60b7aeba5a9474b5cac1d538a04a)
+* fix: copy src/main/resources (#676) [14f3fce](https://github.com/pgjdbc/pgjdbc/commit/14f3fcebe417242474289d2fd3f5d2b5e66b0f0b)
+* style: copy license file to META-INF folder (#677) [c518697](https://github.com/pgjdbc/pgjdbc/commit/c518697036c40543f29b303135b0ef025b883009)
+
+Sebastian Utz (1):
+
+* fix: makes escape processing strict according to JDBC spec [PR#657](https://github.com/pgjdbc/pgjdbc/pull/657) [00a8478](https://github.com/pgjdbc/pgjdbc/commit/00a847879f313105de124776b7edaab928bf5b4c)
+
+Vladimir Sitnikov (4):
+
+* fix: do not convert ?, ? to $1, $2 when statement.executeQuery(String) is used (#644) [PR#643](https://github.com/pgjdbc/pgjdbc/pull/643) [08e1a40](https://github.com/pgjdbc/pgjdbc/commit/08e1a409163220f84b57e9384a96bef019e2bc19)
+* tests: make CursorFetchTest.testGetRow to use stable order of rows so the test does not depend on actual implementation of UNION [3c8efe4](https://github.com/pgjdbc/pgjdbc/commit/3c8efe422f17e2684f8d2936b999a4cc422d0482)
+* fix: avoid ClassLoader leaks caused by SharedTimer [PR#664](https://github.com/pgjdbc/pgjdbc/pull/664) [f52bf7f](https://github.com/pgjdbc/pgjdbc/commit/f52bf7fc7a71341fae3a9255af0e2b2c271a35dd)
+* Make successful OSGi activation less noisy [PR#672](https://github.com/pgjdbc/pgjdbc/pull/672) [22b9025](https://github.com/pgjdbc/pgjdbc/commit/22b902518abe4d429e8bef908eb90db1be9ccd79)
+
+zapov (1):
+
+* fix: Don't break when there is no column metadata (#663) [6d2a53e](https://github.com/pgjdbc/pgjdbc/commit/6d2a53eb45f49fa5b34b97e6e29d71c9eb114053)
+
+<a name="contributors_9.4.1212"></a>
+### Contributors to this release
+
+We thank the following people for their contributions to this release.
+
+[AlexElin](https://github.com/AlexElin)  
+[Jorge Solorzano](https://github.com/jorsol)  
+[Rikard Pavelic](https://github.com/zapov)  
+[Sebastian Utz](https://github.com/seut)  
+[Vladimir Sitnikov](https://github.com/vlsi)  
 
 <a name="version_9.4.1211"></a>
 ## Version 9.4.1211 (2016-09-18)
@@ -404,7 +452,7 @@ We thank the following people for their contributions to this release.
 [George Kankava](https://github.com/georgekankava)  
 [Gilles Cornu](https://github.com/gildegoma)  
 [Markus KARG](https://github.com/mkarg)  
-[Rikard Pavelic](https://github.com/zapov)
+[Rikard Pavelic](https://github.com/zapov)  
 [Jeremy Whiting](<jwhiting@redhat.com>)  
 [Vladimir Sitnikov](https://github.com/vlsi)  
 [Stephen Nelson](https://github.com/lordnelson)  
