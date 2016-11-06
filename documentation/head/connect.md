@@ -261,7 +261,38 @@ connection.
 	
 	The default is zero, meaning that in `ResultSet` will be fetch all rows at once. 
 	Negative number is not available.
-	
+
+* `defaultRowFetchSizeInBytes = long`
+
+   Specifies default fetch size in bytes if fetch size not define manually. When specified
+   value greater than zero it's enable adaptive fetch size - fetch size each round trip to database
+   base on average row size from previous round trips. Adaptive fetch size allow fetch table with
+   heavyweight rows by small fetch size, but also allow fetch table with lightweight rows by
+   high fetch size, as result it improve performance tables with lightweight rows and also
+   prevents from `OutOfMemoryException`.
+
+   `defaultRowFetchSizeInBytes` not support on postgres protocol level, that why this parameter define
+   approximate value of fetch size in bytes, and it can be exceeded at least twice(in case of
+   insufficient number of samples). For gets enough samples to estimate fetch size should be
+   configure `defaultRowFetchSize` with enough count rows, it necessary to
+   exclude case when firstly receive lightweight rows and by it rows estimates fetch size
+   but next round trip contains only heavyweight rows(First estimate fetch size was not correct,
+   because extended specified `defaultRowFetchSizeInBytes` limit).
+
+   The default is zero, meaning that in adaptive fetch size not apply on `ResultSet`.
+   Negative number is not available.
+
+* `rowsSizeEstimateSmoothingFactor = double`
+
+   Value should be greater than zero and less than one.
+
+   This property can be use only together with `defaultRowFetchSizeInBytes` and necessary to
+   determine smoothing factor for function that estimate average rows size base on previous
+   fetch data. Smoothing factor allow smooth noise in data when query return only lightweight
+   rows and for example 1 percent of heavyweight rows, in that case without apply smoothing factor
+   fetch size can change small value to with small to large very sharply and as result
+   be the cause of `OutOfMemoryException`.
+
 * `loginTimeout = int`
 
 	Specify how long to wait for establishment of a database connection. The
