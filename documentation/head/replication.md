@@ -1,7 +1,21 @@
 ---
-todo
+layout: default_docs
+title: Physical and Logical replication API
+header: Chapter 9. PostgreSQL™ Extensions to the JDBC API
+resource: media
+previoustitle: Server Prepared Statements
+previous: server-prepare.html
+nexttitle: Chapter 10. Using the Driver in a Multithreaded or a Servlet Environment
+next: thread.html
 ---
 
+**Table of Contents**
+
+* [Overview](replication.html#overview)
+* [Logical replication](replication.html#logical-replication)
+* [Physical replication](replication.html#physical-replication)
+
+<a name="overview"></a>
 # Overview
 
 Postgres 9.4 (released in December 2014) introduced a new feature called logical replication. Logical replication allows
@@ -50,6 +64,7 @@ host replication all ::1/128                 md5
 ### Configuration for examples
 
 *postgresql.conf*
+
 ```
 max_wal_senders = 4             # max number of walsender processes
 wal_keep_segments = 4           # in logfile segments, 16MB each; 0 disables
@@ -58,6 +73,7 @@ max_replication_slots = 4       # max number of replication slots
 ```
 
 *pg_hba.conf*
+
 ```
 # Allow replication connections from localhost, by a user with the
 # replication privilege.
@@ -66,7 +82,8 @@ host replication all 127.0.0.1/32            md5
 host replication all ::1/128                 md5
 ```
 
-## Logical replication
+<a name="logical-replication"></a>
+# Logical replication
 
 Logical replication uses a replication slot to reserve WAL logs on the server and also defines which decoding plugin to use to
 decode the WAL logs to the required format, for example you can decode changes as json, protobuf, etc . For demonstrate how use pgjdbc replication API will be use `test_decoding` plugin that include to `postgresql-contrib` package, but you can use your own decoding plugin.
@@ -74,7 +91,8 @@ decode the WAL logs to the required format, for example you can decode changes a
 For use replication API, Connection should be create with replication mode, in this mode on connection not available
 execute any kinds of sql, this connection can work only with replication API. It's restriction of PostgreSQL.
 
-**Example 1. Create replication connection.**
+**Example 9.4. Create replication connection.**
+
 ```
     String url = "jdbc:postgresql://localhost:5432/postgres";
     Properties props = new Properties();
@@ -92,7 +110,8 @@ via `org.postgresql.PGConnection#getReplicationAPI`.
 
 Before you can start replication protocol, you need to have replication slot, which can be also created via pgjdbc API.
 
-**Example 2. Create replication slot via pgjdbc API**
+**Example 9.5. Create replication slot via pgjdbc API**
+
 ```
     replConnection.getReplicationAPI()
         .createReplicationSlot()
@@ -104,7 +123,7 @@ Before you can start replication protocol, you need to have replication slot, wh
 
 Once we have the replication slot, we can create ReplicationStream.
 
-**Example 3. Create logical replication stream.**
+**Example 9.6. Create logical replication stream.**
 
 ```
     PGReplicationStream stream =
@@ -121,7 +140,7 @@ The replication stream will send all changes since the creation of the replicati
 restart LSN if slot already was use for replication. You can also start streaming changes from particular LSN position,
 in that case LNS position should be specified when you create the replication stream.
 
-**Example 4. Create logical replication stream from particular position.**
+**Example 9.7. Create logical replication stream from particular position.**
 
 ```
     LogSequenceNumber waitLSN = LogSequenceNumber.valueOf("6F/E3C53568");
@@ -141,14 +160,16 @@ Via `withSlotOption` we also can specify options that will be sent to our output
 For example I have my own output plugin that has a property `sensitive=true` which will include changes by sensitive columns to change
 event.
 
-**Example 5. Example output with include-xids=true**
+**Example 9.8. Example output with include-xids=true**
+
 ```
 BEGIN 105779
 table public.test_logic_table: INSERT: pk[integer]:1 name[character varying]:'previous value'
 COMMIT 105779
 ```
 
-**Example 6. Example output with include-xids=false**
+**Example 9.9. Example output with include-xids=false**
+
 ```
 BEGIN
 table public.test_logic_table: INSERT: pk[integer]:1 name[character varying]:'previous value'
@@ -162,7 +183,8 @@ It is recommended to send feedback(ping) to database more often than configured 
 equal to `wal_sender_timeout / 3`. It's avoids a potential problems with networks and allow stream changes without
 disconnects by timeout. To specify the feedback interval use `withStatusInterval` method.
 
-**Example 7. Replication stream with configured feedback interval equal to 20 sec**
+**Example 9.10. Replication stream with configured feedback interval equal to 20 sec**
+
 ```
     PGReplicationStream stream =
         replConnection.getReplicationAPI()
@@ -183,14 +205,16 @@ part of message, only the full message that was sent by the output plugin. ByteB
 decoding output plugin, it can be simple String, json, or anything. That why pgjdbc return raw ByteBuffer
 instead of String or anything.
 
-**Example 7. Example send message from output plugin.**
+**Example 9.11. Example send message from output plugin.**
+
 ```
 OutputPluginPrepareWrite(ctx, true);
 appendStringInfo(ctx->out, "BEGIN %u", txn->xid);
 OutputPluginWrite(ctx, true);
 ```
 
-**Example 8. Receive changes via replication stream.**
+**Example 9.12. Receive changes via replication stream.**
+
 ```
     while (true) {
       //non blocking receive message
@@ -218,7 +242,8 @@ For say database which LSN successfully applied on current consumer and can be t
 `org.postgresql.replication.PGReplicationStream#setAppliedLSN`. You always can get last receive LSN via
 `org.postgresql.replication.PGReplicationStream#getLastReceiveLSN`.
 
-**Example 9. Add feedback about successfully process LSN**
+**Example 9.13. Add feedback about successfully process LSN**
+
 ```
     while (true) {
       //Receive last successfully send to queue message. LSN ordered.
@@ -240,7 +265,8 @@ For say database which LSN successfully applied on current consumer and can be t
     }
 ```
 
-**Example 10. Full example use logical replication**
+**Example 9.14. Full example use logical replication**
+
 ```
     String url = "jdbc:postgresql://localhost:5432/test";
     Properties props = new Properties();
@@ -303,7 +329,9 @@ For say database which LSN successfully applied on current consumer and can be t
       stream.setFlushedLSN(stream.getLastReceiveLSN());
     }
 ```
+
 Where output looks like this, where each line and separate message.
+
 ```
 BEGIN
 table public.test_logic_table: INSERT: pk[integer]:1 name[character varying]:'first tx changes'
@@ -316,7 +344,8 @@ table public.test_logic_table: DELETE: pk[integer]:1
 COMMIT
 ```
 
-## Physical replication
+<a name="physical-replication"></a>
+# Physical replication
 
 API for physical replication looks like API for logical replication. Physical replication also not required replication
 slot. And ByteBuffer will contains binary form of WAL logs. Binary WAL format very low level API, and can changes from
@@ -324,7 +353,7 @@ version to version. That why replication between different PostgreSQL version no
 can contains many important data, that not available via logical replication. That why pgjdc contain implementation for
 both.
 
-**Example 11. Use physical replication**
+**Example 9.15. Use physical replication**
 
 ```
     LogSequenceNumber lsn = getCurrentLSN();

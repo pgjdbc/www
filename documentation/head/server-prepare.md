@@ -5,8 +5,8 @@ header: Chapter 9. PostgreSQL™ Extensions to the JDBC API
 resource: media
 previoustitle: Listen / Notify
 previous: listennotify.html
-nexttitle: Chapter 10. Using the Driver in a Multithreaded or a Servlet Environment
-next: thread.html
+nexttitle: Physical and Logical replication API
+next: replication.html
 ---
 
 The PostgreSQL™ server allows clients to compile sql statements that are expected
