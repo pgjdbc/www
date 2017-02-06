@@ -9,73 +9,44 @@ nav:
 ***
 * [About](#about)
 * [Current Version](#current)
-* [Other Versions](#others)
 * [Supported Versions](#supported)
+* [Other Versions](#others)
 * [Archived Versions](#archived)
 
 ***
 <a name="about"></a>
 ## About
-				
+
 Binary JAR file downloads of the JDBC driver are available here
 and the current version with [Maven Repository](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.postgresql%22%20AND%20a%3A%22postgresql%22).
 Because Java is platform neutral, it is a simple process of just
 downloading the appropriate JAR file and dropping it into your
 classpath.  Source versions are also available here for recent
-driver versions.  Prior to the 8.0 release the JDBC driver was
-distributed with the server source code.
-				
+driver versions.
+
 ***
 <a name="current"></a>
-## Current Version
-				
+## Current Version *42.0.0*
+
 This is the current version of the driver.  Unless you have unusual
 requirements (running old applications or JVMs), this is the driver
-you should be using.  It supports Postgresql 7.2 or newer and
-requires a 1.6 or newer JVM.  It contains support for SSL and the
-javax.sql package. If you are using the 1.6 then you should use the 
-JDBC4 version. If you are using 1.7 then you should use the 
-JDBC41 version. If you are using 1.8 then you should use the 
-JDBC42 versionIf you are using a java version older than 1.6 then 
-you will need to use a JDBC3 version of the driver, which will by 
-necessity not be current
-					
-[JDBC4 Postgresql Driver, Version 9.4.1212](download/postgresql-9.4.1212.jre6.jar)
+you should be using.  It supports PostgreSQL 8.2 or newer and
+requires Java 6 or newer.  It contains support for SSL and the
+javax.sql package.
+If you are using Java 6 then you should use the JDBC 4.0 version.
+If you are using Java 7 then you should use the JDBC 4.1 version.
+If you are using Java 8 then you should use the JDBC 4.2 version.
+If you are using a Java version older than 6 then
+you will need to use a JDBC3 version of the driver, which will by
+necessity not be current, found in [Other Versions](#others).
 
-[JDBC41 Postgresql Driver, Version 9.4.1212](download/postgresql-9.4.1212.jre7.jar)
+[PostgreSQL JDBC 4.0 Driver, 42.0.0](download/postgresql-42.0.0.jre6.jar)
 
-[JDBC42 Postgresql Driver, Version 9.4.1212](download/postgresql-9.4.1212.jar)
+[PostgreSQL JDBC 4.1 Driver, 42.0.0](download/postgresql-42.0.0.jre7.jar)
 
-[JDBC3 Postgresql Driver, Version 9.3-1103](download/postgresql-9.3-1103.jdbc3.jar)
+[PostgreSQL JDBC 4.2 Driver, 42.0.0](download/postgresql-42.0.0.jar)
 
-***				
-<a name="others"></a>
-## Other Versions
-				
-Many other versions of the JDBC driver are available.  This includes
-development versions, compatibility with older JDKs, and previous
-versions of the driver.
-					
-To determine JDK/JVM compatibility this following list matches up
-versions of the JVM with the JDBC specification implemented.
-					
-* JDK 1.1 - JDBC 1.  Note that with the 8.0
-    	release JDBC 1 support has been removed, so look to update your
-	JDK when you update your server.
-* JDK 1.2, 1.3 - JDBC 2.
-* JDK 1.3 + J2EE - JDBC 2 EE.  This contains additional support
-	for javax.sql classes.
-* JDK 1.4, 1.5 - JDBC 3.  This contains support
-	for SSL and javax.sql, but does not require J2EE as it has been
-	added to the J2SE release.
-* JDK 1.6 - JDBC4.  Support for JDBC4 methods is not complete,
-	but the majority of methods are implemented.
-* JDK 1.7 - JDBC41.  Support for JDBC4 methods is not complete,
-	but the majority of methods are implemented.
-* JDK 1.8 - JDBC42.  Support for JDBC4 methods is not complete,
-	but the majority of methods are implemented.
-
-***					
+***
 <a name="supported"></a>
 ## Supported Versions
 
@@ -83,12 +54,59 @@ versions of the JVM with the JDBC specification implemented.
 <table summary=""  border="1" cellspacing="1" cellpadding="2">
 <tr>
 	<th>Version</th>
+	<th>JDBC 4.0</th>
+	<th>JDBC 4.1</th>
+	<th>JDBC 4.2</th>
+	<th>Source</th>
+</tr>
+<tr>
+	<td>42.0.0</td>
+	<td><a href="download/postgresql-42.0.0.jre6.jar">42.0.0 JRE 6</a></td>
+	<td><a href="download/postgresql-42.0.0.jre7.jar">42.0.0 JRE 7</a></td>
+	<td><a href="download/postgresql-42.0.0.jar">42.0.0 JRE 8</a></td>
+	<td><a href="download/postgresql-jdbc-42.0.0.src.tar.gz">42.0.0 JDBC Source</a></td>
+</tr>
+</table>
+</div>
+
+***
+<a name="others"></a>
+## Other Versions
+
+Many other versions of the JDBC driver are available.  This includes
+development versions, compatibility with older JDKs, and previous
+versions of the driver.
+
+To determine JDK/JVM compatibility this following list matches up
+versions of the JVM with the JDBC specification implemented.
+
+* JDK 1.1 - JDBC 1.  Note that with the 8.0
+	release JDBC 1 support has been removed, so look to update your
+	JDK when you update your server.
+* JDK 1.2, 1.3 - JDBC 2.
+* JDK 1.3 + J2EE - JDBC 2 EE.  This contains additional support
+	for javax.sql classes.
+* JDK 1.4, 1.5 - JDBC 3.  This contains support
+	for SSL and javax.sql, but does not require J2EE as it has been
+	added to the J2SE release.
+* JDK 6 - JDBC 4.0  Support for JDBC4 methods is not complete,
+	but the majority of methods are implemented.
+* JDK 7 - JDBC 4.1  Support for JDBC4 methods is not complete,
+	but the majority of methods are implemented.
+* JDK 8 - JDBC 4.2  Support for JDBC4 methods is not complete,
+	but the majority of methods are implemented.
+
+<div>
+<br/>
+<table summary=""  border="1" cellspacing="1" cellpadding="2">
+<tr>
+	<th>Version</th>
 	<th>JDBC 2</th>
 	<th>JDBC 2 EE</th>
 	<th>JDBC 3</th>
-        <th>JDBC 4</th>
-        <th>JDBC 41</th>
-        <th>JDBC 42</th>
+	<th>JDBC 4</th>
+	<th>JDBC 41</th>
+	<th>JDBC 42</th>
 	<th>Source</th>
 </tr>
 <tr>
@@ -265,7 +283,7 @@ versions of the JVM with the JDBC specification implemented.
 	<td><a href="download/postgresql-8.4-703.jdbc4.jar">8.4-703 JDBC 4</a></td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td><a href="download/postgresql-jdbc-8.4-703.src.tar.gz">8.4-703 JDBC Source</a></td>	
+	<td><a href="download/postgresql-jdbc-8.4-703.src.tar.gz">8.4-703 JDBC Source</a></td>
 </tr>
 <tr>
 	<td>8.3 Build 607</td>
